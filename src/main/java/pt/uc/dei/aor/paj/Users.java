@@ -1,9 +1,16 @@
 package pt.uc.dei.aor.paj;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Users {
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+
+@Named
+@ApplicationScoped
+
+public class Users implements Serializable{
 	
 	
 	private List<User> users = new ArrayList<>();
@@ -14,6 +21,16 @@ public class Users {
 
 	public void setUsers(List<User> users) {
 		this.users = users;
+	}
+	
+	public void addUser(User user){
+		users.add(user);
+	}
+	
+	public void printUsers(){
+		for(User u : users){
+			System.out.println(u.getUsername());
+		}
 	}
 	
 	

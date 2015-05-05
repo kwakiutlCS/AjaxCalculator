@@ -11,17 +11,35 @@
 <h:form>            
     
         <h:panelGrid columns="2" cellpadding="5">
+        	
             <h:outputLabel for="username" value="Username:" />
-            <p:inputText id="username" value="#{userLoginView.username}" required="true" label="username" />
+            <p:inputText id="username" value="#{user.username}" required="true" label="username" />
  
             <h:outputLabel for="password" value="Password:" />
-            <p:password id="password" value="#{userLoginView.password}" required="true" label="password" />
+            <p:password id="password" value="#{user.password}" required="true" label="password" />
  
-            <f:facet name="footer">
-                <p:commandButton value="Login" actionListener="#{login.login}"  />
-            </f:facet>  
-        </h:panelGrid>
-   
+          
+	        <h:commandButton id="loginButton" type="submit" value="Login" action="#{login.login()}" />	          
+         </h:panelGrid>            
+</h:form>
+          
+        
+ <h:form>         
+        <h:panelGrid columns="2" cellpadding="5">
+        	<h:outputLabel for="rUsername" value="Username: "/>
+            <p:inputText id="rUsername" value="#{register.username}" label="username" />
+            
+            <h:outputLabel for="rPassword" value="Password: "/>
+            <p:password id="rPassword" value="#{register.password}" label="password" />
+            
+            <h:outputLabel for="confPassword" value="Confirm password: "/>
+            <p:password id="confPassword" value="#{register.confpassword}" label="confpassword" />
+            
+             
+          
+	         <h:commandButton id="registerButton" type="submit" value="register" action="#{register.confirmRegister()}" />	          
+            
+   		</h:panelGrid>
 </h:form>
  
 <script type="text/javascript">
