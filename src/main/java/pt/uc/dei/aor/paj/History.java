@@ -1,4 +1,4 @@
-package projecto2;
+package pt.uc.dei.aor.paj;
 import java.io.Serializable;
 import java.util.ArrayList;
 
