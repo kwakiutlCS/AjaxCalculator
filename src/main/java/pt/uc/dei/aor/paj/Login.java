@@ -20,7 +20,7 @@ public class Login implements Serializable{
 			if(u.getUsername().equals(user.getUsername()) && u.getPassword().equals(user.getPassword())){
 				
 				System.out.println(user.getUsername());
-				return "index2?faces-redirect=true";
+				return "index?faces-redirect=true";
 			}
 			
 		}

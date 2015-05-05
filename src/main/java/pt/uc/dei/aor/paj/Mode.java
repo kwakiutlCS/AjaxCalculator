@@ -12,7 +12,7 @@ public class Mode implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private boolean advancedMode = true;
+	private boolean advancedMode = false;
 
 	public boolean isModeAdvanced() {
 		return advancedMode;
