@@ -78,6 +78,7 @@ public class Calculator implements Serializable{
 	//Calculate the expression using exp4j
 	public void calcExp(){
 		try{
+			
 			Expression e = new ExpressionBuilder(expression)
 			.variables("pi", "e")
 			.build()
