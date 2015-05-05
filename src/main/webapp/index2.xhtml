@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<!-- Nuno Ferreira e Pedro Rodrigues -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<h:outputStylesheet name="style.css" library="css" />
+
+</h:head>
+
+<h:body>
+
+	<h:form>
+<!--         Caixa que contém as estatísticas das operações. Interage com o bean statistics. -->
+		<h:selectOneListbox styleClass="statsbox">
+				<f:selectItems value="#{statistic.listastat}"/>
+		</h:selectOneListbox>
+					
+<!-- 		Caixa que contém o histórico das operações. Interage com o bean History e permite selecionar uma operação clicando na mesma. -->
+			<h:selectOneListbox onchange="submit()" valueChangeListener="#{calculator.submitOp}" styleClass="history" size="10" >
+				<f:selectItem itemValue="" itemLabel="Select an operation" noSelectionOption="true"/>
+				<f:selectItems value="#{history.lista}" />
+				 
+			</h:selectOneListbox>
+					
+					
+<!-- 		Caixa que contém as funções da calculadora e o display que vai mostrando os números, operações e funções inseridas.			 -->
+		<div class="calculator">		
+					
+			
+			<div class="display">
+				<h:outputText value="#{calculator.expression}"
+					styleClass="displayScreen" />
+			</div>
+			
+			<div class="buttons">
+			
+<!-- 			Botões que permitem selecionar o modo da calculadora bem como se o input é em radianos ou graus. -->
+				<div id="modo">
+					<input type="radio" name="modo" value="normal" checked="checked" />Normal
+					<br></br> 
+					<input type="radio" name="modo" value="cientifica" 
+					onclick="document.location.href = 'index.xhtml'" />Scientific
+				</div>
+				<div id="graurad">
+					Nuno Ferreira
+					Pedro Rodrigues
+				</div>
+
+				<p>
+
+					<h:commandButton class="button-grey" value="7"
+						action="#{calculator.add('7')}" />
+
+					<h:commandButton class="button-grey" value="8"
+						action="#{calculator.add('8')}" />
+
+					<h:commandButton class="button-grey" value="9"
+						action="#{calculator.add('9')}" />
+
+					<h:commandButton class="button-green" value="/"
+						action="#{calculator.add('/')}" />
+				</p>
+				<p>
+					<h:commandButton class="button-grey" value="4"
+						action="#{calculator.add('4')}" />
+
+					<h:commandButton class="button-grey" value="5"
+						action="#{calculator.add('5')}" />
+
+					<h:commandButton class="button-grey" value="6"
+						action="#{calculator.add('6')}" />
+
+					<h:commandButton class="button-green" value="*"
+						action="#{calculator.add('*')}" />
+				</p>
+				<p>
+					<h:commandButton class="button-grey" value="1"
+						action="#{calculator.add('1')}" />
+
+					<h:commandButton class="button-grey" value="2"
+						action="#{calculator.add('2')}" />
+
+					<h:commandButton class="button-grey" value="3"
+						action="#{calculator.add('3')}" />
+
+					<h:commandButton class="button-green" value="-"
+						action="#{calculator.add('-')}" />
+
+				</p>
+
+				<p>
+
+					<h:commandButton class="button-grey" value="0"
+						action="#{calculator.add('0')}" />
+
+					<h:commandButton class="button-grey" value="."
+						action="#{calculator.add('.')}" />
+
+					<h:commandButton class="button-grey" value="C"
+						action="#{calculator.clearCalc()}" />
+
+					<h:commandButton class="button-green" value="+"
+						action="#{calculator.add('+')}" />
+				</p>
+				
+<!-- 				O botão "=" acciona o método de cálculo no bean Calculator. -->
+				<h:commandButton class="button-blue" value="="
+					action="#{calculator.calcExp()}" />
+			</div>
+		</div>
+	</h:form>
+</h:body>
+</html>
