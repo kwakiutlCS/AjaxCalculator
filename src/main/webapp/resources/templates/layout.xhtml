@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<!-- Nuno Ferreira e Pedro Rodrigues -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<h:outputStylesheet name="style.css" library="css" />
+
+</h:head>
+
+<h:body>
+
+	<h:form>
+		<!--         Caixa que contém as estatísticas das operações. Interage com o bean statistics. -->
+		<h:selectOneListbox styleClass="statsbox">
+			<f:selectItems value="#{statistic.listastat}" />
+		</h:selectOneListbox>
+
+		<!-- 		Caixa que contém o histórico das operações. Interage com o bean History e permite selecionar uma operação clicando na mesma. -->
+		<h:selectOneListbox onchange="submit()"
+			valueChangeListener="#{calculator.submitOp}" styleClass="history"
+			size="10">
+			<f:selectItem itemValue="" itemLabel="Select an operation"
+				noSelectionOption="true" itemDisabled="true" />
+			<f:selectItems value="#{history.lista}" />
+
+		</h:selectOneListbox>
+
+
+		<!-- 		Caixa que contém as funções da calculadora e o display que vai mostrando os números, operações e funções inseridas.			 -->
+		<div class="calculator">
+
+
+			<div class="display">
+				<h:outputText id="displayScreen" value="#{calculator.expression}"
+					styleClass="displayScreen" />
+			</div>
+
+			<div class="buttons">
+
+				<ui:insert name="modeSelection" />
+
+				<div id="graurad">Nuno Ferreira Pedro Rodrigues</div>
+
+				<ui:insert name="keyboard" />
+
+
+			</div>
+		</div>
+
+
+	</h:form>
+
+
+
+
+</h:body>
+</html>
