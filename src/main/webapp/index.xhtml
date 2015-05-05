@@ -7,183 +7,22 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head>
-	<h:outputStylesheet name="style.css" library="css" />
-	
-</h:head>
 
 <h:body>
-	<h:form>
-	<!--         Caixa que contém as estatísticas das operações. Interage com o bean statistics. -->
-		<h:selectOneListbox styleClass="statsbox">
-				<f:selectItems value="#{statistic.listastat}"/>
-		</h:selectOneListbox>
-					
-		<!-- 		Caixa que contém o histórico das operações. Interage com o bean History e permite selecionar uma operação clicando na mesma. -->
-			<h:selectOneListbox onchange="submit()" valueChangeListener="#{calculator.submitOp}" styleClass="history" size="10" >
-				<f:selectItem itemValue="" itemLabel="Select an operation" noSelectionOption="true" itemDisabled="true"/>
-				<f:selectItems value="#{history.lista}" />
-				 
-			</h:selectOneListbox>
-				
-<!-- 		Caixa que contém as funções da calculadora e o display que vai mostrando os números, operações e funções inseridas.			 -->		
-		<div class="calculator">
 
-			<div class="display">
-
-				<h:outputText value="#{calculator.expression}"
-					styleClass="displayScreen" />
-
-			</div>
-
-			<div class="buttons">
-			<!-- 			Botões que permitem selecionar o modo da calculadora bem como se o input é em radianos ou graus. -->
-				<div id="modo">
-				<input type="radio" name="modo" value="normal" onclick="document.location.href = 'index2.xhtml'" />Normal
-				<br></br>
-				<input type="radio" name="modo" value="cientifica"  checked="checked"/>Scientific
-				</div>
-				
-				<div id="graurad">
-					Nuno Ferreira
-					Pedro Rodrigues
-				</div>
-				
-<!-- Nesta página encontra-se para além da calculadora básica, os botões de funções avançadas				 -->
-				<p>
-
-					<h:commandButton class="button-red" value="log"
-						action="#{calculator.add('log10(')}" />
-
-					<h:commandButton class="button-red" value="ln"
-						action="#{calculator.add('log(')}" />
-
-					<h:commandButton class="button-red" value="e&#739;"
-						action="#{calculator.add('e^')}" />
-						
-					<h:commandButton class="button-red" value="EE"
-						action="#{calculator.add('*10^')}" />
-
-				</p>
-
-				<p>
-
-					<h:commandButton class="button-red" value="√"
-						action="#{calculator.add('sqrt')}" />
-
-					<h:commandButton class="button-red" value="x&#178;"
-						action="#{calculator.add('^2')}" />
-						
-					<h:commandButton class="button-red" value="("
-						action="#{calculator.add('(')}" />
-
-					<h:commandButton class="button-red" value=")"
-						action="#{calculator.add(')')}" />
-
-				</p>
-
-				<p>
-
-					<h:commandButton class="button-red" value="sin"
-						action="#{calculator.add('sin')}" />
-
-					<h:commandButton class="button-red" value="cos"
-						action="#{calculator.add('cos')}" />
-
-					<h:commandButton class="button-red" value="tan"
-						action="#{calculator.add('tan')}" />
-						
-					<h:commandButton class="button-red" value="&#960;"
-						action="#{calculator.add('pi')}" />
-
-				</p>
-
-				<p>
-
-					<h:commandButton class="button-red" value="asin"
-						action="#{calculator.add('asin')}" />
-
-					<h:commandButton class="button-red" value="acos"
-						action="#{calculator.add('acos')}" />
-
-					<h:commandButton class="button-red" value="atan"
-						action="#{calculator.add('atan')}" />
-						
-					<h:commandButton class="button-red" value="x&#696;"
-						action="#{calculator.add('^')}" />
-
-				</p>
-				
-				<p>
-
-					<h:commandButton class="button-grey" value="7"
-						action="#{calculator.add('7')}" />
-
-					<h:commandButton class="button-grey" value="8"
-						action="#{calculator.add('8')}" />
-
-					<h:commandButton class="button-grey" value="9"
-						action="#{calculator.add('9')}" />
-
-					<h:commandButton class="button-green" value="/"
-						action="#{calculator.add('/')}" />
-
-				</p>
-
-				<p>
-
-					<h:commandButton class="button-grey" value="4"
-						action="#{calculator.add('4')}" />
-
-					<h:commandButton class="button-grey" value="5"
-						action="#{calculator.add('5')}" />
-
-					<h:commandButton class="button-grey" value="6"
-						action="#{calculator.add('6')}" />
-
-					<h:commandButton class="button-green" value="*"
-						action="#{calculator.add('*')}" />
-
-				</p>
-
-				<p>
-
-					<h:commandButton class="button-grey" value="1"
-						action="#{calculator.add('1')}" />
-
-					<h:commandButton class="button-grey" value="2"
-						action="#{calculator.add('2')}" />
-
-					<h:commandButton class="button-grey" value="3"
-						action="#{calculator.add('3')}" />
-
-					<h:commandButton class="button-green" value="-"
-						action="#{calculator.add('-')}" />
-
-				</p>
-
-				<p>
-
-					<h:commandButton class="button-grey" value="0"
-						action="#{calculator.add('0')}" />
-
-					<h:commandButton class="button-grey" value="."
-						action="#{calculator.add('.')}" />
-
-					<h:commandButton class="button-grey" value="C"
-						action="#{calculator.clearCalc()}" />
-
-					<h:commandButton class="button-green" value="+"
-						action="#{calculator.add('+')}" />
-
-				</p>
-
-				<h:commandButton class="button-blue" value="="
-					action="#{calculator.calcExp()}" />
-
-			</div>
-
-		</div>
-	</h:form>
+	<ui:composition template="resources/templates/layout.xhtml">
+		<ui:define name="modeSelection">
+				<f:ajax render="@form">
+				<h:selectBooleanCheckbox value="#{mode.modeAdvanced}" /> Scientific
+				</f:ajax>
+		</ui:define>
+		
+     	<ui:define name="keyboard">
+     		<h:panelGroup rendered="#{mode.modeAdvanced}">
+				<ui:include src="resources/templates/advancedKeyboard.xhtml" />
+			</h:panelGroup>
+     		<ui:include src="resources/templates/simpleKeyboard.xhtml" />
+     	</ui:define>
+	</ui:composition>
 </h:body>
 </html>
