@@ -13,10 +13,10 @@
         <h:panelGrid columns="2" cellpadding="5">
         	
             <h:outputLabel for="username" value="Username:" />
-            <p:inputText id="username" value="#{calculator.username}" required="true" label="username" />
+            <p:inputText id="username" value="#{login.username}" required="true" label="username" />
  
             <h:outputLabel for="password" value="Password:" />
-            <p:password id="password" value="#{calculator.password}" required="true" label="password" />
+            <p:password id="password" value="#{login.password}" required="true" label="password" />
  
           
 	        <h:commandButton id="loginButton" type="submit" value="Login" action="#{login.login()}" />	          

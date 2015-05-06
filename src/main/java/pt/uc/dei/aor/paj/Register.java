@@ -11,6 +11,7 @@ import javax.inject.Named;
 public class Register implements Serializable{
 	
 	@Inject Users users;
+	@Inject Login login;
 	
 	private String username;
 	private String password;
@@ -51,6 +52,7 @@ public class Register implements Serializable{
 				u.setPassword(password);
 				u.setLoggedIn(true);
 				users.addUser(u);
+				login.setUsername(username);
 				users.printUsers();
 
 				return "index?faces-redirect=true";

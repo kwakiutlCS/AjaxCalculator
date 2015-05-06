@@ -15,8 +15,8 @@ public class ChatServer {
 	private Users users;
 	@Inject 
 	private Message message;
-	@Inject 
-	private User user;
+	@Inject
+	private Login login;
 	
 	private List<Message> messages = new ArrayList<>();
 	
@@ -39,7 +39,7 @@ public class ChatServer {
 		Message m = new Message();
 		m.setText(message.getText());
 		User u = new User();
-		u.setUsername(user.getUsername());
+		u.setUsername(login.getUsername());
 		m.setSender(u);
 		messages.add(m);
 		message.setText("");
