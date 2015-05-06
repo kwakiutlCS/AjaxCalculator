@@ -15,10 +15,16 @@ public class User implements Serializable{
 	private static final long serialVersionUID = 847213532139216089L;
 	private String username;
 	private String password;
+	private boolean loggedIn = false;
 	
 	
 	
-	
+	public boolean isLoggedIn() {
+		return loggedIn;
+	}
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
+	}
 	public String getUsername() {
 		return username;
 	}
