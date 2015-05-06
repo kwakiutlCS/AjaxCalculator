@@ -10,7 +10,6 @@ import javax.inject.Named;
 @RequestScoped
 public class Register implements Serializable{
 	
-	@Inject User user;
 	@Inject Users users;
 	
 	private String username;
@@ -47,11 +46,13 @@ public class Register implements Serializable{
 		
 		if(exists==false){
 			if(password.equals(confpassword)){
-				user.setUsername(username);
-				user.setPassword(password);
-				users.addUser(user);
+				User u = new User();
+				u.setUsername(username);
+				u.setPassword(password);
+				u.setLoggedIn(true);
+				users.addUser(u);
 				users.printUsers();
-				
+
 				return "index?faces-redirect=true";
 			}
 			
