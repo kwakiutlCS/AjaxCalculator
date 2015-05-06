@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<!-- Nuno Ferreira e Pedro Rodrigues -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<h:outputStylesheet name="style.css" library="css" />
+
+</h:head>
+
+<h:body>
+	<h:form style="background:white">
+	<h:dataTable value="#{chatServer.messages}" var="msg">
+		<h:column>
+			#{msg.sender.username}
+		</h:column>
+		<h:column>
+			#{msg.text}
+		</h:column>
+	</h:dataTable>
+
+		<h:inputText id="chatMsg" value="#{message.text}" />
+		<h:commandButton value="submit" action="#{chatServer.sendMsg}">
+			<f:ajax execute="chatMsg" render="@form" />
+		</h:commandButton>
+		
+	</h:form>
+
+	<div>
+		<ui:repeat value="#{users.users}" var="u">
+			<div>#{u.username}</div>
+		</ui:repeat>
+	</div>
+</h:body>
+</html>

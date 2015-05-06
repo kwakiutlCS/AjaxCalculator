@@ -9,7 +9,6 @@ import javax.inject.Named;
 
 @Named
 @ApplicationScoped
-
 public class Users implements Serializable{
 	
 	

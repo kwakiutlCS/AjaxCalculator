@@ -12,26 +12,27 @@
 	<ui:composition>
 
 		<p>
-
+			<f:ajax render="displayScreen">
 			<h:commandButton class="button-grey" value="7"
 				action="#{calculator.add('7')}">
-				<f:ajax render="displayScreen" />
+				
 			</h:commandButton>
 
 			<h:commandButton class="button-grey" value="8"
 				action="#{calculator.add('8')}">
-				<f:ajax render="displayScreen" />
+				
 			</h:commandButton>
 
 			<h:commandButton class="button-grey" value="9"
 				action="#{calculator.add('9')}">
-				<f:ajax render="displayScreen" />
+				
 			</h:commandButton>
 
 			<h:commandButton class="button-grey" value="/"
 				action="#{calculator.add('/')}">
-				<f:ajax render="displayScreen" />
+				
 			</h:commandButton>
+			</f:ajax>
 		</p>
 		<p>
 			<h:commandButton class="button-grey" value="4"

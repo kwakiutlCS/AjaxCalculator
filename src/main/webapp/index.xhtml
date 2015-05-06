@@ -12,8 +12,8 @@
 
 	<ui:composition template="resources/templates/layout.xhtml">
 		<ui:define name="modeSelection">
-				<f:ajax render="@form">
-				<h:selectBooleanCheckbox value="#{mode.modeAdvanced}" /> Scientific
+				<f:ajax render="@form" execute="modeSelector" >
+				<h:selectBooleanCheckbox id="modeSelector" value="#{mode.modeAdvanced}" /> Scientific
 				</f:ajax>
 		</ui:define>
 		
