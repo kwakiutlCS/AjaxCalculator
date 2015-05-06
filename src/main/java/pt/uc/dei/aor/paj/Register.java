@@ -55,7 +55,7 @@ public class Register implements Serializable{
 			}
 			
 		}
-		return "index?faces-redirect=true";
+		return null;
 		
 	}
 	
