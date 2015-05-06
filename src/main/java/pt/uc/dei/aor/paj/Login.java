@@ -27,7 +27,8 @@ public class Login implements Serializable{
 		for(User u: users.getUsers()){
 			if(u.getUsername().equals(user.getUsername()) && u.getPassword().equals(user.getPassword())){
 				
-				  return "index?faces-redirect=true";
+				user.setLoggedIn(true);
+				return "index?faces-redirect=true";
 				
 				
 			}
@@ -37,7 +38,7 @@ public class Login implements Serializable{
 	}
 	
 	public String logout(){
-			
+			user.setLoggedIn(false);
 			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 			return "login?faces-redirect=true";
 		
