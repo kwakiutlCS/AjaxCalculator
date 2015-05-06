@@ -21,6 +21,9 @@
 		<h:column>
 			#{msg.text}
 		</h:column>
+		<h:column>
+			#{msg.date.time}
+		</h:column>
 	</h:dataTable>
 
 		<h:inputText id="chatMsg" value="#{message.text}" />
@@ -30,7 +33,7 @@
 		
 	</h:form>
 
-	<div>
+	<div style="color:white;">
 		<ui:repeat value="#{users.loggedUsers}" var="u">
 			<div>#{u.username}</div>
 		</ui:repeat>

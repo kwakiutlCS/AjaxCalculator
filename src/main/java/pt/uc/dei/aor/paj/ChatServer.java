@@ -1,6 +1,7 @@
 package pt.uc.dei.aor.paj;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -38,9 +39,13 @@ public class ChatServer {
 	public void sendMsg() {
 		Message m = new Message();
 		m.setText(message.getText());
-		User u = new User();
-		u.setUsername(login.getUsername());
-		m.setSender(u);
+		for (User u : users.getUsers()) {
+			if (u.getUsername().equals(login.getUsername())) {
+				m.setSender(u);
+				break;
+			}
+		}
+		m.setDate(new GregorianCalendar());
 		messages.add(m);
 		message.setText("");
 	}

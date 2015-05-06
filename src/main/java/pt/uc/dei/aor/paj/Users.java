@@ -34,10 +34,8 @@ public class Users implements Serializable{
 	public List<User> getLoggedUsers() {
 		List<User> logged = new ArrayList<User>();
 		for (User u : users) {
-			System.out.println(u.getUsername()+" -> "+u.isLoggedIn());
 			if (u.isLoggedIn()) logged.add(u);
 		}
-		System.out.println(logged);
 		return logged;
 	}
 }
