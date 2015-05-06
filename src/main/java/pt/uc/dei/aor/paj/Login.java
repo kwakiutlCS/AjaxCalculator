@@ -28,6 +28,7 @@ public class Login implements Serializable{
 			if(u.getUsername().equals(user.getUsername()) && u.getPassword().equals(user.getPassword())){
 				
 				user.setLoggedIn(true);
+				System.out.println(user.getUsername()+" -> "+user.isLoggedIn());
 				return "index?faces-redirect=true";
 				
 				
