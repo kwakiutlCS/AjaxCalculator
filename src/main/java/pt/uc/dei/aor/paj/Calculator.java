@@ -21,24 +21,7 @@ public class Calculator implements Serializable{
 	private static final long serialVersionUID = 3883884812159598031L;
 	private String expression;
 	private boolean calculado=false;
-	private String username;
-	private String password;
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	
 
 	@Inject History hist;
 	@Inject Statistic stat;

@@ -53,6 +53,7 @@ public class Register implements Serializable{
 				u.setLoggedIn(true);
 				users.addUser(u);
 				login.setUsername(username);
+				login.setLoggedin(true);
 				users.printUsers();
 
 				return "index?faces-redirect=true";

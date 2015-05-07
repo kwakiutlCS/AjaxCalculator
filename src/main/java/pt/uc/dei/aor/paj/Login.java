@@ -4,6 +4,7 @@ package pt.uc.dei.aor.paj;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,6 +22,7 @@ public class Login implements Serializable{
 	
 	private String username;
 	private String password;
+	private boolean loggedin=false;
 
 	public String getUsername() {
 		return username;
@@ -43,13 +45,15 @@ public class Login implements Serializable{
 		
 		for(User u: users.getUsers()){
 			if(u.getUsername().equals(username) && u.getPassword().equals(password)){
-//				if(user.isLoggedIn()){
-//					
-//					
-//				}else{
+				if(u.isLoggedIn()){
+					System.out.println("logged in -> " + loggedin);
+					FacesContext.getCurrentInstance().addMessage(":login:msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Already logged in!", "Error!"));
+					
+				}else{
 					u.setLoggedIn(true);
+					loggedin=true;
 					return "index?faces-redirect=true";
-//				}
+				}
 				
 
 				
@@ -64,6 +68,7 @@ public class Login implements Serializable{
 		for(User u: users.getUsers()){
 			if(u.getUsername().equals(username)){
 				u.setLoggedIn(false);
+				loggedin=false;
 				FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 				return "login?faces-redirect=true";
 			}
@@ -73,6 +78,14 @@ public class Login implements Serializable{
 		
 		
 		
+	}
+
+	public boolean isLoggedin() {
+		return loggedin;
+	}
+
+	public void setLoggedin(boolean loggedin) {
+		this.loggedin = loggedin;
 	}
 	
 	

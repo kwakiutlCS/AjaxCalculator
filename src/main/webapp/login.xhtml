@@ -1,58 +1,66 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head> 
-<body> 
+<h:head>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<body>
+	<div class="logandreg">
+		<h1 id="title">Welcome to our Calculator</h1>
 
-<h:form>            
-    
-        <h:panelGrid columns="2" cellpadding="5">
-        	
-            <h:outputLabel for="username" value="Username:" />
-            <p:inputText id="username" value="#{login.username}" required="true" label="username" />
- 
-            <h:outputLabel for="password" value="Password:" />
-            <p:password id="password" value="#{login.password}" required="true" label="password" />
- 
-          
-	        <h:commandButton id="loginButton" type="submit" value="Login" action="#{login.login()}" />	          
-         </h:panelGrid>            
-</h:form>
-          
-        
- <h:form>         
-        <h:panelGrid columns="2" cellpadding="5">
-        	<h:outputLabel for="rUsername" value="Username: "/>
-            <p:inputText id="rUsername" value="#{register.username}" label="username" />
-            
-            <h:outputLabel for="rPassword" value="Password: "/>
-            <p:password id="rPassword" value="#{register.password}" label="password" />
-            
-            <h:outputLabel for="confPassword" value="Confirm password: "/>
-            <p:password id="confPassword" value="#{register.confpassword}" label="confpassword" />
-            
-             
-          
-	         <h:commandButton id="registerButton" type="submit" value="register" action="#{register.confirmRegister()}" />	          
-            
-   		</h:panelGrid>
-</h:form>
- 
-<script type="text/javascript">
-    function handleLoginRequest(xhr, status, args) {
-        if(args.validationFailed || !args.loggedIn) {
-            PF('dlg').jq.effect("shake", {times:5}, 100);
-        }
-        else {
-            PF('dlg').hide();
-            $('#loginLink').fadeOut();
-        }
-    }
-</script>
+		<h:form id="login" styleClass="login">
 
-</body> 
+			<h:panelGrid columns="2" cellpadding="5">
+
+				<h:outputLabel for="username" value="Username:" />
+				<p:inputText id="username" value="#{login.username}" required="true"
+					label="username" />
+
+				<h:outputLabel for="password" value="Password:" />
+				<p:password id="password" value="#{login.password}" required="true"
+					label="password" />
+
+				<h:commandButton id="loginButton" type="submit" value="Login"
+					action="#{login.login()}" />					
+				
+				<h:messages id="msg" />
+
+				<h:link value="Continue to calculator" outcome="index"
+					rendered="#{login.loggedin}" />
+			</h:panelGrid>
+		</h:form>
+
+
+		<h:form id="register" styleClass="register">
+			<h:panelGrid columns="2" cellpadding="5">
+				<h:outputLabel for="rUsername" value="Username: " />
+				<p:inputText id="rUsername" value="#{register.username}"
+					label="username" />
+
+				<h:outputLabel for="rPassword" value="Password: " />
+				<p:password id="rPassword" value="#{register.password}"
+					label="password" />
+
+				<h:outputLabel for="confPassword" value="Confirm password: " />
+				<p:password id="confPassword" value="#{register.confpassword}"
+					label="confpassword" />
+
+
+
+				<h:commandButton id="registerButton" type="submit" value="register"
+					action="#{register.confirmRegister()}" />
+
+
+
+			</h:panelGrid>
+		</h:form>
+
+	</div>
+
+
+</body>
 </html>
