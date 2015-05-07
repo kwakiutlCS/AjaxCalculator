@@ -2,6 +2,7 @@ package pt.uc.dei.aor.paj;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 

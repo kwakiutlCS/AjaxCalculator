@@ -17,6 +17,17 @@
 </h:head>
 
 <h:body>
+	<h:form>  
+    
+    <p:menubar>
+        <f:facet name="options">
+        	<p:button type="button" value="calculator" outcome="/calculator/index" />
+        	<p:button type="button" value="chat" outcome="/calculator/chat" />
+        	<p:commandButton action="#{login.logout()}" value="logout" />
+        </f:facet>
+    </p:menubar>
+</h:form>
+
 	<h:form style="background:white" id="chatForm">
 	<h:dataTable value="#{chatServer.messages}" var="msg" id="chatMessages" >
 		<h:column>

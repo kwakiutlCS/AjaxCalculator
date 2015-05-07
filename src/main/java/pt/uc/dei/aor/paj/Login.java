@@ -76,7 +76,7 @@ public class Login implements Serializable{
 				loggedin = false;
 
 				FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-				return "login?faces-redirect=true";
+				return "/login?faces-redirect=true";
 			}
 			
 		}

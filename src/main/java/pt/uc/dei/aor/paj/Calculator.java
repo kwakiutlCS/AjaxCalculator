@@ -23,6 +23,7 @@ public class Calculator implements Serializable{
 	private boolean calculado=false;
 	
 
+	
 	@Inject History hist;
 	@Inject Statistic stat;
 	@Inject Statistics2 stat2;
@@ -114,4 +115,17 @@ public class Calculator implements Serializable{
 		
 	}
 	
+	
+	public void setStat(Statistic stat) {
+		this.stat = stat;
+	}
+	
+	public void setHist(History hist) {
+		this.hist = hist;
+	}
+	
+	public void setStat2(Statistics2 stat) {
+		this.stat2 = stat;
+	}
+
 }
