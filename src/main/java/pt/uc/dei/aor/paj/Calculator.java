@@ -96,7 +96,7 @@ public class Calculator implements Serializable{
 	//Calculate the expression using exp4j
 	public void calcExp(){
 		try{
-			
+			long initialTime = System.nanoTime();
 			Expression e = new ExpressionBuilder(expression)
 			.variables("pi", "e")
 			.build()
@@ -105,7 +105,9 @@ public class Calculator implements Serializable{
 			String aux = expression;
 			try{
 				expression = String.valueOf(e.evaluate());
+				long finishTime = System.nanoTime();
 				hist.addHist(aux);
+				hist.addEntry(aux, expression, finishTime-initialTime);
 				stat.addStat(aux);
 				stat2.add(aux);
 			} catch (Exception exp){

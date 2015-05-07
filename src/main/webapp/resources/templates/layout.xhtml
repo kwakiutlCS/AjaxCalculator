@@ -43,6 +43,13 @@
 
 		</h:selectOneListbox>
 
+		<h:panelGroup>
+			<h:dataTable value="#{history.listEntry}" var="entry">
+				<h:column>#{entry.expression}</h:column>
+				<h:column>#{entry.result}</h:column>
+				<h:column>#{entry.deltaT}</h:column>
+			</h:dataTable>
+		</h:panelGroup>
 
 		<!-- 		Caixa que contém as funções da calculadora e o display que vai mostrando os números, operações e funções inseridas.			 -->
 		<div class="calculator">
