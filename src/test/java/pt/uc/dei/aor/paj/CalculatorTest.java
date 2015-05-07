@@ -15,7 +15,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CalculatorTest {
-	private Calculator calc;
 	
 	@Mock
 	private Statistic stat;
@@ -24,16 +23,16 @@ public class CalculatorTest {
 	@Mock 
 	private Statistics2 stat2;
 	
+	private Calculator calc;
+	
 	@Before
 	public void init() {
 		doNothing().when(stat).addStat(anyString());
 		doNothing().when(hist).addHist(anyString());
 		doNothing().when(hist).addEntry(anyString(), anyString(), Mockito.anyLong());
 		doNothing().when(stat2).add(anyString());
-		calc = new Calculator();
-		calc.setStat(stat);
-		calc.setHist(hist);
-		calc.setStat2(stat2);
+		calc = new Calculator(stat, hist, stat2);
+
 	}
 	
 	@Test
