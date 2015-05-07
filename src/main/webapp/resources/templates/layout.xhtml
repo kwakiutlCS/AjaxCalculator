@@ -22,6 +22,16 @@
 		<h:selectOneListbox styleClass="statsbox">
 			<f:selectItems value="#{statistic.listastat}" />
 		</h:selectOneListbox>
+		
+		<h:panelGroup rendered="#{false}" >
+		<ui:repeat var="item" value="#{statistics2.stats}" varStatus="status">
+	<div class="#{status.even==true? 'par' : 'impar'} stats">
+		<span class="statsItem">#{item}</span>
+		<span class="statsCount">#{item.counter}</span>
+	</div>
+			
+	</ui:repeat>
+	</h:panelGroup>
 
 		<!-- 		Caixa que contém o histórico das operações. Interage com o bean History e permite selecionar uma operação clicando na mesma. -->
 		<h:selectOneListbox onchange="submit()"

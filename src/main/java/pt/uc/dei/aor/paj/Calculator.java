@@ -42,7 +42,7 @@ public class Calculator implements Serializable{
 
 	@Inject History hist;
 	@Inject Statistic stat;
-
+	@Inject Statistics2 stat2;
 	
 
 	//Constructor
@@ -107,6 +107,7 @@ public class Calculator implements Serializable{
 				expression = String.valueOf(e.evaluate());
 				hist.addHist(aux);
 				stat.addStat(aux);
+				stat2.add(aux);
 			} catch (Exception exp){
 				expression = exp.getMessage();
 			}	
