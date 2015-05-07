@@ -43,10 +43,10 @@
 
 		</h:selectOneListbox>
 
-		<h:panelGroup>
-			<h:dataTable value="#{history.listEntry}" var="entry">
-				<h:column>#{entry.expression}</h:column>
-				<h:column>#{entry.result}</h:column>
+		<h:panelGroup rendered="false">
+			<h:dataTable value="#{history.listEntry}" var="entry" style="background:white;">
+				<h:column><h:commandLink value="#{entry.expression}" action="#{calculator.submitOp2(entry.expression)}" /></h:column>
+				<h:column><h:commandLink value="#{entry.result}" action="#{calculator.submitOp2(entry.result)}" /></h:column>
 				<h:column>#{entry.deltaT}</h:column>
 			</h:dataTable>
 		</h:panelGroup>

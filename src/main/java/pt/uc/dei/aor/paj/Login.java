@@ -7,6 +7,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 
 @Named
@@ -19,7 +20,8 @@ public class Login implements Serializable{
 	
 	private String username;
 	private String password;
-
+	private boolean loggedin;
+	
 	public String getUsername() {
 		return username;
 	}
@@ -46,7 +48,11 @@ public class Login implements Serializable{
 //					
 //				}else{
 					u.setLoggedIn(true);
-					return "index?faces-redirect=true";
+					loggedin = true;
+					FacesContext context = FacesContext.getCurrentInstance();
+				    HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+				    session.setAttribute("login", this);
+					return "calculator/index?faces-redirect=true";
 //				}
 				
 
@@ -62,6 +68,7 @@ public class Login implements Serializable{
 		for(User u: users.getUsers()){
 			if(u.getUsername().equals(username)){
 				u.setLoggedIn(false);
+				loggedin = false;
 				FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 				return "login?faces-redirect=true";
 			}
@@ -71,6 +78,14 @@ public class Login implements Serializable{
 		
 		
 		
+	}
+
+	public boolean isLoggedin() {
+		return loggedin;
+	}
+
+	public void setLoggedin(boolean v) {
+		loggedin = v;
 	}
 	
 	

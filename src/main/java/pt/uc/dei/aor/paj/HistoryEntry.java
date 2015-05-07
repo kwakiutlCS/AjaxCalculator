@@ -3,10 +3,10 @@ package pt.uc.dei.aor.paj;
 public class HistoryEntry {
 	public String expression;
 	public String result;
-	public long deltaT;
+	public String deltaT;
 	
 	
-	public HistoryEntry(String expression, String result, long deltaT) {
+	public HistoryEntry(String expression, String result, String deltaT) {
 		this.expression = expression;
 		this.result = result;
 		this.deltaT = deltaT;
@@ -33,12 +33,12 @@ public class HistoryEntry {
 	}
 
 
-	public long getDeltaT() {
+	public String getDeltaT() {
 		return deltaT;
 	}
 
 
-	public void setDeltaT(long deltaT) {
+	public void setDeltaT(String deltaT) {
 		this.deltaT = deltaT;
 	}
 	

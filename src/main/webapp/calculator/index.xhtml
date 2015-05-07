@@ -10,7 +10,7 @@
 
 <h:body>
 
-	<ui:composition template="resources/templates/layout.xhtml">
+	<ui:composition template="../resources/templates/layout.xhtml">
 		<ui:define name="modeSelection">
 				<f:ajax render="@form" execute="modeSelector" >
 				<h:selectBooleanCheckbox id="modeSelector" value="#{mode.modeAdvanced}" /> Scientific
@@ -19,9 +19,9 @@
 		
      	<ui:define name="keyboard">
      		<h:panelGroup rendered="#{mode.modeAdvanced}">
-				<ui:include src="resources/templates/advancedKeyboard.xhtml" />
+				<ui:include src="../resources/templates/advancedKeyboard.xhtml" />
 			</h:panelGroup>
-     		<ui:include src="resources/templates/simpleKeyboard.xhtml" />
+     		<ui:include src="../resources/templates/simpleKeyboard.xhtml" />
      	</ui:define>
 	</ui:composition>
 </h:body>

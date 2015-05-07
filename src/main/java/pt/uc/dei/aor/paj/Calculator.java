@@ -86,7 +86,18 @@ public class Calculator implements Serializable{
 		}
 	}
 
-	
+	//Method that receives string from History and adds to expression
+		public void submitOp2(String exp){
+			if (expression.equals("0")){
+				expression="";
+			}
+			
+			calculado = false;
+			if (expression.length()+(exp.length())<25){
+				expression += exp.toString();
+			}
+		}
+		
 	//Clear calc when user hits 'C'
 	public String clearCalc(){
 		expression="0";
@@ -117,6 +128,7 @@ public class Calculator implements Serializable{
 			expression = exp.getMessage();
 		}	
 		calculado=true;
+		
 	}
 	
 }
