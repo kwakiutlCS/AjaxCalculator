@@ -22,6 +22,16 @@
 		<h:selectOneListbox styleClass="statsbox">
 			<f:selectItems value="#{statistic.listastat}" />
 		</h:selectOneListbox>
+		
+		<h:panelGroup rendered="#{false}" >
+		<ui:repeat var="item" value="#{statistics2.stats}" varStatus="status">
+	<div class="#{status.even==true? 'par' : 'impar'} stats">
+		<span class="statsItem">#{item}</span>
+		<span class="statsCount">#{item.counter}</span>
+	</div>
+			
+	</ui:repeat>
+	</h:panelGroup>
 
 		<!-- 		Caixa que contém o histórico das operações. Interage com o bean History e permite selecionar uma operação clicando na mesma. -->
 		<h:selectOneListbox onchange="submit()"
@@ -33,6 +43,13 @@
 
 		</h:selectOneListbox>
 
+		<h:panelGroup rendered="false">
+			<h:dataTable value="#{history.listEntry}" var="entry" style="background:white;">
+				<h:column><h:commandLink value="#{entry.expression}" action="#{calculator.submitOp2(entry.expression)}" /></h:column>
+				<h:column><h:commandLink value="#{entry.result}" action="#{calculator.submitOp2(entry.result)}" /></h:column>
+				<h:column>#{entry.deltaT}</h:column>
+			</h:dataTable>
+		</h:panelGroup>
 
 		<!-- 		Caixa que contém as funções da calculadora e o display que vai mostrando os números, operações e funções inseridas.			 -->
 		<div class="calculator">

@@ -1,6 +1,8 @@
 package pt.uc.dei.aor.paj;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -13,11 +15,13 @@ public class History implements Serializable{
 	 */
 	private static final long serialVersionUID = -7514545189871598589L;
 	ArrayList<String> lista;
+	List<HistoryEntry> listEntry;
 	
 	
 	//Constructor
 	public History(){
 		lista = new ArrayList<String>();
+		listEntry = new LinkedList<>();
 	}
 
 	//ArrayList with historic getter
@@ -41,6 +45,21 @@ public class History implements Serializable{
 		if (!exists){
 			lista.add(srt);
 		}
+	}
+	
+	
+	public void addEntry(String exp, String res, long time) {
+		HistoryEntry entry = new HistoryEntry(exp, res, String.valueOf(time/1000)+"\u03BCs");
+		listEntry.remove(entry);
+		listEntry.add(0, entry);
+	}
+
+	public List<HistoryEntry> getListEntry() {
+		return listEntry;
+	}
+
+	public void setListEntry(List<HistoryEntry> listEntry) {
+		this.listEntry = listEntry;
 	}
 	
 	

@@ -14,15 +14,19 @@ public class ChatServer {
 	
 	@Inject
 	private Users users;
-	@Inject 
-	private Message message;
 	@Inject
 	private Login login;
 	
 	private List<Message> messages = new ArrayList<>();
+	private String message;
 	
 	
-	
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
 	public Users getUsers() {
 		return users;
 	}
@@ -38,7 +42,7 @@ public class ChatServer {
 	
 	public void sendMsg() {
 		Message m = new Message();
-		m.setText(message.getText());
+		m.setText(message);
 		for (User u : users.getUsers()) {
 			if (u.getUsername().equals(login.getUsername())) {
 				m.setSender(u);
@@ -47,6 +51,10 @@ public class ChatServer {
 		}
 		m.setDate(new GregorianCalendar());
 		messages.add(m);
-		message.setText("");
+		message = "";
+	}
+	
+	public void refresh() {
+		System.out.println("refreshing");
 	}
 }

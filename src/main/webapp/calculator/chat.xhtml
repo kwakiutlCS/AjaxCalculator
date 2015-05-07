@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+
+<!-- Nuno Ferreira e Pedro Rodrigues -->
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet name="style.css" library="css" />
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	<h:outputScript library="js" name="chat.js" />
+	
+</h:head>
+
+<h:body>
+	<h:form style="background:white" id="chatForm">
+	<h:dataTable value="#{chatServer.messages}" var="msg" id="chatMessages" >
+		<h:column>
+			#{msg.sender.username}
+		</h:column>
+		<h:column>
+			#{msg.text}
+		</h:column>
+		<h:column>
+			#{msg.date.time}
+		</h:column>
+	</h:dataTable>
+	
+		<h:inputText id="chatMsg" value="#{chatServer.message}" />
+		<h:commandButton value="submit" action="#{chatServer.sendMsg}">
+			<f:ajax execute="chatMsg" render="@form"/>
+		</h:commandButton>
+		<h:commandButton value="submit" action="null" id="chatRefresher" style="display:none;" >
+			<f:ajax render="chatMessages chatUsers" />
+		</h:commandButton>
+		
+		<h:panelGroup id="chatUsers">
+		<div>
+		<ui:repeat value="#{users.loggedUsers}" var="u">
+			<div>#{u.username}</div>
+		</ui:repeat>
+		</div>
+		</h:panelGroup>
+	</h:form>
+
+	
+</h:body>
+</html>

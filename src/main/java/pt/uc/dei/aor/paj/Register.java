@@ -3,8 +3,10 @@ package pt.uc.dei.aor.paj;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 @Named
 @RequestScoped
@@ -55,8 +57,12 @@ public class Register implements Serializable{
 				login.setUsername(username);
 				login.setLoggedin(true);
 				users.printUsers();
-
-				return "index?faces-redirect=true";
+				
+				FacesContext context = FacesContext.getCurrentInstance();
+			    HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+			    session.setAttribute("login", login);
+			    
+			    return "/calculator/index?faces-redirect=true";
 			}
 			
 		}

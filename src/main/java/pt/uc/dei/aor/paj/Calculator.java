@@ -25,7 +25,7 @@ public class Calculator implements Serializable{
 
 	@Inject History hist;
 	@Inject Statistic stat;
-
+	@Inject Statistics2 stat2;
 	
 
 	//Constructor
@@ -69,7 +69,18 @@ public class Calculator implements Serializable{
 		}
 	}
 
-	
+	//Method that receives string from History and adds to expression
+		public void submitOp2(String exp){
+			if (expression.equals("0")){
+				expression="";
+			}
+			
+			calculado = false;
+			if (expression.length()+(exp.length())<25){
+				expression += exp.toString();
+			}
+		}
+		
 	//Clear calc when user hits 'C'
 	public String clearCalc(){
 		expression="0";
@@ -79,7 +90,7 @@ public class Calculator implements Serializable{
 	//Calculate the expression using exp4j
 	public void calcExp(){
 		try{
-			
+			long initialTime = System.nanoTime();
 			Expression e = new ExpressionBuilder(expression)
 			.variables("pi", "e")
 			.build()
@@ -88,8 +99,11 @@ public class Calculator implements Serializable{
 			String aux = expression;
 			try{
 				expression = String.valueOf(e.evaluate());
+				long finishTime = System.nanoTime();
 				hist.addHist(aux);
+				hist.addEntry(aux, expression, finishTime-initialTime);
 				stat.addStat(aux);
+				stat2.add(aux);
 			} catch (Exception exp){
 				expression = exp.getMessage();
 			}	
@@ -97,6 +111,7 @@ public class Calculator implements Serializable{
 			expression = exp.getMessage();
 		}	
 		calculado=true;
+		
 	}
 	
 }

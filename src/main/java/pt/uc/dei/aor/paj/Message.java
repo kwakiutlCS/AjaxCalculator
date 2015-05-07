@@ -2,11 +2,6 @@ package pt.uc.dei.aor.paj;
 
 import java.util.GregorianCalendar;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
-
-@Named
-@RequestScoped
 public class Message {
 	private String text;
 	private User sender;
