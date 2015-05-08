@@ -86,7 +86,7 @@ body {
 .button-red {
   vertical-align: top;
   display: inline-block;
-  width: 9.3%;
+  width: 4px;
   margin: 0px;
   padding: 0px;
   height: 40px;
@@ -167,7 +167,7 @@ body {
 .button-grey {
   vertical-align: top;
   display: inline-block;
-  width: 9.3%;
+  width: 4px;
   margin: 0px;
   padding: 0px;
   height: 40px;
@@ -295,5 +295,3 @@ body {
   }
   
 
-  }
-  
