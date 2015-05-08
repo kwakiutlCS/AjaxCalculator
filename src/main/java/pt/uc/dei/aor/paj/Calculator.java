@@ -34,12 +34,7 @@ public class Calculator implements Serializable{
 		expression="0";
 	}
 	
-	public Calculator(Statistic stat, History hist, Statistics2 stat2) {
-		this.stat = stat;
-		this.hist = hist;
-		this.stat2 = stat2;
-	}
-
+	
 	//Returns expression
 	public String getExpression() {
 		return expression;

@@ -12,102 +12,47 @@
 	<ui:composition>
 		<!-- Nesta página encontra-se para além da calculadora básica, os botões de funções avançadas				 -->
 		
-
-		<p>
+		<f:ajax render="displayScreen" >
+			<h:panelGrid columns="4">
 			<h:commandButton class="button-red" value="log"
-				action="#{calculator.add('log10(')}" >
-				<f:ajax render="displayScreen" />
-			</h:commandButton>
-
+				action="#{calculator.add('log10(')}" />
 			<h:commandButton class="button-red" value="ln"
-				action="#{calculator.add('log(')}">
-				<f:ajax render="displayScreen" />
-			</h:commandButton>
-
+				action="#{calculator.add('log(')}" />
 			<h:commandButton class="button-red" value="e&#739;"
-				action="#{calculator.add('e^')}">
-				<f:ajax render="displayScreen" />
-			</h:commandButton>
-
+				action="#{calculator.add('e^')}" />
 			<h:commandButton class="button-red" value="EE"
-				action="#{calculator.add('*10^')}">
-				<f:ajax render="displayScreen" />
-			</h:commandButton>
-
-		</p>
-
-		<p>
+				action="#{calculator.add('*10^')}" />
+			
+		
 			<h:commandButton class="button-red" value="√"
-				action="#{calculator.add('sqrt')}">
-				<f:ajax render="displayScreen" />
-			</h:commandButton>
-
+				action="#{calculator.add('sqrt')}" />
 			<h:commandButton class="button-red" value="x&#178;"
-				action="#{calculator.add('^2')}">
-				<f:ajax render="displayScreen" />
-			</h:commandButton>
-
+				action="#{calculator.add('^2')}" />
 			<h:commandButton class="button-red" value="("
-				action="#{calculator.add('(')}">
-				<f:ajax render="displayScreen" />
-			</h:commandButton>
-
+				action="#{calculator.add('(')}" />
 			<h:commandButton class="button-red" value=")"
-				action="#{calculator.add(')')}">
-				<f:ajax render="displayScreen" />
-			</h:commandButton>
-
-
-		</p>
-
-		<p>
-
+				action="#{calculator.add(')')}" />
+			
 			<h:commandButton class="button-red" value="sin"
-				action="#{calculator.add('sin')}">
-				<f:ajax render="displayScreen" />
-			</h:commandButton>
-
+				action="#{calculator.add('sin')}" />
 			<h:commandButton class="button-red" value="cos"
-				action="#{calculator.add('cos')}">
-				<f:ajax render="displayScreen" />
-			</h:commandButton>
-
+				action="#{calculator.add('cos')}" />
 			<h:commandButton class="button-red" value="tan"
-				action="#{calculator.add('tan')}">
-				<f:ajax render="displayScreen" />
-			</h:commandButton>
-
+				action="#{calculator.add('tan')}" />
 			<h:commandButton class="button-red" value="&#960;"
-				action="#{calculator.add('pi')}">
-				<f:ajax render="displayScreen" />
-			</h:commandButton>
-
-		</p>
-
-		<p>
-
+				action="#{calculator.add('pi')}" />
+			
 			<h:commandButton class="button-red" value="asin"
-				action="#{calculator.add('asin')}">
-				<f:ajax render="displayScreen" />
-			</h:commandButton>
-
+				action="#{calculator.add('asin')}" />
 			<h:commandButton class="button-red" value="acos"
-				action="#{calculator.add('acos')}">
-				<f:ajax render="displayScreen" />
-			</h:commandButton>
-
+				action="#{calculator.add('acos')}" />
 			<h:commandButton class="button-red" value="atan"
-				action="#{calculator.add('atan')}">
-				<f:ajax render="displayScreen" />
-			</h:commandButton>
-
+				action="#{calculator.add('atan')}" />
 			<h:commandButton class="button-red" value="x&#696;"
-				action="#{calculator.add('^')}">
-				<f:ajax render="displayScreen" />
-			</h:commandButton>
-
-
-		</p>
+				action="#{calculator.add('^')}" />
+			
+		</h:panelGrid>
+		</f:ajax>
 		
 	</ui:composition>
 </h:body>

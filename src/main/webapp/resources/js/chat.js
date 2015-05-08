@@ -1,5 +1,5 @@
 $(function() {
-	$("#chatForm\\:chatMsg").focus();
+	getFocus();
 	
 	setInterval(function() {
 		var refresh = $("#chatForm\\:chatRefresher");
@@ -7,7 +7,12 @@ $(function() {
 		
 	}, 1000);
 	
-
+	
 });
+
+var getFocus = function() {
+	$("#chatForm\\:chatMsg").focus();
+	
+}
 
 

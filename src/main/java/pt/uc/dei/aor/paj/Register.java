@@ -40,7 +40,14 @@ public class Register implements Serializable{
 		this.confpassword = confpassword;
 	}
 	
-	public String confirmRegister(){
+	
+	public String confirmRegister() {
+		FacesContext context = FacesContext.getCurrentInstance();
+	    HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+	    return confirmRegister(session);
+	}
+	
+	public String confirmRegister(HttpSession session){
 		for(User u: users.getUsers()){
 			if(username.equals(u.getUsername())){
 				exists=true;
@@ -59,9 +66,8 @@ public class Register implements Serializable{
 				login.setLoggedin(true);
 				users.printUsers();
 				
-				FacesContext context = FacesContext.getCurrentInstance();
-			    HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-			    session.setAttribute("login", login);
+				if (session != null)
+					session.setAttribute("login", login);
 			    
 			    return "/calculator/index?faces-redirect=true";
 			}

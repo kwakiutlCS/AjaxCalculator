@@ -3,14 +3,12 @@ package pt.uc.dei.aor.paj;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doNothing;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -23,16 +21,15 @@ public class CalculatorTest {
 	@Mock 
 	private Statistics2 stat2;
 	
+	@InjectMocks
 	private Calculator calc;
 	
 	@Before
 	public void init() {
-		doNothing().when(stat).addStat(anyString());
-		doNothing().when(hist).addHist(anyString());
-		doNothing().when(hist).addEntry(anyString(), anyString(), Mockito.anyLong());
-		doNothing().when(stat2).add(anyString());
-		calc = new Calculator(stat, hist, stat2);
-
+//		doNothing().when(stat).addStat(anyString());
+//		doNothing().when(hist).addHist(anyString());
+//		doNothing().when(hist).addEntry(anyString(), anyString(), Mockito.anyLong());
+//		doNothing().when(stat2).add(anyString());
 	}
 	
 	@Test
