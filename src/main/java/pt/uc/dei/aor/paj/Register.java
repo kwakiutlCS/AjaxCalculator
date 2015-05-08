@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 @RequestScoped
 public class Register implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	@Inject Users users;
 	@Inject Login login;
 	

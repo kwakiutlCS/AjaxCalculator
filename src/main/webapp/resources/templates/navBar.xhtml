@@ -15,6 +15,7 @@
     
     <p:menubar>
         <f:facet name="options">
+        	<h:outputText value="#{login.username}" />
         	<p:button type="button" value="calculator" outcome="/calculator/index" />
         	<p:button type="button" value="chat" outcome="/calculator/chat" />
         	<p:commandButton action="#{login.logout()}" value="logout" />
