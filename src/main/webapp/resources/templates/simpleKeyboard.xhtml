@@ -46,6 +46,11 @@
 					action="#{calculator.clearCalc()}" />
 				<h:commandButton class="button-grey" value="+"
 					action="#{calculator.add('+')}" />
+					
+				<h:commandButton class="button-grey" value="CE"
+					action="#{calculator.clearEntry()}" />
+				<h:commandButton class="button-grey" value="mod"
+					action="#{calculator.add('mod')}" />
 			</h:panelGrid>
 
 		</f:ajax>

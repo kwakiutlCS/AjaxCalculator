@@ -35,6 +35,23 @@ public class MathHelperTest {
 		assertThat(entries.get(entries.size()-2), is(not(equalTo("*"))));
 	}
 	
+	@Test
+	public void should_not_add_binary_after_open_parenthesis() {
+		entries.add("0");
+		MathHelper.concat(entries, "acos(", 0);
+		MathHelper.concat(entries, "*", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("acos(")));
+	}
+	
+	@Test
+	public void should_remove_final_dot_click_operator() {
+		entries.add("3");
+		MathHelper.concat(entries, ".", 0);
+		MathHelper.concat(entries, "+", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3+")));
+	}
+	
+	
 	// digit tests
 	@Test
 	public void should_concat_digit_to_another() {
@@ -124,8 +141,102 @@ public class MathHelperTest {
 		assertThat(MathHelper.formExpression(entries), is(equalTo("3+4")));
 	}
 	
+	// format integer expression
+	@Test
+	public void should_represent_integer_values_without_dot() {
+		entries.add("3");
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3")));
+	}
+	
+	@Test
+	public void should_represent_integer_values_without_dot_after_evaluation() {
+		entries.add("3");
+		entries.add("%");
+		entries.add("2");
+		MathHelper.evaluate(entries);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("1")));
+	}
+	
+	// functions tests
+	@Test
+	public void should_add_functions_correctly() {
+		entries.add("3");
+		MathHelper.concat(entries, "sin(", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3sin(")));
+	}
+	
+	@Test
+	public void should_add_functions_correctly_after_evaluation() {
+		entries.add("3");
+		MathHelper.concat(entries, "atan(", 1);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("atan(3)")));
+	}
+	
+	@Test
+	public void should_add_functions_correctly_after_error() {
+		entries.add("Division by zero!");
+		MathHelper.concat(entries, "log(", 2);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("log(")));
+	}
+	
+	@Test
+	public void should_remove_zero_if_clicked_function() {
+		entries.add("3.2");
+		entries.add("^");
+		entries.add("0");
+		MathHelper.concat(entries, "sqrt(", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3.2^sqrt(")));
+	}
+	
+	@Test
+	public void should_remove_initial_zero_if_clicked_function() {
+		entries.add("0");
+		MathHelper.concat(entries, "cos(", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("cos(")));
+	}
+	
+	@Test
+	public void should_remove_final_dot_click_function() {
+		entries.add("3");
+		MathHelper.concat(entries, ".", 0);
+		MathHelper.concat(entries, "log10(", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3log10(")));
+	}
+	
+	
+	
+	// unuary operator tests
+	@Test
+	public void should_unuary_operators_correctly() {
+		entries.add("3");
+		MathHelper.concat(entries, "^2", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3^2")));
+	}
+	
+	@Test
+	public void should_not_add_unuary_after_open_parenthesis() {
+		entries.add("0");
+		MathHelper.concat(entries, "asin(", 0);
+		MathHelper.concat(entries, "^2", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("asin(")));
+	}
+	
+	@Test
+	public void should_remove_final_dot_click_unuary() {
+		entries.add("3");
+		MathHelper.concat(entries, ".", 0);
+		MathHelper.concat(entries, "^2", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3^2")));
+	}
 	
 	// evaluation tests
 	
 	// phase 1 tests
+	
+	
+	// helper functions test
+	@Test
+	public void should_format_integer_number_correctly() {
+		assertThat(MathHelper.formatExpression("2.0"), is(equalTo("2")));
+	}
 }

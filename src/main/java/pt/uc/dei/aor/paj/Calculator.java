@@ -50,12 +50,19 @@ public class Calculator {
 		screen.clear();
 	}
 	
+	public void clearEntry() {
+		screen.remove();
+	}
+	
 	//Calculate the expression using exp4j
 	public void calcExp(){
 		Screen aux = screen.getClone();
-		if (screen.evaluate()) {
-			hist.addEntry(aux, screen.getExpression(), 0L);
-			
+		long initialTime = System.nanoTime();
+		boolean res = screen.evaluate();
+		long finishTime = System.nanoTime();
+		
+		if (res) {
+			hist.addEntry(aux, screen.getExpression(), finishTime-initialTime);
 		}
 		
 //		try{

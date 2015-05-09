@@ -84,8 +84,8 @@ public class ScreenTest {
 		screen.concat("-");
 		screen.concat("8");
 		screen.evaluate();
-		screen.concat("%");
-		assertThat(screen.getExpression(), is(equalTo("-0.5%")));
+		screen.concat("mod");
+		assertThat(screen.getExpression(), is(equalTo("-0.5mod")));
 	}
 	
 	@Test
@@ -151,6 +151,44 @@ public class ScreenTest {
 		screen.concat("/");
 		screen.evaluate();
 		screen.concat("3");
+		assertThat(screen.getPhase(), is(equalTo(0)));
+	}
+	
+	@Test
+	public void should_be_in_phase_0_after_error_and_clear() {
+		screen.concat("2");
+		screen.concat("/");
+		screen.evaluate();
+		screen.clear();
+		assertThat(screen.getPhase(), is(equalTo(0)));
+	}
+	
+	@Test
+	public void should_be_in_phase_0_after_error_and_remove() {
+		screen.concat("2");
+		screen.concat("/");
+		screen.evaluate();
+		screen.remove();
+		assertThat(screen.getPhase(), is(equalTo(0)));
+	}
+	
+	@Test
+	public void should_be_in_phase_0_after_result_and_clear() {
+		screen.concat("2");
+		screen.concat("/");
+		screen.concat("3");
+		screen.evaluate();
+		screen.clear();
+		assertThat(screen.getPhase(), is(equalTo(0)));
+	}
+	
+	@Test
+	public void should_be_in_phase_0_after_result_and_remove() {
+		screen.concat("2");
+		screen.concat("/");
+		screen.concat("3");
+		screen.evaluate();
+		screen.remove();
 		assertThat(screen.getPhase(), is(equalTo(0)));
 	}
 }

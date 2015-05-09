@@ -22,7 +22,6 @@ public class Screen implements Serializable {
 		expression = MathHelper.formExpression(entries);
 	}
 
-	
 	public void concat(String s) {
 		if (MathHelper.concat(entries, s, phase)) {
 			expression = MathHelper.formExpression(entries);
@@ -34,12 +33,14 @@ public class Screen implements Serializable {
 		if (entries.size() == 1) clear();
 		else entries.remove(entries.size()-1);
 		expression = MathHelper.formExpression(entries);
+		phase = 0;
 	}
 	
 	public void clear() {
 		entries.clear();
 		entries.add("0");
 		expression = MathHelper.formExpression(entries);
+		phase = 0;
 	}
 	
 	public boolean evaluate() {
@@ -58,7 +59,6 @@ public class Screen implements Serializable {
 		}
 		return sc;
 	}
-	
 	
 	@Override
 	public String toString() {
@@ -79,7 +79,6 @@ public class Screen implements Serializable {
 		return expression.hashCode();
 	}
 	
-	
 	// Getters and Setters
 	public String getExpression() {
 		return expression;
@@ -97,9 +96,7 @@ public class Screen implements Serializable {
 		this.entries = entries;
 	}
 
-
 	public int getPhase() {
 		return phase;
 	}
-
 }
