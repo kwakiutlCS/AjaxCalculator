@@ -55,6 +55,7 @@ public class Calculator {
 		Screen aux = screen.getClone();
 		if (screen.evaluate()) {
 			hist.addEntry(aux, screen.getExpression(), 0L);
+			
 		}
 		
 //		try{

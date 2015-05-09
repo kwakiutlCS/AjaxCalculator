@@ -1,5 +1,6 @@
 package pt.uc.dei.aor.paj;
 
+import java.util.Arrays;
 import java.util.List;
 
 import net.objecthunter.exp4j.Expression;
@@ -15,30 +16,59 @@ public class MathHelper {
 		return expression;
 	}
 	
-	public static boolean concat(List<String> entries, String s) {
+	public static boolean concat(List<String> entries, String s, int phase) {
 		String lastEntry = entries.get(entries.size()-1);
 		
 		if (s.equals(".")) {
-			try {
-				Double.valueOf(lastEntry);
+			if (isNumber(lastEntry) && phase == 0) {
 				if (lastEntry.contains(".")) return false;
 				else {
 					lastEntry += ".";
 					entries.set(entries.size()-1, lastEntry);
 				}
 			}
-			catch(NumberFormatException e) {
+			else if (phase > 0) {
+				entries.set(0, "0.");
+			}
+			else {
 				entries.add("0.");
 			}
 		}
-		else {
-			entries.add(s);
+		else if (isBinOperator(s)) {
+			if (isBinOperator(lastEntry)) {
+				entries.remove(entries.size()-1);
+				entries.add(s);
+			}
+			else if (phase < 2) {
+				entries.add(s);
+			}
+			else {
+				return false;
+			}
 		}
+		else if (isNumber(s)) {
+			if (isNumber(lastEntry) && phase == 0) {
+				if (lastEntry.equals("0"))
+					lastEntry = s;
+				else 
+					lastEntry += s;
+				entries.set(entries.size()-1, lastEntry);
+			}
+			else if (phase > 0) {
+				entries.set(0, s);
+			}
+			else {
+				entries.add(s);
+			}
+		}
+		
 		return true;
 	}
 	
-	public static boolean evaluate(List<String> entries){
-		boolean result = false;
+	
+
+	public static int evaluate(List<String> entries){
+		int result = 2;
 		String expression = formExpression(entries);
 		try{
 			Expression e = new ExpressionBuilder(expression)
@@ -48,7 +78,7 @@ public class MathHelper {
 			.setVariable("e", Math.E);
 			try{
 				expression = String.valueOf(e.evaluate());
-				result = true;
+				result = 1;
 			} catch (Exception exp){
 				expression = exp.getMessage();
 			}	
@@ -64,5 +94,21 @@ public class MathHelper {
 	
 	
 	// helper methods
+	private static boolean isNumber(String s) {
+		try {
+			Double.valueOf(s);
+		}
+		catch(NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+	
+	private static boolean isBinOperator(String s) {
+		List<String> binOperators = Arrays.asList(new String[]{"+", "-", "*", "/", "^", "%"});
+		
+		return binOperators.contains(s);
+	}
+	
 	
 }

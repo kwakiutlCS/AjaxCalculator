@@ -18,14 +18,15 @@ public class Screen implements Serializable {
 	public Screen() {
 		entries = new LinkedList<>();
 		entries.add("0");
-		expression = MathHelper.formExpression(entries);
 		phase = 0;
+		expression = MathHelper.formExpression(entries);
 	}
 
 	
 	public void concat(String s) {
-		if (MathHelper.concat(entries, s)) {
+		if (MathHelper.concat(entries, s, phase)) {
 			expression = MathHelper.formExpression(entries);
+			phase = 0;
 		}
 	}
 	
@@ -42,10 +43,10 @@ public class Screen implements Serializable {
 	}
 	
 	public boolean evaluate() {
-		boolean result = MathHelper.evaluate(entries);
+		phase = MathHelper.evaluate(entries);
 		expression = MathHelper.formExpression(entries);
 		
-		return result;
+		return phase == 1;
 	}
 	
 	public Screen getClone() {
@@ -64,6 +65,19 @@ public class Screen implements Serializable {
 		return expression;
 	}
 	
+	@Override
+	public boolean equals(Object other) {
+		if (other instanceof Screen) {
+			Screen o = (Screen) other;
+			return o.expression.equals(expression);
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return expression.hashCode();
+	}
 	
 	
 	// Getters and Setters
@@ -83,11 +97,9 @@ public class Screen implements Serializable {
 		this.entries = entries;
 	}
 
+
 	public int getPhase() {
 		return phase;
 	}
 
-	public void setPhase(int phase) {
-		this.phase = phase;
-	}
 }
