@@ -33,7 +33,7 @@ public class RegisterTest {
 	
 	@Test
 	public void should_not_register_with_password_and_confirm_differents() {
-		register.setUsername("aaa");
+		register.setUsername("palerma");
 		register.setPassword("a");
 		register.setConfpassword("b");
 		assertThat(register.confirmRegister(null), is(equalTo(null)));
@@ -41,9 +41,17 @@ public class RegisterTest {
 	
 	@Test
 	public void should_register_with_valid_password_and_confirm() {
-		register.setUsername("aaa");
+		register.setUsername("palerma");
 		register.setPassword("a");
 		register.setConfpassword("a");
 		assertThat(register.confirmRegister(null), is(equalTo("/calculator/index?faces-redirect=true")));
 	}
+	
+//	@Test
+//	public void should_not_register_with_short_username() {
+//		register.setUsername("a");
+//		register.setPassword("a");
+//		register.setConfpassword("a");
+//		assertThat(register.confirmRegister(null), is(equalTo("null")));
+//	}
 }

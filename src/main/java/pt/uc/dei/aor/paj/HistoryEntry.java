@@ -1,24 +1,24 @@
 package pt.uc.dei.aor.paj;
 
 public class HistoryEntry {
-	public String expression;
+	public Screen expression;
 	public String result;
 	public String deltaT;
 	
 	
-	public HistoryEntry(String expression, String result, String deltaT) {
+	public HistoryEntry(Screen expression, String result, String deltaT) {
 		this.expression = expression;
 		this.result = result;
 		this.deltaT = deltaT;
 	}
 
 
-	public String getExpression() {
+	public Screen getExpression() {
 		return expression;
 	}
 
 
-	public void setExpression(String expression) {
+	public void setExpression(Screen expression) {
 		this.expression = expression;
 	}
 

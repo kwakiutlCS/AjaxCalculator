@@ -43,7 +43,7 @@
 
 		</h:selectOneListbox>
 
-		<h:panelGroup rendered="false">
+		<h:panelGroup rendered="true">
 			<h:dataTable value="#{history.listEntry}" var="entry" style="background:white;">
 				<h:column><h:commandLink value="#{entry.expression}" action="#{calculator.submitOp2(entry.expression)}" /></h:column>
 				<h:column><h:commandLink value="#{entry.result}" action="#{calculator.submitOp2(entry.result)}" /></h:column>
@@ -56,7 +56,7 @@
 
 
 			<div class="display">
-				<h:outputText id="displayScreen" value="#{calculator.expression}"
+				<h:outputText id="displayScreen" value="#{screen.expression}"
 					styleClass="displayScreen" />
 			</div>
 
