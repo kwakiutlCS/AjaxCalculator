@@ -29,6 +29,22 @@ public class Screen implements Serializable {
 		}
 	}
 	
+	public void add(Screen other) {
+		entries.clear();
+		for (String s : other.entries) {
+			entries.add(s);
+		}
+		phase = 0;
+		expression = MathHelper.formExpression(entries);
+	}
+	
+	public void add(String s) {
+		entries.clear();
+		entries.add(s);
+		phase = 0;
+		expression = MathHelper.formExpression(entries);
+	}
+	
 	public void remove() {
 		if (entries.size() == 1) clear();
 		else entries.remove(entries.size()-1);

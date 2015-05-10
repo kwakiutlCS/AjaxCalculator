@@ -172,15 +172,15 @@ public class MathHelperTest {
 	@Test
 	public void should_add_functions_correctly() {
 		entries.add("3");
-		MathHelper.concat(entries, "sin(", 0);
-		assertThat(MathHelper.formExpression(entries), is(equalTo("3sin(")));
+		MathHelper.concat(entries, "sinh(", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3sinh(")));
 	}
 	
 	@Test
 	public void should_add_functions_correctly_after_evaluation() {
 		entries.add("3");
-		MathHelper.concat(entries, "atan(", 1);
-		assertThat(MathHelper.formExpression(entries), is(equalTo("atan(3)")));
+		MathHelper.concat(entries, "atanh(", 1);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("atanh(3)")));
 	}
 	
 	@Test
@@ -413,6 +413,147 @@ public class MathHelperTest {
 		MathHelper.concat(entries, ")", 0);
 		MathHelper.concat(entries, ")", 0);
 		assertThat(MathHelper.formExpression(entries), is(equalTo("5(cos((2pi+50)*3)/5)")));
+	}
+//	
+//	// +/- tests
+//	@Test
+//	public void should_negate_correctly() {
+//		entries.add("5");
+//		MathHelper.concat(entries, "+/-", 0);
+//		assertThat(entries.size(), is(equalTo(4)));
+//		assertThat(MathHelper.formExpression(entries), is(equalTo("(-5)")));
+//	}
+//	
+//	@Test
+//	public void should_negate_correctly_with_parenthesis() {
+//		entries.add("5");
+//		MathHelper.concat(entries, "/", 0);
+//		MathHelper.concat(entries, "tanh(", 0);
+//		MathHelper.concat(entries, "3", 0);
+//		MathHelper.concat(entries, ")", 0);
+//		MathHelper.concat(entries, "+/-", 0);
+//		assertThat(entries.size(), is(equalTo(8)));
+//		assertThat(MathHelper.formExpression(entries), is(equalTo("5/(-tanh(3))")));
+//	}
+//	
+//	@Test
+//	public void should_ignore_with_operators() {
+//		entries.add("5");
+//		MathHelper.concat(entries, "/", 0);
+//		MathHelper.concat(entries, "+/-", 0);
+//		assertThat(entries.size(), is(equalTo(2)));
+//		assertThat(MathHelper.formExpression(entries), is(equalTo("5/")));
+//	}
+//	
+//	@Test
+//	public void should_ignore_with_unuary() {
+//		entries.add("5");
+//		MathHelper.concat(entries, "^2", 0);
+//		MathHelper.concat(entries, "+/-", 0);
+//		assertThat(entries.size(), is(equalTo(2)));
+//		assertThat(MathHelper.formExpression(entries), is(equalTo("5^2")));
+//	}
+//	
+//	@Test
+//	public void should_ignore_with_functions() {
+//		entries.add("5");
+//		MathHelper.concat(entries, "cos(", 0);
+//		MathHelper.concat(entries, "+/-", 0);
+//		assertThat(entries.size(), is(equalTo(2)));
+//		assertThat(MathHelper.formExpression(entries), is(equalTo("5cos(")));
+//	}
+//	
+//	@Test
+//	public void should_ignore_with_science_notation() {
+//		entries.add("5");
+//		MathHelper.concat(entries, "E", 0);
+//		MathHelper.concat(entries, "+/-", 0);
+//		assertThat(entries.size(), is(equalTo(2)));
+//		assertThat(MathHelper.formExpression(entries), is(equalTo("5E")));
+//	}
+//	
+//	@Test
+//	public void should_ignore_with_dots() {
+//		entries.add("5");
+//		MathHelper.concat(entries, ".", 0);
+//		MathHelper.concat(entries, "+/-", 0);
+//		assertThat(entries.size(), is(equalTo(2)));
+//		assertThat(MathHelper.formExpression(entries), is(equalTo("5.")));
+//	}
+//	
+//	@Test
+//	public void should_ignore_with_open_parenthesis() {
+//		entries.add("5");
+//		MathHelper.concat(entries, "(", 0);
+//		MathHelper.concat(entries, "+/-", 0);
+//		assertThat(entries.size(), is(equalTo(2)));
+//		assertThat(MathHelper.formExpression(entries), is(equalTo("5(")));
+//	}
+//	
+	// getLastExpression tests
+	@Test 
+	public void should_return_null_for_empty_entries() {
+		entries.clear();
+		assertThat(MathHelper.getLastExpression(entries), is(equalTo(null)));
+	}
+	
+	@Test
+	public void should_return_simple_numbers() {
+		entries.add("3");
+		entries.add("5");
+		entries.add("-");
+		entries.add("4");
+		assertThat(MathHelper.getLastExpression(entries), is(equalTo("4")));
+	}
+	
+	@Test
+	public void should_return_decimal_numbers() {
+		entries.add("3");
+		entries.add("5");
+		entries.add("-");
+		entries.add("4.3");
+		assertThat(MathHelper.getLastExpression(entries), is(equalTo("4.3")));
+	}
+	
+	@Test
+	public void should_return_scientific_notation_numbers() {
+		entries.add("3");
+		entries.add("5");
+		entries.add("-");
+		entries.add("4.3");
+		entries.add("E");
+		entries.add("3");
+		assertThat(MathHelper.getLastExpression(entries), is(equalTo("4.3E3")));
+	}
+	
+	@Test
+	public void should_return_complex_expressions() {
+		entries.add("3");
+		entries.add("5");
+		entries.add("-");
+		entries.add("(");
+		entries.add("7");
+		entries.add("/");
+		entries.add("9");
+		entries.add(")");
+		assertThat(MathHelper.getLastExpression(entries), is(equalTo("(7/9)")));
+	}
+	
+	@Test
+	public void should_return_functions() {
+		entries.add("3");
+		entries.add("5");
+		entries.add("-");
+		entries.add("cos(");
+		entries.add("8");
+		entries.add("-");
+		entries.add("(");
+		entries.add("7");
+		entries.add("/");
+		entries.add("9");
+		entries.add(")");
+		entries.add(")");
+		assertThat(MathHelper.getLastExpression(entries), is(equalTo("cos(8-(7/9))")));
 	}
 	
 	// evaluation tests

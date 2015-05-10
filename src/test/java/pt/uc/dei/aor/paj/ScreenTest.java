@@ -191,4 +191,24 @@ public class ScreenTest {
 		screen.remove();
 		assertThat(screen.getPhase(), is(equalTo(0)));
 	}
+	
+	
+	// expresssion concatenation
+	@Test
+	public void should_reuse_expression_correctly() {
+		Screen other = new Screen();
+		other.concat("2");
+		other.concat("+");
+		other.concat("4");
+		screen.add(other);
+		assertThat(screen.getEntries().size(), is(equalTo(3)));
+		assertThat(screen.getExpression(), is(equalTo("2+4")));
+	}
+	
+	@Test
+	public void should_reuse_result_correctly() {
+		screen.add("3.1");
+		assertThat(screen.getEntries().size(), is(equalTo(1)));
+		assertThat(screen.getExpression(), is(equalTo("3.1")));
+	}
 }

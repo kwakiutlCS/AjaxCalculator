@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
+import net.objecthunter.exp4j.function.Function;
 
 public class MathHelper {
 	
@@ -141,7 +142,9 @@ public class MathHelper {
 				entries.add(s);
 			}
 		}
-		
+		else if (s.equals("+/-")) {
+			return false;
+		}
 		return true;
 	}
 	
@@ -153,6 +156,7 @@ public class MathHelper {
 		expression = expression.replaceAll("mod", "%");
 		try{
 			Expression e = new ExpressionBuilder(expression)
+			.function(asinh).function(acosh).function(atanh)
 			.variables("pi", "e")
 			.build()
 			.setVariable("pi", Math.PI)
@@ -175,6 +179,33 @@ public class MathHelper {
 	
 	
 	// helper methods
+	public static String getLastExpression(List<String> entries) {
+		int index = entries.size()-1;
+		if (index == -1) return null;
+		
+		if (entries.get(index).equals(")")) {
+			String s = "";
+			int counter = 1;
+			index--;
+			s = ")";
+			while (counter > 0) {
+				String tmp = entries.get(index--);
+				if (getLastChar(tmp) == '(') counter--;
+				else if (tmp.equals(")")) counter++;
+				s = tmp + s;
+			}
+			return s;
+		}
+		else if (getLastChar(entries.get(index)) == '(') return null;
+		else if (isUnuaryOperator(entries.get(index))) return null;
+		else {
+			if (isLastEntryExponent(entries)) {
+				return entries.get(index-2)+entries.get(index-1)+entries.get(index);
+			}
+			return entries.get(index);
+		}
+	}
+	
 	public static String formatExpression(String s) {
 		String[] parts = s.split("\\.");
 		try {
@@ -210,7 +241,7 @@ public class MathHelper {
 	
 	private static boolean isFunction(String s) {
 		List<String> functions = Arrays.asList(new String[]{"sin(", "cos(", "tan(", "atan(", "asin(", "acos(",
-							"log(", "sqrt(", "log10("});
+							"log(", "sqrt(", "log10(", "sinh(", "cosh(", "tanh(", "asinh(", "acosh(", "atanh("});
 		return functions.contains(s);
 	}
 	
@@ -229,4 +260,30 @@ public class MathHelper {
 	private static char getLastChar(String s) {
 		return s.charAt(s.length()-1);
 	}
+	
+	
+	// custom functions
+	private static Function asinh = new Function("asinh", 1) {
+		@Override
+	    public double apply(double... args) {
+	        double a = args[0];
+	        return Math.log(a+Math.sqrt(1+a*a));
+	    }
+	};
+	private static Function acosh = new Function("acosh", 1) {
+		@Override
+	    public double apply(double... args) {
+	        double a = args[0];
+	        return Math.log(a+Math.sqrt(a*a-1));
+	    }
+	};
+	private static Function atanh = new Function("atanh", 1) {
+		@Override
+	    public double apply(double... args) {
+	        double a = args[0];
+	        return Math.log((1+a)/(1-a))/2;
+	    }
+	};
+	
+	// custom operators
 }

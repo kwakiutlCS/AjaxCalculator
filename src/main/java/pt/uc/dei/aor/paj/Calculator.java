@@ -21,30 +21,16 @@ public class Calculator {
 		screen.concat(srt);
 	}
 	
-//	//Method that receives string from History and adds to expression
-//	public void submitOp(ValueChangeEvent vce){
-//		if (expression.equals("0")){
-//			expression="";
-//		}
-//		
-//		calculado = false;
-//		if (expression.length()+(vce.getNewValue().toString().length())<25){
-//			expression += vce.getNewValue().toString();
-//		}
-//	}
-//
-//	//Method that receives string from History and adds to expression
-//		public void submitOp2(String exp){
-//			if (expression.equals("0")){
-//				expression="";
-//			}
-//			
-//			calculado = false;
-//			if (expression.length()+(exp.length())<25){
-//				expression += exp.toString();
-//			}
-//		}
-//		
+
+	//Method that receives string from History and adds to expression
+		public void submitOp(Screen sc){
+			screen.add(sc);
+		}
+	
+		public void submitOp(String s){
+			screen.add(s);
+		}
+		
 	//Clear calc when user hits 'C'
 	public void clearCalc(){
 		screen.clear();
