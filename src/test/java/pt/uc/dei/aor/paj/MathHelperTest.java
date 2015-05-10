@@ -81,6 +81,12 @@ public class MathHelperTest {
 		assertThat(entries.get(entries.size()-2), is(equalTo("*")));
 	}
 	
+	@Test
+	public void should_separate_digits_from_constants_with_multiplication() {
+		entries.add("e");
+		MathHelper.concat(entries, "3", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("e*3")));
+	}
 	
 	// dot tests
 	@Test
@@ -104,7 +110,12 @@ public class MathHelperTest {
 		MathHelper.concat(entries, ".", 0);
 		assertThat(entries.get(entries.size()-1), is(equalTo("3.")));
 	}
-	
+	@Test
+	public void should_separate_dot_from_constants_with_multiplication() {
+		entries.add("pi");
+		MathHelper.concat(entries, ".", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("pi*0.")));
+	}
 	
 	// error tests
 	@Test
@@ -203,6 +214,29 @@ public class MathHelperTest {
 		assertThat(MathHelper.formExpression(entries), is(equalTo("3log10(")));
 	}
 	
+	@Test
+	public void should_separate_constants_and_functions_with_multiplication() {
+		entries.add("pi");
+		MathHelper.concat(entries, "acos(", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("pi*acos(")));
+	}
+	
+	// constants tests
+	@Test
+	public void should_add_constant_correctly() {
+		entries.add("3");
+		MathHelper.concat(entries, "pi", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3pi")));
+		assertThat(entries.size(), is(equalTo(2)));
+	}
+	
+	@Test
+	public void should_separate_constants_with_multiplication() {
+		entries.add("3");
+		MathHelper.concat(entries, "pi", 0);
+		MathHelper.concat(entries, "e", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3pi*e")));
+	}
 	
 	
 	// unuary operator tests
@@ -229,10 +263,166 @@ public class MathHelperTest {
 		assertThat(MathHelper.formExpression(entries), is(equalTo("3^2")));
 	}
 	
+	@Test
+	public void should_not_concat_digit_after_unuary() {
+		entries.add("5");
+		MathHelper.concat(entries, "^2", 0);
+		MathHelper.concat(entries, "6", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("5^2")));
+	}
+	
+	@Test
+	public void should_not_concat_dot_after_unuary() {
+		entries.add("5");
+		MathHelper.concat(entries, "^2", 0);
+		MathHelper.concat(entries, ".", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("5^2")));
+	}
+	
+	// scientific notation tests
+	@Test
+	public void should_concat_science_notation_correctly() {
+		entries.add("3");
+		MathHelper.concat(entries, "E", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3E")));
+	}
+	
+	@Test
+	public void should_not_concat_science_notation_redundantly() {
+		entries.add("3");
+		MathHelper.concat(entries, "E", 0);
+		MathHelper.concat(entries, "4", 0);
+		MathHelper.concat(entries, "E", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3E4")));
+	}
+	
+	@Test
+	public void should_not_concat_science_notation_after_operator() {
+		entries.add("3");
+		MathHelper.concat(entries, "+", 0);
+		MathHelper.concat(entries, "E", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3+")));
+	}
+	
+	@Test
+	public void should_not_concat_science_notation_after_unuary() {
+		entries.add("3");
+		MathHelper.concat(entries, "^2", 0);
+		MathHelper.concat(entries, "E", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3^2")));
+	}
+	
+	@Test
+	public void should_not_concat_science_notation_after_evaluation() {
+		entries.add("3");
+		MathHelper.concat(entries, "E", 1);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3")));
+	}
+	
+	@Test
+	public void should_remove_dot_if_concat_science_notation() {
+		entries.add("7.");
+		MathHelper.concat(entries, "E", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("7E")));
+	}
+	
+	@Test
+	public void should_not_add_dot_after_science_notation() {
+		entries.add("3");
+		MathHelper.concat(entries, "E", 0);
+		MathHelper.concat(entries, "4", 0);
+		MathHelper.concat(entries, ".", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3E4")));
+	}
+	
+	// parenthesis tests
+	@Test
+	public void should_add_left_parenthesis_correctly() {
+		entries.add("5");
+		MathHelper.concat(entries, "(", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("5(")));
+	}
+	
+	@Test
+	public void should_add_left_parenthesis_correctly_after_error() {
+		entries.add("5");
+		MathHelper.concat(entries, "(", 2);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("(")));
+	}
+	
+	@Test
+	public void should_add_left_parenthesis_correctly_after_result() {
+		entries.add("5");
+		MathHelper.concat(entries, "(", 1);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("(")));
+	}
+	
+	@Test
+	public void should_add_right_parenthesis_correctly() {
+		entries.add("5");
+		MathHelper.concat(entries, "mod", 0);
+		MathHelper.concat(entries, "(", 0);
+		MathHelper.concat(entries, "1", 0);
+		MathHelper.concat(entries, "+", 0);
+		MathHelper.concat(entries, "3", 0);
+		MathHelper.concat(entries, ")", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("5mod(1+3)")));
+	}
+	
+	@Test
+	public void should_not_add_parenthesis_without_argument() {
+		entries.add("5");
+		MathHelper.concat(entries, "^", 0);
+		MathHelper.concat(entries, "(", 0);
+		MathHelper.concat(entries, ")", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("5^(")));
+	}
+	
+	@Test
+	public void should_not_add_parenthesis_after_function() {
+		entries.add("5");
+		MathHelper.concat(entries, "-", 0);
+		MathHelper.concat(entries, "tan(", 0);
+		MathHelper.concat(entries, ")", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("5-tan(")));
+	}
+	
+	@Test
+	public void should_not_add_parenthesis_that_dont_close_another() {
+		entries.add("5");
+		MathHelper.concat(entries, ")", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("5")));
+	}
+	
+	@Test
+	public void should_not_add_parenthesis_that_dont_close_another_or_function() {
+		entries.add("5");
+		MathHelper.concat(entries, "(", 0);
+		MathHelper.concat(entries, "cos(", 0);
+		MathHelper.concat(entries, "(", 0);
+		MathHelper.concat(entries, "2", 0);
+		MathHelper.concat(entries, "pi", 0);
+		MathHelper.concat(entries, "+", 0);
+		MathHelper.concat(entries, "50", 0);
+		MathHelper.concat(entries, ")", 0);
+		MathHelper.concat(entries, "*", 0);
+		MathHelper.concat(entries, "3", 0);
+		MathHelper.concat(entries, ")", 0);
+		MathHelper.concat(entries, "/", 0);
+		MathHelper.concat(entries, "5", 0);
+		MathHelper.concat(entries, ")", 0);
+		MathHelper.concat(entries, ")", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("5(cos((2pi+50)*3)/5)")));
+	}
+	
 	// evaluation tests
 	
 	// phase 1 tests
-	
+	@Test
+	public void should_not_change_phase_by_clicking_illegal_button() {
+		entries.add("5");
+		assertThat(MathHelper.concat(entries, "E", 1), is(equalTo(false)));
+	}
 	
 	// helper functions test
 	@Test

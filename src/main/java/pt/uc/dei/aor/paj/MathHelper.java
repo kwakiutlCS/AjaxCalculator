@@ -19,9 +19,14 @@ public class MathHelper {
 	public static boolean concat(List<String> entries, String s, int phase) {
 		String lastEntry = entries.get(entries.size()-1);
 		
+		if (getLastChar(lastEntry) == '.' && !isNumber(s)) {
+			lastEntry = lastEntry.substring(0, lastEntry.length()-1);
+			entries.set(entries.size()-1, lastEntry);
+		}
+		
 		if (s.equals(".")) {
 			if (isNumber(lastEntry) && phase == 0) {
-				if (lastEntry.contains(".")) return false;
+				if (lastEntry.contains(".") || isLastEntryExponent(entries)) return false;
 				else {
 					lastEntry += ".";
 					entries.set(entries.size()-1, lastEntry);
@@ -30,9 +35,36 @@ public class MathHelper {
 			else if (phase > 0) {
 				entries.set(0, "0.");
 			}
+			else if (isUnuaryOperator(lastEntry)) return false;
+			else if (isConstant(lastEntry)) {
+				entries.add("*");
+				entries.add("0.");
+			}
 			else {
 				entries.add("0.");
 			}
+		}
+		else if (s.equals("(")) {
+			if (phase == 0) 
+				entries.add("(");
+			else
+				entries.set(0, "(");
+		}
+		else if (s.equals(")")) {
+			if (getLastChar(lastEntry) == '(' || phase > 0) return false;
+			int counter = 0;
+			for (String e : entries) {
+				if (getLastChar(e) == '(') counter++;
+				else if (getLastChar(e) == ')') counter--;
+			}
+			if (counter == 0) return false;
+			entries.add(")");
+		}
+		else if (s.equals("E")) {
+			if (isNumber(lastEntry) && !isLastEntryExponent(entries) && phase == 0) {
+				entries.add("E");
+			}
+			else return false;
 		}
 		else if (isBinOperator(s)) {
 			if (isBinOperator(lastEntry)) {
@@ -68,6 +100,26 @@ public class MathHelper {
 			else if (phase > 0) {
 				entries.set(0, s);
 			}
+			else if (isConstant(lastEntry)) {
+				entries.add("*");
+				entries.add(s);
+			}
+			else if (isUnuaryOperator(lastEntry)) return false;
+			else {
+				entries.add(s);
+			}
+		}
+		else if (isConstant(s)) {
+			if (lastEntry.equals("0")) {
+				entries.set(entries.size()-1, s);
+			}
+			else if (phase > 0) {
+				entries.set(0, s);
+			}
+			else if (isConstant(lastEntry)) {
+				entries.add("*");
+				entries.add(s);
+			}
 			else {
 				entries.add(s);
 			}
@@ -79,6 +131,10 @@ public class MathHelper {
 			}
 			else if (phase == 2) {
 				entries.set(0, s);
+			}
+			else if (isConstant(lastEntry)) {
+				entries.add("*");
+				entries.add(s);
 			}
 			else {
 				if (lastEntry.equals("0")) entries.remove(entries.size()-1);
@@ -156,5 +212,21 @@ public class MathHelper {
 		List<String> functions = Arrays.asList(new String[]{"sin(", "cos(", "tan(", "atan(", "asin(", "acos(",
 							"log(", "sqrt(", "log10("});
 		return functions.contains(s);
+	}
+	
+	private static boolean isConstant(String s) {
+		List<String> constants = Arrays.asList(new String[]{"pi", "e", "\u03C0"});
+		return constants.contains(s);
+	}
+	
+	private static boolean isLastEntryExponent(List<String> entries) {
+		if (entries.size() >= 3) {
+			if (entries.get(entries.size()-2).equals("E")) return true;
+		}
+		return false;
+	}
+	
+	private static char getLastChar(String s) {
+		return s.charAt(s.length()-1);
 	}
 }
