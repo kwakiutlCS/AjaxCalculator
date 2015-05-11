@@ -38,7 +38,9 @@ public class User implements Serializable{
 		this.loggedIn = loggedIn;
 	}
 	
-	
+	public String toString(){
+		return username;
+	}
 	
 
 }

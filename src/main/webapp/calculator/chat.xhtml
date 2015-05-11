@@ -13,51 +13,59 @@
 	<h:outputStylesheet name="style.css" library="css" />
 	<h:outputScript library="primefaces" name="jquery/jquery.js" />
 	<h:outputScript library="js" name="chat.js" />
-	
+
 </h:head>
 
 <h:body>
-	<h:form>  
-    
-    <p:menubar>
-        <f:facet name="options">
-        	<p:button type="button" value="calculator" outcome="/calculator/index" />
-        	<p:button type="button" value="chat" outcome="/calculator/chat" />
-        	<p:commandButton action="#{login.logout()}" value="logout" />
-        </f:facet>
-    </p:menubar>
-</h:form>
+	<h:form>
 
-	<h:form style="background:white" id="chatForm">
-	<h:dataTable value="#{chatServer.messages}" var="msg" id="chatMessages" >
-		<h:column>
-			#{msg.sender.username}
-		</h:column>
-		<h:column>
-			#{msg.text}
-		</h:column>
-		<h:column>
-			#{msg.date.time}
-		</h:column>
-	</h:dataTable>
-	
-		<h:inputText id="chatMsg" value="#{chatServer.message}" />
-		<h:commandButton value="submit" action="#{chatServer.sendMsg}">
-			<f:ajax execute="chatMsg" render="@form"/>
-		</h:commandButton>
-		<h:commandButton value="submit" action="null" id="chatRefresher" style="display:none;" >
-			<f:ajax render="chatMessages chatUsers" />
-		</h:commandButton>
-		
-		<h:panelGroup id="chatUsers">
-		<div>
-		<ui:repeat value="#{users.loggedUsers}" var="u">
-			<div>#{u.username}</div>
-		</ui:repeat>
-		</div>
-		</h:panelGroup>
+		<p:menubar>
+			<f:facet name="options">
+				<p:button type="button" value="calculator"
+					outcome="/calculator/index" />
+				<p:button type="button" value="chat" outcome="/calculator/chat" />
+				<p:commandButton action="#{login.logout()}" value="logout" />
+			</f:facet>
+		</p:menubar>
 	</h:form>
-
 	
+	<div class="chatForm">
+		<h:form>
+			<div class="textArea">			
+				<h:dataTable  value="#{chatServer.messages}" var="msg"
+					id="chatMessages">
+					<h:column>
+						#{msg.sender.username}
+					</h:column>
+					<h:column>
+						#{msg.text}
+					</h:column>
+					<h:column>
+						#{msg.date.time}
+					</h:column>
+				</h:dataTable>
+			</div>
+			
+			<div class="userbox">
+				<h:selectOneListbox  size="20" styleClass="userbox">
+					<f:selectItems value="#{users.loggedUsers}" />
+				</h:selectOneListbox>
+			</div>
+			<div class="textSubmit">
+				<h:inputText styleClass="chatMsg" id="chatMsg"
+					value="#{chatServer.message}" />
+				<h:commandButton styleClass="submitMsg" value="submit"
+					action="#{chatServer.sendMsg}">
+					<f:ajax execute="chatMsg" render="@form" />
+				</h:commandButton>
+				<h:commandButton value="submit" action="null" id="chatRefresher"
+					style="display:none;">
+					<f:ajax render="chatMessages chatUsers" />
+				</h:commandButton>
+			</div>
+		</h:form>
+		
+	</div>
+
 </h:body>
 </html>
