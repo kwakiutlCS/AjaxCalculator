@@ -3,6 +3,7 @@ package pt.uc.dei.aor.paj;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.number.IsCloseTo.closeTo;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
@@ -651,6 +652,95 @@ public class MathHelperTest {
 	}
 	
 	// evaluation tests
+	@Test
+	public void should_evaluate_cosh_correctly() {
+		entries.add("cosh(");
+		MathHelper.concat(entries, "1", 0);
+		MathHelper.concat(entries, ")", 0);
+		MathHelper.evaluate(entries);
+		assertThat(Double.valueOf(entries.get(0)), is(closeTo(1.54308063, 0.0001)));
+	}
+	
+	@Test
+	public void should_evaluate_sinh_correctly() {
+		entries.add("sinh(");
+		MathHelper.concat(entries, "1", 0);
+		MathHelper.concat(entries, ")", 0);
+		MathHelper.evaluate(entries);
+		assertThat(Double.valueOf(entries.get(0)), is(closeTo(1.17520119, 0.0001)));
+	}
+	
+	@Test
+	public void should_evaluate_tanh_correctly() {
+		entries.add("tanh(");
+		MathHelper.concat(entries, "1", 0);
+		MathHelper.concat(entries, ")", 0);
+		MathHelper.evaluate(entries);
+		assertThat(Double.valueOf(entries.get(0)), is(closeTo(0.76159416, 0.0001)));
+	}
+	
+	@Test
+	public void should_evaluate_acosh_correctly() {
+		entries.add("acosh(");
+		MathHelper.concat(entries, "1.54308063", 0);
+		MathHelper.concat(entries, ")", 0);
+		MathHelper.evaluate(entries);
+		assertThat(Double.valueOf(entries.get(0)), is(closeTo(1, 0.0001)));
+	}
+	
+	@Test
+	public void should_evaluate_asinh_correctly() {
+		entries.add("asinh(");
+		MathHelper.concat(entries, "1.17520119", 0);
+		MathHelper.concat(entries, ")", 0);
+		MathHelper.evaluate(entries);
+		assertThat(Double.valueOf(entries.get(0)), is(closeTo(1, 0.0001)));
+	}
+	
+	@Test
+	public void should_evaluate_atanh_correctly() {
+		entries.add("atanh(");
+		MathHelper.concat(entries, "0.76159416", 0);
+		MathHelper.concat(entries, ")", 0);
+		MathHelper.evaluate(entries);
+		assertThat(Double.valueOf(entries.get(0)), is(closeTo(1, 0.0001)));
+	}
+	
+	@Test
+	public void should_evaluate_degrees_correctly() {
+		entries.add("sin(");
+		MathHelper.concat(entries, "30", 0);
+		MathHelper.concat(entries, ")", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Graus", Math.PI/180));
+		assertThat(Double.valueOf(entries.get(0)), is(closeTo(0.5, 0.0001)));
+	}
+	
+	@Test
+	public void should_evaluate_grads_correctly() {
+		entries.add("cosh(");
+		MathHelper.concat(entries, "50", 0);
+		MathHelper.concat(entries, ")", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Grados", Math.PI/200));
+		assertThat(Double.valueOf(entries.get(0)), is(closeTo(1.32460909 , 0.0001)));
+	}
+	
+	@Test
+	public void should_evaluate_inverse_degrees_correctly() {
+		entries.add("atanh(");
+		MathHelper.concat(entries, "0.6557942", 0);
+		MathHelper.concat(entries, ")", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Graus", Math.PI/180));
+		assertThat(Double.valueOf(entries.get(0)), is(closeTo(45, 0.0001)));
+	}
+	
+	@Test
+	public void should_evaluate_inverse_grads_correctly() {
+		entries.add("acos(");
+		MathHelper.concat(entries, "0.70710678", 0);
+		MathHelper.concat(entries, ")", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Grados", Math.PI/200));
+		assertThat(Double.valueOf(entries.get(0)), is(closeTo(50, 0.0001)));
+	}
 	
 	// phase 1 tests
 	@Test

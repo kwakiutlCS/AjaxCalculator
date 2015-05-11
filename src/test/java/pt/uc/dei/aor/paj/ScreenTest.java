@@ -62,7 +62,7 @@ public class ScreenTest {
 		screen.concat("^");
 		screen.concat("2");
 		assertThat(screen.getExpression(), is(equalTo("7.2-8/2^2")));
-		screen.evaluate();
+		screen.evaluate(new AngleUnit("Radianos", 1));
 		assertThat(screen.getExpression(), is(equalTo("5.2")));
 	}
 	
@@ -83,7 +83,7 @@ public class ScreenTest {
 		screen.concat("7.5");
 		screen.concat("-");
 		screen.concat("8");
-		screen.evaluate();
+		screen.evaluate(new AngleUnit("Radianos", 1));
 		screen.concat("mod");
 		assertThat(screen.getExpression(), is(equalTo("-0.5mod")));
 	}
@@ -93,7 +93,7 @@ public class ScreenTest {
 		screen.concat("7.5");
 		screen.concat("-");
 		screen.concat("8");
-		screen.evaluate();
+		screen.evaluate(new AngleUnit("Radianos", 1));
 		screen.concat("3");
 		assertThat(screen.getExpression(), is(equalTo("3")));
 	}
@@ -103,7 +103,7 @@ public class ScreenTest {
 		screen.concat("7.5");
 		screen.concat("-");
 		screen.concat("8");
-		screen.evaluate();
+		screen.evaluate(new AngleUnit("Radianos", 1));
 		screen.concat(".");
 		assertThat(screen.getExpression(), is(equalTo("0.")));
 	}
@@ -113,7 +113,7 @@ public class ScreenTest {
 		screen.concat("2");
 		screen.concat("/");
 		screen.concat("0");
-		screen.evaluate();
+		screen.evaluate(new AngleUnit("Radianos", 1));
 		assertThat(screen.getPhase(), is(equalTo(2)));
 	}
 	
@@ -122,7 +122,7 @@ public class ScreenTest {
 		screen.concat("2");
 		screen.concat("/");
 		screen.concat("3");
-		screen.evaluate();
+		screen.evaluate(new AngleUnit("Radianos", 1));
 		assertThat(screen.getPhase(), is(equalTo(1)));
 	}
 	
@@ -131,7 +131,7 @@ public class ScreenTest {
 		screen.concat("2");
 		screen.concat("/");
 		screen.concat("3");
-		screen.evaluate();
+		screen.evaluate(new AngleUnit("Radianos", 1));
 		screen.concat("+");
 		assertThat(screen.getPhase(), is(equalTo(0)));
 	}
@@ -140,7 +140,7 @@ public class ScreenTest {
 	public void should_be_in_phase_2_after_error_and_operator() {
 		screen.concat("2");
 		screen.concat("/");
-		screen.evaluate();
+		screen.evaluate(new AngleUnit("Radianos", 1));
 		screen.concat("+");
 		assertThat(screen.getPhase(), is(equalTo(2)));
 	}
@@ -149,7 +149,7 @@ public class ScreenTest {
 	public void should_be_in_phase_0_after_error_and_digit() {
 		screen.concat("2");
 		screen.concat("/");
-		screen.evaluate();
+		screen.evaluate(new AngleUnit("Radianos", 1));
 		screen.concat("3");
 		assertThat(screen.getPhase(), is(equalTo(0)));
 	}
@@ -158,7 +158,7 @@ public class ScreenTest {
 	public void should_be_in_phase_0_after_error_and_clear() {
 		screen.concat("2");
 		screen.concat("/");
-		screen.evaluate();
+		screen.evaluate(new AngleUnit("Radianos", 1));
 		screen.clear();
 		assertThat(screen.getPhase(), is(equalTo(0)));
 	}
@@ -167,7 +167,7 @@ public class ScreenTest {
 	public void should_be_in_phase_0_after_error_and_remove() {
 		screen.concat("2");
 		screen.concat("/");
-		screen.evaluate();
+		screen.evaluate(new AngleUnit("Radianos", 1));
 		screen.remove();
 		assertThat(screen.getPhase(), is(equalTo(0)));
 	}
@@ -177,7 +177,7 @@ public class ScreenTest {
 		screen.concat("2");
 		screen.concat("/");
 		screen.concat("3");
-		screen.evaluate();
+		screen.evaluate(new AngleUnit("Radianos", 1));
 		screen.clear();
 		assertThat(screen.getPhase(), is(equalTo(0)));
 	}
@@ -187,7 +187,7 @@ public class ScreenTest {
 		screen.concat("2");
 		screen.concat("/");
 		screen.concat("3");
-		screen.evaluate();
+		screen.evaluate(new AngleUnit("Radianos", 1));
 		screen.remove();
 		assertThat(screen.getPhase(), is(equalTo(0)));
 	}

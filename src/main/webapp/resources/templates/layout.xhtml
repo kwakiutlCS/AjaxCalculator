@@ -65,7 +65,14 @@
 				<ui:insert name="modeSelection" />
 
 				<div id="graurad">Nuno Ferreira Pedro Rodrigues</div>
-
+				
+				<f:ajax>
+				<h:selectOneRadio value="#{angleUnitList.chosen}">
+						<f:selectItems value="#{angleUnitList.angles}" var="item"
+	                    itemLabel="#{item.name}" itemValue="#{item.name}" />
+   				</h:selectOneRadio>
+				</f:ajax>
+				
 				<ui:insert name="keyboard" />
 
 

@@ -194,7 +194,29 @@ public class MathHelper {
 	}
 	
 	
-
+	public static int evaluate(List<String> entries, AngleUnit angle) {
+		List<String> direct = Arrays.asList(new String[]{"sin(", "cos(", "tan(", "sinh(", "cosh(", "tanh("});
+		List<String> inverse = Arrays.asList(new String[]{"asin(", "acos(", "atan(", "asinh(", "acosh(", "atanh("});
+		
+		for (int i = entries.size()-1; i >= 0; i--) {
+			if (direct.contains(entries.get(i))) {
+				int close = getCloseParenthesis(entries, i);
+				entries.add(close, ")");
+				entries.add(i+1, "(");
+				entries.add(i+1, "*");
+				entries.add(i+1, String.valueOf(angle.getFactor()));
+			}
+		}
+		for (int i = entries.size()-1; i >= 0; i--) {
+			if (inverse.contains(entries.get(i))) {
+				entries.add(i, "*");
+				entries.add(i, String.valueOf(1/angle.getFactor()));
+			}
+		}
+		
+		return evaluate(entries);
+	}
+	
 	public static int evaluate(List<String> entries){
 		int result = 2;
 		String expression = formExpression(entries);
@@ -224,6 +246,18 @@ public class MathHelper {
 	
 	
 	// helper methods
+	private static int getCloseParenthesis(List<String> entries, int index) {
+		int counter = 1;
+		int i = index+1;
+		
+		while (counter > 0) {
+			if (entries.get(i).equals("(")) counter++;
+			else if (entries.get(i).equals(")")) counter--;
+			i++;
+		}
+		return i;
+	}
+	
 	public static int getLastExpression(List<String> entries) {
 		int index = entries.size()-1;
 		if (index == -1) return 0;

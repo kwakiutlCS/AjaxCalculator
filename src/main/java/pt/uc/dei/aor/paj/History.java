@@ -49,7 +49,10 @@ public class History implements Serializable{
 	
 	
 	public void addEntry(Screen exp, String res, long time) {
-		HistoryEntry entry = new HistoryEntry(exp, res, String.valueOf(time/1000)+"\u03BCs");
+		String delta;
+		if (time > 1000000) delta = String.valueOf(time/1000000)+"ms";
+		else delta = String.valueOf(time/1000)+"\u03BCs";
+		HistoryEntry entry = new HistoryEntry(exp, res, delta);
 		listEntry.remove(entry);
 		listEntry.add(0, entry);
 	}

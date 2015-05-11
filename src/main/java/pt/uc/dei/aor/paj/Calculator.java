@@ -13,6 +13,7 @@ public class Calculator {
 	@Inject History hist;
 	@Inject Statistic stat;
 	@Inject Statistics2 stat2;
+	@Inject AngleUnitList angleUnits;
 	
 
 	
@@ -44,7 +45,7 @@ public class Calculator {
 	public void calcExp(){
 		Screen aux = screen.getClone();
 		long initialTime = System.nanoTime();
-		boolean res = screen.evaluate();
+		boolean res = screen.evaluate(angleUnits.getAngle());
 		long finishTime = System.nanoTime();
 		
 		if (res) {
@@ -75,5 +76,7 @@ public class Calculator {
 		
 	}
 	
-
+	public AngleUnitList getAngleUnits() {
+		return angleUnits;
+	}
 }
