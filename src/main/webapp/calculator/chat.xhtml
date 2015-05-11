@@ -17,17 +17,7 @@
 </h:head>
 
 <h:body>
-	<h:form>
-
-		<p:menubar>
-			<f:facet name="options">
-				<p:button type="button" value="calculator"
-					outcome="/calculator/index" />
-				<p:button type="button" value="chat" outcome="/calculator/chat" />
-				<p:commandButton action="#{login.logout()}" value="logout" />
-			</f:facet>
-		</p:menubar>
-	</h:form>
+	<ui:include src="../resources/templates/navBar.xhtml" />
 	
 	<div class="chatForm">
 		<h:form>

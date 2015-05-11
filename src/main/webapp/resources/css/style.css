@@ -305,3 +305,21 @@ body {
 	display: inline-block;
 	width: 172px;
 }
+
+.header{
+	background-color: #2F3945;	
+	color:white;
+	
+}
+
+.headerbuttons{
+	  background-color: #2F3945;
+  color: white;	
+}
+
+.headerusername{
+	left:10px;
+	width: auto;
+	font-size:10px;
+	
+}
