@@ -20,7 +20,7 @@ public class MathHelper {
 	public static boolean concat(List<String> entries, String s, int phase) {
 		String lastEntry = entries.get(entries.size()-1);
 		
-		if (getLastChar(lastEntry) == '.' && !isNumber(s)) {
+		if (getLastChar(lastEntry) == '.' && !(isNumber(s) || s.equals("+/-"))) {
 			lastEntry = lastEntry.substring(0, lastEntry.length()-1);
 			entries.set(entries.size()-1, lastEntry);
 		}
@@ -111,6 +111,7 @@ public class MathHelper {
 			}
 		}
 		else if (isConstant(s)) {
+			if (lastEntry.equals("E")) return false;
 			if (lastEntry.equals("0")) {
 				entries.set(entries.size()-1, s);
 			}
@@ -143,7 +144,51 @@ public class MathHelper {
 			}
 		}
 		else if (s.equals("+/-")) {
-			return false;
+			if (phase == 2) return false;
+			else if (phase == 1) {
+				if (entries.size() == 1 && !entries.get(0).equals("0")) {
+					entries.add(0, "-");
+				}
+				else if (entries.size() == 2) {
+					entries.remove(0);
+				}
+			}
+			else {
+				int lastExpQty = getLastExpression(entries);
+				int index = entries.size()-lastExpQty;
+				
+				if (lastEntry.equals("0") || lastEntry.equals("0.") || lastExpQty == 0) return false;
+				else if (getLastChar(lastEntry) == '.' || getLastChar(lastEntry) == '(') return false;
+				else if (entries.size() == lastExpQty) {
+					entries.add(0, "-");
+				}
+				else if (entries.get(index-1).equals("+")) {
+					entries.set(index-1, "-");
+				}
+				else if (entries.get(index-1).equals("-")) {
+					if (entries.size() == lastExpQty+1 || getLastChar(entries.get(index-2)) == '(')
+						entries.remove(index-1);
+					else
+						entries.set(index-1, "+");
+				}
+				else if (isBinOperator(entries.get(index-1))){
+					List<String> inner = entries.subList(0, entries.size()-1);
+					int innerSize = getLastExpression(inner);
+					if (entries.get(index).equals("(") && lastExpQty == innerSize+3 && entries.get(index+1).equals("-")) {
+						entries.remove(index);
+						entries.remove(index);
+						entries.remove(index+innerSize);
+					}
+					else {
+						entries.add(index, "(");
+						entries.add(index+1, "-");
+						entries.add(")");
+					}
+				}
+				else if (getLastChar(entries.get(index-1)) == '(') {
+					entries.add(index, "-");
+				}
+			}
 		}
 		return true;
 	}
@@ -179,30 +224,39 @@ public class MathHelper {
 	
 	
 	// helper methods
-	public static String getLastExpression(List<String> entries) {
+	public static int getLastExpression(List<String> entries) {
 		int index = entries.size()-1;
-		if (index == -1) return null;
+		if (index == -1) return 0;
 		
 		if (entries.get(index).equals(")")) {
-			String s = "";
 			int counter = 1;
+			int result = 1;
 			index--;
-			s = ")";
 			while (counter > 0) {
 				String tmp = entries.get(index--);
 				if (getLastChar(tmp) == '(') counter--;
 				else if (tmp.equals(")")) counter++;
-				s = tmp + s;
+				result++;
 			}
-			return s;
+			return result;
 		}
-		else if (getLastChar(entries.get(index)) == '(') return null;
-		else if (isUnuaryOperator(entries.get(index))) return null;
+		else if (getLastChar(entries.get(index)) == '(') return 0;
+		else if (isUnuaryOperator(entries.get(index))) return 0;
+		else if (isConstant(entries.get(index))) {
+			if (entries.size() > 3) {
+				if (entries.get(index-2).equals("E")) return 4;
+				if (isNumber(entries.get(index-1))) return 2;
+			}
+			else if (entries.size() > 1) {
+				if (isNumber(entries.get(index-1))) return 2;
+			}
+			return 1;
+		}
 		else {
 			if (isLastEntryExponent(entries)) {
-				return entries.get(index-2)+entries.get(index-1)+entries.get(index);
+				return 3;
 			}
-			return entries.get(index);
+			return 1;
 		}
 	}
 	
