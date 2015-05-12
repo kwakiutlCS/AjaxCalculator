@@ -1,5 +1,6 @@
 package pt.uc.dei.aor.paj;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Message {
@@ -21,8 +22,8 @@ public class Message {
 	public void setSender(User sender) {
 		this.sender = sender;
 	}
-	public GregorianCalendar getDate() {
-		return date;
+	public String getDate() {
+		return date.get(Calendar.HOUR)+":"+date.get(Calendar.MINUTE);
 	}
 	public void setDate(GregorianCalendar date) {
 		this.date = date;

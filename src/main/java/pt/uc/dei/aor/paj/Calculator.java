@@ -52,6 +52,7 @@ public class Calculator {
 		
 		if (res) {
 			hist.addEntry(aux, screen.getExpression(), finishTime-initialTime);
+			stat2.add(aux.getExpression());
 		}
 		
 //		try{

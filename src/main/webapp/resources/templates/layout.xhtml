@@ -23,7 +23,7 @@
 			<f:selectItems value="#{statistic.listastat}" />
 		</h:selectOneListbox>
 		
-		<h:panelGroup rendered="#{false}" >
+		<h:panelGroup rendered="#{true}" >
 		<ui:repeat var="item" value="#{statistics2.stats}" varStatus="status">
 	<div class="#{status.even==true? 'par' : 'impar'} stats">
 		<span class="statsItem">#{item}</span>

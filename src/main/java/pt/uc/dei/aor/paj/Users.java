@@ -10,7 +10,7 @@ import javax.inject.Named;
 @Named
 @ApplicationScoped
 public class Users implements Serializable{
-	
+	private static final long serialVersionUID = 1L;
 	private List<User> users = new ArrayList<>();
 
 	public List<User> getUsers() {
