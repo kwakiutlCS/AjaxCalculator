@@ -33,8 +33,98 @@ public class StatisticsTest {
 	}
 	
 	@Test
-	public void should_add_implicitly_correctly()  {
+	public void should_add_implicitly_correctly_number_function()  {
 		List<String> entries = Arrays.asList(new String[]{"5.3","*","4","sin(","5",")"});
+		stats.add(entries);
+		
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
+	}
+	
+	@Test
+	public void should_add_implicitly_correctly_constant_function()  {
+		List<String> entries = Arrays.asList(new String[]{"5.3","*","pi","sin(","5",")"});
+		stats.add(entries);
+		
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
+	}
+	
+	@Test
+	public void should_add_implicitly_correctly_number_constant()  {
+		List<String> entries = Arrays.asList(new String[]{"5.3","*","4","pi"});
+		stats.add(entries);
+		
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
+	}
+	
+	@Test
+	public void should_add_implicitly_correctly_number_parenthesis()  {
+		List<String> entries = Arrays.asList(new String[]{"5.3","*","4","(","4",")"});
+		stats.add(entries);
+		
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
+	}
+	
+	@Test
+	public void should_add_implicitly_correctly_constant_parenthesis()  {
+		List<String> entries = Arrays.asList(new String[]{"5.3","*","pi","(","5",")"});
+		stats.add(entries);
+		
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
+	}
+	
+	@Test
+	public void should_add_implicitly_correctly_constant_constant()  {
+		List<String> entries = Arrays.asList(new String[]{"5.3","*","pi","e"});
+		stats.add(entries);
+		
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
+	}
+	
+	@Test
+	public void should_add_implicitly_correctly_constant_number()  {
+		List<String> entries = Arrays.asList(new String[]{"5.3","*","pi","4"});
+		stats.add(entries);
+		
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
+	}
+	
+	@Test
+	public void should_add_implicitly_correctly_parenthesis_number()  {
+		List<String> entries = Arrays.asList(new String[]{"(","5.3","*","pi",")", "4"});
+		stats.add(entries);
+		
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
+	}
+	
+	@Test
+	public void should_add_implicitly_correctly_parenthesis_constant()  {
+		List<String> entries = Arrays.asList(new String[]{"(","5.3","*","pi",")", "e"});
+		stats.add(entries);
+		
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
+	}
+	
+	@Test
+	public void should_add_implicitly_correctly_parenthesis_function()  {
+		List<String> entries = Arrays.asList(new String[]{"(","5.3","*","pi",")", "asinh(", "0.5", ")"});
+		stats.add(entries);
+		
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
+	}
+	
+	@Test
+	public void should_add_implicitly_correctly_parenthesis_parenthesis()  {
+		List<String> entries = Arrays.asList(new String[]{"(","5.3","*","pi",")", "(", "0.5", ")"});
 		stats.add(entries);
 		
 		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));

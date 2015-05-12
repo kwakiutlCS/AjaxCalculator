@@ -339,13 +339,13 @@ public class MathHelper {
 		return operators.contains(s);
 	}
 	
-	private static boolean isFunction(String s) {
+	public static boolean isFunction(String s) {
 		List<String> functions = Arrays.asList(new String[]{"sin(", "cos(", "tan(", "atan(", "asin(", "acos(",
 							"log(", "sqrt(", "log10(", "sinh(", "cosh(", "tanh(", "asinh(", "acosh(", "atanh("});
 		return functions.contains(s);
 	}
 	
-	private static boolean isConstant(String s) {
+	public static boolean isConstant(String s) {
 		List<String> constants = Arrays.asList(new String[]{"pi", "e", "\u03C0"});
 		return constants.contains(s);
 	}

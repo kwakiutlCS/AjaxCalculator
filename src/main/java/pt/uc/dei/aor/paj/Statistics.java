@@ -51,6 +51,22 @@ public class Statistics {
 		for (String s : entries) {
 			if (s.equals(sub)) counter++;
 		}
+		if (sub.equals("*")) {
+			for (int i = 0; i < entries.size()-1; i++) {
+				if (MathHelper.isNumber(entries.get(i)) && MathHelper.isFunction(entries.get(i+1))) counter++;
+				else if (MathHelper.isNumber(entries.get(i)) && MathHelper.isConstant(entries.get(i+1))) counter++;
+				else if (MathHelper.isNumber(entries.get(i)) && entries.get(i+1).equals("(")) counter++;
+				else if (MathHelper.isConstant(entries.get(i)) && MathHelper.isFunction(entries.get(i+1))) counter++;
+				else if (MathHelper.isConstant(entries.get(i)) && entries.get(i+1).equals("(")) counter++;
+				else if (MathHelper.isConstant(entries.get(i)) && MathHelper.isConstant(entries.get(i+1))) counter++;
+				else if (MathHelper.isConstant(entries.get(i)) && MathHelper.isNumber(entries.get(i+1))) counter++;
+				else if (entries.get(i).equals(")") && entries.get(i+1).equals("(")) counter++;
+				else if (entries.get(i).equals(")") && MathHelper.isNumber(entries.get(i+1))) counter++;
+				else if (entries.get(i).equals(")") && MathHelper.isConstant(entries.get(i+1))) counter++;
+				else if (entries.get(i).equals(")") && MathHelper.isFunction(entries.get(i+1))) counter++;
+				
+			}
+		}
 		return counter;
 	}
 
