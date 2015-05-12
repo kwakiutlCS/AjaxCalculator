@@ -37,6 +37,7 @@ body {
 	background-color: #3C4E6E;
 	color: white;
 	text-align: center;
+	overflow:auto;
 }
 
 .statsbox {
@@ -285,7 +286,7 @@ body {
 
 .chatForm {
 	background: white;
-	height: 336px;
+	height: auto;
 }
 
 .textArea {
@@ -308,12 +309,19 @@ body {
 	position: relative;
 	display: inline-block;
 	width: 172px;
+	height: 315px;
 }
 
 .header{
 	background-color: #2F3945;	
 	color:white;
 	
+}
+
+#errorbox{
+	  display: inline-block;
+	  color: white;
+	  font-family: verdana;
 }
 
 
@@ -343,4 +351,29 @@ body {
 .graphContainer .chart-container {
 	background: white;
 
+}
+
+.logandregbutton{
+	width: inherit;
+	text-indent: 32px;
+}
+
+.history a{
+	color:white;		
+}
+
+.opcol{
+	
+	width:80px;
+	
+}
+
+.rescol{
+	width:80px;
+	
+}
+
+.timecol{
+	width:50px;
+	
 }

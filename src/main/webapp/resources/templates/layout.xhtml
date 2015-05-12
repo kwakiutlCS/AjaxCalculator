@@ -33,23 +33,18 @@
 	</ui:repeat>
 	</h:panelGroup>
 
-		<!-- 		Caixa que contém o histórico das operações. Interage com o bean History e permite selecionar uma operação clicando na mesma. -->
-		<h:selectOneListbox onchange="submit()"
-			valueChangeListener="#{calculator.submitOp}" styleClass="history"
-			size="10">
-			<f:selectItem itemValue="" itemLabel="Select an operation"
-				noSelectionOption="true" itemDisabled="true" />
-			<f:selectItems value="#{history.lista}" />
 
-		</h:selectOneListbox>
-
-		<h:panelGroup rendered="#{!mode.modeAdvanced or mode.mode lt 2}">
-			<h:dataTable value="#{history.listEntry}" var="entry" style="background:white;">
+		<div class="history">
+		<h:panelGroup styleClass="history" rendered="#{!mode.modeAdvanced or mode.mode lt 2}" >
+			<h:dataTable value="#{history.listEntry}" var="entry"  columnClasses="opcol, rescol, timecol">
+				<f:ajax render="@form">
 				<h:column><h:commandLink value="#{entry.expression}" action="#{calculator.submitOp(entry.expression)}" /></h:column>
 				<h:column><h:commandLink value="#{entry.result}" action="#{calculator.submitOp(entry.result)}" /></h:column>
 				<h:column>#{entry.deltaT}</h:column>
+				</f:ajax>
 			</h:dataTable>
 		</h:panelGroup>
+		</div>
 		
 		<f:ajax render="@form">
 		<h:panelGroup id="pointList" rendered="#{mode.modeAdvanced and mode.mode == 2}">

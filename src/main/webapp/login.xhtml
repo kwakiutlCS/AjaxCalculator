@@ -24,10 +24,10 @@
 				<p:password id="password" value="#{login.password}" required="true"
 					label="password" />
 
-				<h:commandButton id="loginButton" type="submit" value="Login"
+				<h:commandButton id="loginButton" styleClass="button-grey logandregbutton" type="submit" value="Login"
 					action="#{login.login()}" />					
 				
-				<h:messages id="msg" />
+				
 
 				<h:link value="Continue to calculator" outcome="/calculator/index"
 					rendered="#{login.loggedin}" />
@@ -39,26 +39,31 @@
 			<h:panelGrid columns="2" cellpadding="5">
 				<h:outputLabel for="rUsername" value="Username: " />
 				<p:inputText id="rUsername" value="#{register.username}"
-					label="username" />
+					label="username" required="true" requiredMessage="You must insert a username!"/>
 
 				<h:outputLabel for="rPassword" value="Password: " />
 				<p:password id="rPassword" value="#{register.password}"
-					label="password" />
+					label="password" required="true" requiredMessage="You must insert a password!"/>
 
 				<h:outputLabel for="confPassword" value="Confirm password: " />
 				<p:password id="confPassword" value="#{register.confpassword}"
-					label="confpassword" />
+					label="confpassword" required="true" requiredMessage="You must confirm your password!"/>
 
 
 
-				<h:commandButton id="registerButton" type="submit" value="register"
+				<h:commandButton id="registerButton" styleClass="button-grey logandregbutton" type="submit" value="Register"
 					action="#{register.confirmRegister()}" />
 
-
+				
 
 			</h:panelGrid>
 		</h:form>
 
+	</div>
+	<div id="errorbox">
+		<h:form>
+			<h:messages id="msg" />
+		</h:form>
 	</div>
 
 

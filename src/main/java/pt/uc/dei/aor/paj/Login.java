@@ -45,6 +45,7 @@ public class Login implements Serializable{
 		for(User u: users.getUsers()){
 			if(u.getUsername().equals(username) && u.getPassword().equals(password)){
 				if(u.isLoggedIn()){
+					
 					FacesContext.getCurrentInstance().addMessage(":login:msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Already logged in!", "Error!"));
 					
 				}else{
