@@ -6,65 +6,66 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 
-
-
 <h:body>
 	<ui:composition>
-<f:ajax render="displayScreen">
-			
-		<p>
-			<h:commandButton class="button-grey" value="7"
-				action="#{calculator.add('7')}" />
-			<h:commandButton class="button-grey" value="8"
-				action="#{calculator.add('8')}" />
-			<h:commandButton class="button-grey" value="9"
-				action="#{calculator.add('9')}" />
-			<h:commandButton class="button-grey" value="/"
-				action="#{calculator.add('/')}" />
-			
-		</p>
-		<p>
-			<h:commandButton class="button-grey" value="4"
-				action="#{calculator.add('4')}" />
-			<h:commandButton class="button-grey" value="5"
-				action="#{calculator.add('5')}" />
-			<h:commandButton class="button-grey" value="6"
-				action="#{calculator.add('6')}" />
-			<h:commandButton class="button-grey" value="*"
-				action="#{calculator.add('*')}" />
-			
-		</p>
-		<p>
-			<h:commandButton class="button-grey" value="1"
-				action="#{calculator.add('1')}" />
-			<h:commandButton class="button-grey" value="2"
-				action="#{calculator.add('2')}" />
-			<h:commandButton class="button-grey" value="3"
-				action="#{calculator.add('3')}" />
-			<h:commandButton class="button-grey" value="-"
-				action="#{calculator.add('-')}" />
-			
-		</p>
+		<f:ajax render="displayScreen">
 
-		<p>
+			<h:panelGrid columns="4" columnClasses="keyBoardColumn">
+				<h:commandButton class="button-grey" value="7"
+					action="#{calculator.add('7')}" />
+				<h:commandButton class="button-grey" value="8"
+					action="#{calculator.add('8')}" />
+				<h:commandButton class="button-grey" value="9"
+					action="#{calculator.add('9')}" />
+				<h:commandButton class="button-grey" value="/"
+					action="#{calculator.add('/')}" />
 
-			<h:commandButton class="button-grey" value="0"
-				action="#{calculator.add('0')}" />
-			<h:commandButton class="button-grey" value="."
-				action="#{calculator.add('.')}" />
-			<h:commandButton class="button-grey" value="C"
-				action="#{calculator.clearCalc()}" />
-			<h:commandButton class="button-grey" value="+"
-				action="#{calculator.add('+')}" />
+				<h:commandButton class="button-grey" value="4"
+					action="#{calculator.add('4')}" />
+				<h:commandButton class="button-grey" value="5"
+					action="#{calculator.add('5')}" />
+				<h:commandButton class="button-grey" value="6"
+					action="#{calculator.add('6')}" />
+				<h:commandButton class="button-grey" value="*"
+					action="#{calculator.add('*')}" />
+
+				<h:commandButton class="button-grey" value="1"
+					action="#{calculator.add('1')}" />
+				<h:commandButton class="button-grey" value="2"
+					action="#{calculator.add('2')}" />
+				<h:commandButton class="button-grey" value="3"
+					action="#{calculator.add('3')}" />
+				<h:commandButton class="button-grey" value="-"
+					action="#{calculator.add('-')}" />
+
+				<h:commandButton class="button-grey" value="."
+					action="#{calculator.add('.')}" />
+				<h:commandButton class="button-grey" value="0"
+					action="#{calculator.add('0')}" />
+				<h:commandButton class="button-grey" value="C"
+					action="#{calculator.clearCalc()}" />
+				<h:commandButton class="button-grey" value="+"
+					action="#{calculator.add('+')}" />
+
+				<h:commandButton class="button-grey" value="CE"
+					action="#{calculator.clearEntry()}" />
+				<h:commandButton class="button-grey" value="mod"
+					action="#{calculator.add('mod')}" />
+				<h:commandButton class="button-grey" value="&#xb1;"
+					action="#{calculator.add('+/-')}" />
+
+
+			</h:panelGrid>
+	</f:ajax>
 			
-		</p>
-		</f:ajax>
+			<h:panelGroup rendered="#{!mode.modeAdvanced or mode.mode lt 2}">
+			
 		<!-- 				O botão "=" acciona o método de cálculo no bean Calculator. -->
-		<h:commandButton class="button-blue" value="="
+			<h:commandButton class="button-blue" value="="
 			action="#{calculator.calcExp()}">
 			<f:ajax render="@form" />
-		</h:commandButton>
-
+			</h:commandButton>
+			</h:panelGroup>
 
 	</ui:composition>
 </h:body>

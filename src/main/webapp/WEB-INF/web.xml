@@ -16,4 +16,17 @@
   <servlet-name>Faces Servlet</servlet-name>
   <url-pattern>*.xhtml</url-pattern>
  </servlet-mapping>
+ <session-config>
+ 	<session-timeout>5</session-timeout>
+ </session-config>
+ <listener>
+  <listener-class>
+    pt.uc.dei.aor.paj.SessionListener
+  </listener-class>
+</listener>
+
+<context-param>
+    <param-name>org.richfaces.enableControlSkinning</param-name>
+    <param-value>false</param-value>
+</context-param>
 </web-app>

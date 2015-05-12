@@ -19,6 +19,7 @@
 <h:body>
 	<ui:include src="../resources/templates/navBar.xhtml" />
 	
+<<<<<<< HEAD
 	<div class="chatForm">
 		<h:form>
 			<div class="textArea">			
@@ -54,6 +55,15 @@
 				</h:commandButton>
 			</div>
 		</h:form>
+=======
+		<h:inputText id="chatMsg" value="#{chatServer.message}" />
+		<h:commandButton value="submit" action="#{chatServer.sendMsg}">
+			<f:ajax execute="chatMsg"  onevent="getFocus" render="@form"/>
+		</h:commandButton>
+		<h:commandButton value="submit" action="null" id="chatRefresher" style="display:none;" >
+			<f:ajax render="chatMessages chatUsers" />
+		</h:commandButton>
+>>>>>>> merge
 		
 	</div>
 

@@ -54,7 +54,5 @@ public class ChatServer {
 		message = "";
 	}
 	
-	public void refresh() {
-		System.out.println("refreshing");
-	}
+	
 }
