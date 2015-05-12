@@ -39,7 +39,9 @@
 			<h:dataTable value="#{history.listEntry}" var="entry"  columnClasses="opcol, rescol, timecol">
 				<f:ajax render="@form">
 				<h:column><h:commandLink value="#{entry.expression}" action="#{calculator.submitOp(entry.expression)}" /></h:column>
-				<h:column><h:commandLink value="#{entry.result}" action="#{calculator.submitOp(entry.result)}" /></h:column>
+				<h:column>
+					<h:commandLink value="#{entry.result}" action="#{calculator.submitOp(entry.result)}" />
+				</h:column>
 				<h:column>#{entry.deltaT}</h:column>
 				</f:ajax>
 			</h:dataTable>

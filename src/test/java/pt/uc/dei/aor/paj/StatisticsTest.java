@@ -4,6 +4,9 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,16 +16,28 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class StatisticsTest {
 	
 	private Statistics stats;
-	private Screen screen;
 	
 	@Before
 	public void init() {
 		stats = new Statistics();
-		screen = new Screen();
+		
 	}
 	
 	@Test
-	public void should_add_entry_to_list()  {
-		assertThat(null, is(equalTo(null)));
+	public void should_add_correctly()  {
+		List<String> entries = Arrays.asList(new String[]{"5.3","+","4","-","sin(","(", "4","+","4",")",")"});
+		stats.add(entries);
+		
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Adição")));
+		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
+	}
+	
+	@Test
+	public void should_add_implicitly_correctly()  {
+		List<String> entries = Arrays.asList(new String[]{"5.3","*","4","sin(","5",")"});
+		stats.add(entries);
+		
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
 	}
 }

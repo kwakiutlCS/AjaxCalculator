@@ -28,9 +28,9 @@ public class Statistics {
 	}
 	
 	
-	public void add(String s) {
+	public void add(List<String> entries) {
 		for (Stat stat : stats) {
-			stat.add(countOcurrences(s, stat.getSymbol()));
+			stat.add(countOcurrences(entries, stat.getSymbol()));
 		}
 		sort();
 	}
@@ -46,16 +46,12 @@ public class Statistics {
 	}
 
 
-	private int countOcurrences(String s, String sub) {
-		int c = 0;
-		int lastIndex = 0;
-		int i;
-		while ((i = s.indexOf(sub, lastIndex)) != -1 && (i == 0 || s.charAt(i-1) != 'a')) {
-			c++;
-			lastIndex = s.indexOf(sub, lastIndex)+1;
+	private int countOcurrences(List<String> entries, String sub) {
+		int counter = 0;
+		for (String s : entries) {
+			if (s.equals(sub)) counter++;
 		}
-		
-		return c;
+		return counter;
 	}
 
 	public void sort() {

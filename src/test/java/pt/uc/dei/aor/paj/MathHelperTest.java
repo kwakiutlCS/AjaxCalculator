@@ -689,27 +689,24 @@ public class MathHelperTest {
 	
 	@Test
 	public void should_evaluate_acosh_correctly() {
-		entries.add("acosh(");
-		MathHelper.concat(entries, "1.54308063", 0);
-		MathHelper.concat(entries, ")", 0);
+		entries.add("1.54308063");
+		MathHelper.concat(entries, "acosh(", 1);
 		MathHelper.evaluate(entries);
 		assertThat(Double.valueOf(entries.get(0)), is(closeTo(1, 0.0001)));
 	}
 	
 	@Test
 	public void should_evaluate_asinh_correctly() {
-		entries.add("asinh(");
-		MathHelper.concat(entries, "1.17520119", 0);
-		MathHelper.concat(entries, ")", 0);
+		entries.add("1.17520119");
+		MathHelper.concat(entries, "asinh(", 1);
 		MathHelper.evaluate(entries);
 		assertThat(Double.valueOf(entries.get(0)), is(closeTo(1, 0.0001)));
 	}
 	
 	@Test
 	public void should_evaluate_atanh_correctly() {
-		entries.add("atanh(");
-		MathHelper.concat(entries, "0.76159416", 0);
-		MathHelper.concat(entries, ")", 0);
+		entries.add("0.76159416");
+		MathHelper.concat(entries, "atanh(", 1);
 		MathHelper.evaluate(entries);
 		assertThat(Double.valueOf(entries.get(0)), is(closeTo(1, 0.0001)));
 	}
@@ -717,7 +714,8 @@ public class MathHelperTest {
 	@Test
 	public void should_evaluate_degrees_correctly() {
 		entries.add("sin(");
-		MathHelper.concat(entries, "30", 0);
+		MathHelper.concat(entries, "3", 0);
+		MathHelper.concat(entries, "0", 0);
 		MathHelper.concat(entries, ")", 0);
 		MathHelper.evaluate(entries, new AngleUnit("Graus", Math.PI/180));
 		assertThat(Double.valueOf(entries.get(0)), is(closeTo(0.5, 0.0001)));
@@ -726,7 +724,8 @@ public class MathHelperTest {
 	@Test
 	public void should_evaluate_grads_correctly() {
 		entries.add("cosh(");
-		MathHelper.concat(entries, "50", 0);
+		MathHelper.concat(entries, "5", 0);
+		MathHelper.concat(entries, "0", 0);
 		MathHelper.concat(entries, ")", 0);
 		MathHelper.evaluate(entries, new AngleUnit("Grados", Math.PI/200));
 		assertThat(Double.valueOf(entries.get(0)), is(closeTo(1.32460909 , 0.0001)));
@@ -734,18 +733,16 @@ public class MathHelperTest {
 	
 	@Test
 	public void should_evaluate_inverse_degrees_correctly() {
-		entries.add("atanh(");
-		MathHelper.concat(entries, "0.6557942", 0);
-		MathHelper.concat(entries, ")", 0);
+		entries.add("0.6557942");
+		MathHelper.concat(entries, "atanh(", 1);
 		MathHelper.evaluate(entries, new AngleUnit("Graus", Math.PI/180));
 		assertThat(Double.valueOf(entries.get(0)), is(closeTo(45, 0.0001)));
 	}
 	
 	@Test
 	public void should_evaluate_inverse_grads_correctly() {
-		entries.add("acos(");
-		MathHelper.concat(entries, "0.70710678", 0);
-		MathHelper.concat(entries, ")", 0);
+		entries.add("0.70710678");
+		MathHelper.concat(entries, "acos(", 1);
 		MathHelper.evaluate(entries, new AngleUnit("Grados", Math.PI/200));
 		assertThat(Double.valueOf(entries.get(0)), is(closeTo(50, 0.0001)));
 	}
@@ -761,5 +758,26 @@ public class MathHelperTest {
 	@Test
 	public void should_format_integer_number_correctly() {
 		assertThat(MathHelper.formatExpression("2.0"), is(equalTo("2")));
+	}
+	
+	@Test
+	public void should_limit_screen_size() {
+		entries.add("1234123412341234123412");
+		MathHelper.concat(entries, "5", 0);
+		assertThat(entries.get(0).length(), is(equalTo(22)));
+	}
+	
+	@Test
+	public void should_limit_screen_size_with_functions() {
+		entries.add("12341234123412341234");
+		MathHelper.concat(entries, "atanh(", 0);
+		assertThat(entries.size(), is(equalTo(1)));
+	}
+	
+	@Test
+	public void should_accept_22_chars_screen() {
+		entries.add("123412341234123412341");
+		MathHelper.concat(entries, "4", 0);
+		assertThat(entries.get(0).length(), is(equalTo(22)));
 	}
 }
