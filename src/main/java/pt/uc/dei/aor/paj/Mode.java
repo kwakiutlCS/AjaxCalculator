@@ -12,7 +12,7 @@ public class Mode implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final int MODES = 1;
+	private static final int MODES = 2;
 	private boolean advancedMode = false;
 	private int mode = 0;
 	

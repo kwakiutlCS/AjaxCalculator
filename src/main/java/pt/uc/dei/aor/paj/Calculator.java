@@ -81,4 +81,9 @@ public class Calculator {
 	public AngleUnitList getAngleUnits() {
 		return angleUnits;
 	}
+	
+	public void changeMode() {
+		if (mode.getMode() != 0) screen.clear();
+		mode.changeMode();
+	}
 }

@@ -43,7 +43,7 @@
 
 		</h:selectOneListbox>
 
-		<h:panelGroup rendered="#{!mode.modeAdvanced or mode.mode == 0}">
+		<h:panelGroup rendered="#{!mode.modeAdvanced or mode.mode lt 2}">
 			<h:dataTable value="#{history.listEntry}" var="entry" style="background:white;">
 				<h:column><h:commandLink value="#{entry.expression}" action="#{calculator.submitOp(entry.expression)}" /></h:column>
 				<h:column><h:commandLink value="#{entry.result}" action="#{calculator.submitOp(entry.result)}" /></h:column>
@@ -52,7 +52,7 @@
 		</h:panelGroup>
 		
 		<f:ajax render="@form">
-		<h:panelGroup id="pointList" rendered="#{mode.modeAdvanced and mode.mode == 1}">
+		<h:panelGroup id="pointList" rendered="#{mode.modeAdvanced and mode.mode == 2}">
 			<ui:repeat var="p" value="#{experimentalSet.points}">
 				<div>
 					<span>#{p.x}</span>
@@ -79,7 +79,7 @@
 				<div id="graurad">Nuno Ferreira Pedro Rodrigues</div>
 				
 				<f:ajax>
-				<h:selectOneRadio value="#{angleUnitList.chosen}" rendered="#{mode.modeAdvanced and mode.mode == 0}">
+				<h:selectOneRadio value="#{angleUnitList.chosen}" rendered="#{mode.modeAdvanced and mode.mode lt 2}">
 						<f:selectItems value="#{angleUnitList.angles}" var="item"
 	                    itemLabel="#{item.name}" itemValue="#{item.name}" />
    				</h:selectOneRadio>

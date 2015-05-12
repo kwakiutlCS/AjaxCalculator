@@ -8,7 +8,7 @@
 
 <h:body>
 	<ui:composition>
-	<f:ajax render="displayScreen">
+		<f:ajax render="displayScreen">
 
 			<h:panelGrid columns="4" columnClasses="keyBoardColumn">
 				<h:commandButton class="button-grey" value="7"
@@ -46,24 +46,26 @@
 					action="#{calculator.clearCalc()}" />
 				<h:commandButton class="button-grey" value="+"
 					action="#{calculator.add('+')}" />
-					
+
 				<h:commandButton class="button-grey" value="CE"
 					action="#{calculator.clearEntry()}" />
 				<h:commandButton class="button-grey" value="mod"
 					action="#{calculator.add('mod')}" />
 				<h:commandButton class="button-grey" value="&#xb1;"
 					action="#{calculator.add('+/-')}" />
-					
-				
-			</h:panelGrid>
 
-		</f:ajax>
+
+			</h:panelGrid>
+	</f:ajax>
+			
+			<h:panelGroup rendered="#{!mode.modeAdvanced or mode.mode lt 2}">
+			
 		<!-- 				O botão "=" acciona o método de cálculo no bean Calculator. -->
-		<h:commandButton class="button-blue" value="="
+			<h:commandButton class="button-blue" value="="
 			action="#{calculator.calcExp()}">
 			<f:ajax render="@form" />
-		</h:commandButton>
-
+			</h:commandButton>
+			</h:panelGroup>
 
 	</ui:composition>
 </h:body>

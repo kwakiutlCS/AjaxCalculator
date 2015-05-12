@@ -12,25 +12,16 @@
 	<ui:composition>
 		<!-- Nesta página encontra-se para além da calculadora básica, os botões de funções avançadas				 -->
 		
-		
+		<f:ajax render="@form" >
 			<h:panelGrid columns="4">
-			<f:ajax render="@form" >
+			
 			<h:commandButton class="button-red" value="mode"
 				action="#{calculator.changeMode()}" />
 			
-			<h:commandButton class="button-red" value=","
-				action="#{experimentalSet.click(',')}" />
-			<h:commandButton class="button-red" value="add"
-				action="#{experimentalSet.click('add')}" />
-			<h:commandButton class="button-red" value="del"
-				action="#{experimentalSet.click('del')}" />
-			</f:ajax>
-			<h:commandButton class="button-red" value="draw"
-				action="#{experimentalSet.click('draw')}" />
 			
 			
 		</h:panelGrid>
-		
+		</f:ajax>
 		
 	</ui:composition>
 </h:body>

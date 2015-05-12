@@ -22,9 +22,11 @@
 				<ui:include src="../resources/templates/advancedKeyboard.xhtml" />
 			</h:panelGroup>
 			<h:panelGroup rendered="#{mode.modeAdvanced and mode.mode == 1}">
+				<ui:include src="../resources/templates/advancedKeyboard2.xhtml" />
+			</h:panelGroup>
+     		<h:panelGroup rendered="#{mode.modeAdvanced and mode.mode == 2}">
 				<ui:include src="../resources/templates/graphKeyboard.xhtml" />
 			</h:panelGroup>
-     		
      		<ui:include src="../resources/templates/simpleKeyboard.xhtml" />
      	</ui:define>
 	</ui:composition>
