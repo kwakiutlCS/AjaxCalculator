@@ -34,7 +34,7 @@ public class Stat implements Comparable<Stat> {
 	
 	@Override
 	public String toString() {
-		return description;
+		return description+": "+counter;
 	}
 	
 	public int getCounter() { return counter; }

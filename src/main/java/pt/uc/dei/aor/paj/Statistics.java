@@ -10,12 +10,12 @@ import javax.inject.Named;
 
 @Named
 @ApplicationScoped
-public class Statistics2 {
+public class Statistics {
 	private List<Stat> stats;
 	private List<String> symbols;
 	private List<String> descriptions;
 	
-	public Statistics2() {
+	public Statistics() {
 		descriptions = Arrays.asList(new String[]{"Adição", "Subtracção", "Multiplicação", "Divisão", "Seno",
 				"Coseno", "Tangente", "Arco seno", "Arco coseno", "Arco tangente", "Logaritmo base 10", "Logaritmo natural", "Raiz quadrada", "Expoente", "Factorial"});
 		symbols = Arrays.asList(new String[]{"+", "-", "*", "/", "sin", "cos", "tan","asin", "acos", "atan", "log10(", 

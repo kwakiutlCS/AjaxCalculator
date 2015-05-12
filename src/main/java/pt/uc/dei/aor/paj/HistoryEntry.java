@@ -17,7 +17,7 @@ public class HistoryEntry {
 		return expression;
 	}
 
-
+	
 	public void setExpression(Screen expression) {
 		this.expression = expression;
 	}
