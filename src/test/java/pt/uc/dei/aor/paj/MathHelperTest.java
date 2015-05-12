@@ -119,6 +119,14 @@ public class MathHelperTest {
 		assertThat(MathHelper.formExpression(entries), is(equalTo("pi*0.")));
 	}
 	
+	@Test
+	public void should_not_concat_dot_after_science_notation() {
+		entries.add("3");
+		MathHelper.concat(entries, "E", 0);
+		MathHelper.concat(entries, ".", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3E")));
+	}
+	
 	// error tests
 	@Test
 	public void should_delete_error_when_digit_clicked() {

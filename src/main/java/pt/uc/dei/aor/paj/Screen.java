@@ -75,6 +75,7 @@ public class Screen implements Serializable {
 	}
 	
 	public boolean evaluate(AngleUnit angle) {
+		if (phase == 2) return false;
 		phase = MathHelper.evaluate(entries, angle);
 		expression = MathHelper.formExpression(entries);
 		

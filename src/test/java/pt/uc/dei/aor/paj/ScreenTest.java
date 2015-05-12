@@ -211,4 +211,16 @@ public class ScreenTest {
 		assertThat(screen.getEntries().size(), is(equalTo(1)));
 		assertThat(screen.getExpression(), is(equalTo("3.1")));
 	}
+	
+	@Test
+	public void should_not_evaluate_after_error() {
+		screen.concat("1");
+		screen.concat("/");
+		screen.concat("0");
+		screen.evaluate(new AngleUnit("Radianos", 1));
+		assertThat(screen.getPhase(), is(equalTo(2)));
+		String error = screen.getExpression();
+		screen.evaluate(new AngleUnit("Radianos", 1));
+		assertThat(screen.getExpression(), is(equalTo(error)));
+	}
 }

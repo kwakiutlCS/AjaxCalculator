@@ -296,12 +296,8 @@ body {
   
 
 .graphContainer {
-	  position: absolute;
-  width: 600px;
-  height: 400px;
-  top: 200px;
-  left: 300px;
-  
+	width: 500px;
+  height: 350px;
 }
 
 .graphContainer .chart-container {

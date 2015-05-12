@@ -26,6 +26,7 @@ public class MathHelper {
 		}
 		
 		if (s.equals(".")) {
+			if (lastEntry.equals("E")) return false;
 			if (isNumber(lastEntry) && phase == 0) {
 				if (lastEntry.contains(".") || isLastEntryExponent(entries)) return false;
 				else {

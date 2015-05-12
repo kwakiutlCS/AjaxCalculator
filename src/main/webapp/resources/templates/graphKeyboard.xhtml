@@ -3,7 +3,8 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 
 
@@ -25,8 +26,9 @@
 			<h:commandButton class="button-red" value="del"
 				action="#{experimentalSet.click('del')}" />
 			</f:ajax>
-			<h:commandButton class="button-red" value="draw"
-				action="#{experimentalSet.click('draw')}" />
+			<p:lightBox iframe="true" id="lightbox">
+    			<h:link styleClass="button-red" value="draw" outcome="/graph" />
+       		</p:lightBox>
 			
 			
 		</h:panelGrid>

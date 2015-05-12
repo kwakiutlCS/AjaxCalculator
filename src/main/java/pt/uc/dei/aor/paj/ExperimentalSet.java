@@ -28,14 +28,14 @@ public class ExperimentalSet implements Serializable {
 	public void addPoint(String s) {
 		points.add(new ExperimentalPoint(s, nextId++));
 		Collections.sort(points);
-	}
-	
-	public String complete() {
 		data.clear();
 		for (ExperimentalPoint p : points) {
 			data.add(p.getX(), p.getY());
 		}
 		data.complete();
+	}
+	
+	public String complete() {
 		return "/graph";
 	}
 	
