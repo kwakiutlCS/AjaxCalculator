@@ -54,11 +54,15 @@
 		</h:commandButton>
 
 		<f:ajax render="@form">
-			<h:panelGroup id="pointList"
+			<h:panelGroup id="pointList" styleClass="pointList"
 				rendered="#{mode.modeAdvanced and mode.mode == 2}">
+				<div class="pointListTitle">Experimental Points</div>
+				<h:panelGrid rendered="#{experimentalSet.points.size() gt 0}">
+					<div><span class="pointListHead1">x</span><span class="pointListHead2">y</span><span class="pointListRemove"></span></div>
+				</h:panelGrid>
 				<ui:repeat var="p" value="#{experimentalSet.points}">
 					<div>
-						<span>#{p.x}</span> <span>#{p.y}</span> <span><h:commandLink
+						<span class="pointListCol1">#{p.x}</span> <span class="pointListCol2">#{p.y}</span> <span class="pointListRemove"><h:commandLink
 								action="#{experimentalSet.remove(p.id)}" value="remove" /></span>
 					</div>
 				</ui:repeat>

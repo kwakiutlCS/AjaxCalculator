@@ -30,7 +30,7 @@ body {
 	border-radius: 8px;
 }
 
-.history {
+.history, .pointList {
 	position: relative;
 	float: right;
 	width: 250px;
@@ -38,6 +38,24 @@ body {
 	color: white;
 	text-align: center;
 	overflow:auto;
+}
+
+.pointListCol1, .pointListCol2, .pointListHead1, .pointListHead2 {
+	width: 75px;
+	display: inline-block;
+	padding: 5px 0;
+}
+
+.pointListRemove {
+	width: 90px;
+	display: inline-block;
+	padding: 5px 0;
+}
+
+.pointListTitle {
+	border-bottom: 1px solid white;
+	padding: 10px 0 3px 0;
+	font-size: 17px;
 }
 
 .statsbox {
@@ -346,11 +364,34 @@ body {
 .graphContainer {
 	width: 500px;
   height: 350px;
+  margin: 30px auto 0 auto;
 }
 
 .graphContainer .chart-container {
 	background: white;
 
+}
+
+iframe{
+    overflow:hidden;
+}
+
+.regressionParams {
+ margin:auto;
+ background-color: white;
+}
+
+.regressionParams td, .regressionParams th {
+	width: 70px;
+	text-align: center;
+}
+
+.regressionParams th {
+	background-color: grey;
+}
+
+.graphBody {
+	width: 640px;
 }
 
 .logandregbutton{
