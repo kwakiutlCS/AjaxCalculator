@@ -295,3 +295,15 @@ body {
   }
   
 
+.graphContainer {
+	  position: absolute;
+  width: 600px;
+  height: 400px;
+  top: 200px;
+  left: 300px;
+  
+}
+
+.graphContainer .chart-container {
+	background: white;
+}

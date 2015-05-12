@@ -24,4 +24,9 @@
     pt.uc.dei.aor.paj.SessionListener
   </listener-class>
 </listener>
+
+<context-param>
+    <param-name>org.richfaces.enableControlSkinning</param-name>
+    <param-value>false</param-value>
+</context-param>
 </web-app>

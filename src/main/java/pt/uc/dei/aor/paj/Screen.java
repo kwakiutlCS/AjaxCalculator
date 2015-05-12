@@ -29,6 +29,21 @@ public class Screen implements Serializable {
 		}
 	}
 	
+	public void graphConcat(String s) {
+		if (MathHelper.isNumber(s) || s.equals(".")) {
+			MathHelper.concat(entries, s, 0);
+			expression = MathHelper.formExpression(entries);
+			phase = 0;
+		}
+	}
+	
+	public void sepPoints() {
+		if (entries.size() == 1) {
+			entries.add(",");
+			expression = MathHelper.formExpression(entries);
+		}
+	}
+	
 	public void add(Screen other) {
 		entries.clear();
 		for (String s : other.entries) {

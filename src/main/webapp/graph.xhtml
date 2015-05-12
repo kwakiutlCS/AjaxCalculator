@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+<h:head>
+<h:outputStylesheet name="style.css" library="css" />
+	<h:outputScript library="primefaces" name="jquery/jquery.js" />
+	
+</h:head>
+<h:body>
+
+
+
+			<h:form styleClass="graphContainer">
+				<rich:chart>
+					<rich:chartSeries symbol="circle" data="#{data.model}"
+						label="experimental" />
+					<rich:chartSeries type="line" data="#{data.reg}" label="regressão" />
+					<rich:chartLegend position="nw" />  
+				</rich:chart>
+			</h:form>
+
+			<table class="regressionParams">
+			<thead>
+				<tr>
+					<th>m</th>
+					<th>b</th>
+					<th>R2</th>
+				</tr>
+			</thead>
+				<tbody>
+					<tr>
+						<td><h:outputText value="#{data.m}">
+				<f:convertNumber maxFractionDigits="2" />
+				</h:outputText></td>
+				<td><h:outputText value="#{data.b}">
+				<f:convertNumber maxFractionDigits="2" />
+				</h:outputText></td>
+				<td><h:outputText value="#{data.r2}">
+				<f:convertNumber maxFractionDigits="3" />
+				</h:outputText></td>
+					</tr>
+				</tbody>
+				</table>
+
+
+
+</h:body>
+</html>

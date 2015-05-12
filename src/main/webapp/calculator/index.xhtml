@@ -18,9 +18,13 @@
 		</ui:define>
 		
      	<ui:define name="keyboard">
-     		<h:panelGroup rendered="#{mode.modeAdvanced}">
+     		<h:panelGroup rendered="#{mode.modeAdvanced and mode.mode == 0}">
 				<ui:include src="../resources/templates/advancedKeyboard.xhtml" />
 			</h:panelGroup>
+			<h:panelGroup rendered="#{mode.modeAdvanced and mode.mode == 1}">
+				<ui:include src="../resources/templates/graphKeyboard.xhtml" />
+			</h:panelGroup>
+     		
      		<ui:include src="../resources/templates/simpleKeyboard.xhtml" />
      	</ui:define>
 	</ui:composition>

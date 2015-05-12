@@ -43,14 +43,26 @@
 
 		</h:selectOneListbox>
 
-		<h:panelGroup rendered="true">
+		<h:panelGroup rendered="#{!mode.modeAdvanced or mode.mode == 0}">
 			<h:dataTable value="#{history.listEntry}" var="entry" style="background:white;">
 				<h:column><h:commandLink value="#{entry.expression}" action="#{calculator.submitOp(entry.expression)}" /></h:column>
 				<h:column><h:commandLink value="#{entry.result}" action="#{calculator.submitOp(entry.result)}" /></h:column>
 				<h:column>#{entry.deltaT}</h:column>
 			</h:dataTable>
 		</h:panelGroup>
-
+		
+		<f:ajax render="@form">
+		<h:panelGroup id="pointList" rendered="#{mode.modeAdvanced and mode.mode == 1}">
+			<ui:repeat var="p" value="#{experimentalSet.points}">
+				<div>
+					<span>#{p.x}</span>
+					<span>#{p.y}</span>
+					<span><h:commandLink action="#{experimentalSet.remove(p.id)}" value="remove" /></span>
+				</div>
+			</ui:repeat>
+		</h:panelGroup>
+		</f:ajax>
+		
 		<!-- 		Caixa que contém as funções da calculadora e o display que vai mostrando os números, operações e funções inseridas.			 -->
 		<div class="calculator">
 
@@ -67,7 +79,7 @@
 				<div id="graurad">Nuno Ferreira Pedro Rodrigues</div>
 				
 				<f:ajax>
-				<h:selectOneRadio value="#{angleUnitList.chosen}">
+				<h:selectOneRadio value="#{angleUnitList.chosen}" rendered="#{mode.modeAdvanced and mode.mode == 0}">
 						<f:selectItems value="#{angleUnitList.angles}" var="item"
 	                    itemLabel="#{item.name}" itemValue="#{item.name}" />
    				</h:selectOneRadio>

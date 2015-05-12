@@ -14,12 +14,14 @@ public class Calculator {
 	@Inject Statistic stat;
 	@Inject Statistics2 stat2;
 	@Inject AngleUnitList angleUnits;
-	
-
+	@Inject Mode mode;
 	
 	//Add another part to string (user input)
 	public void add(String srt){
-		screen.concat(srt);
+		if (mode.isModeAdvanced() && mode.getMode() == 1) {
+			screen.graphConcat(srt);
+		}
+		else screen.concat(srt);
 	}
 	
 

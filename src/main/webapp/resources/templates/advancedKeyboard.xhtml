@@ -12,8 +12,12 @@
 	<ui:composition>
 		<!-- Nesta página encontra-se para além da calculadora básica, os botões de funções avançadas				 -->
 		
-		<f:ajax render="displayScreen" >
+		<f:ajax render="@form" >
 			<h:panelGrid columns="4">
+			
+			<h:commandButton class="button-red" value="mode"
+				action="#{mode.changeMode()}" />
+			
 			<h:commandButton class="button-red" value="log"
 				action="#{calculator.add('log10(')}" />
 			<h:commandButton class="button-red" value="ln"
