@@ -9,6 +9,8 @@ import net.objecthunter.exp4j.function.Function;
 
 public class MathHelper {
 	
+	private static final int MAX_SCREEN_SIZE = 22;
+
 	public static String formExpression(List<String> entries) {
 		String expression = "";
 		for (String s : entries) {
@@ -189,7 +191,16 @@ public class MathHelper {
 				else if (getLastChar(entries.get(index-1)) == '(') {
 					entries.add(index, "-");
 				}
+				
+				
 			}
+		}
+		if (getScreenSize(entries) > MAX_SCREEN_SIZE) {
+			int size = entries.size();
+			if (isNumber(entries.get(size-1))) {
+				entries.set(size-1, entries.get(size-1).substring(0, entries.get(size-1).length()-1));
+			}
+			else entries.remove(size-1);
 		}
 		return true;
 	}
@@ -350,6 +361,13 @@ public class MathHelper {
 		return s.charAt(s.length()-1);
 	}
 	
+	private static int getScreenSize(List<String> entries) {
+		String s = "";
+		for (String x : entries) {
+			s += x;
+		}
+		return s.length();
+	}
 	
 	// custom functions
 	private static Function asinh = new Function("asinh", 1) {

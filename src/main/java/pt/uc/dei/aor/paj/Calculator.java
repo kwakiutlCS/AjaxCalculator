@@ -25,14 +25,14 @@ public class Calculator {
 	
 
 	//Method that receives string from History and adds to expression
-		public void submitOp(Screen sc){
-			screen.add(sc);
-		}
-	
-		public void submitOp(String s){
-			screen.add(s);
-		}
-		
+	public void submitOp(Screen sc){
+		screen.add(sc);
+	}
+
+	public void submitOp(String s){
+		screen.add(s);
+	}
+
 	//Clear calc when user hits 'C'
 	public void clearCalc(){
 		screen.clear();
@@ -51,7 +51,7 @@ public class Calculator {
 		
 		if (res) {
 			hist.addEntry(aux, screen.getExpression(), finishTime-initialTime);
-			stat.add(aux.getExpression());
+			stat.add(aux.getEntries());
 		}		
 	}
 	
