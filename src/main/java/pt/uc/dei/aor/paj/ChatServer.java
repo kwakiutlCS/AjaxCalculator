@@ -41,6 +41,7 @@ public class ChatServer {
 	}
 	
 	public void sendMsg() {
+		if (message == null || message.equals("")) return;
 		Message m = new Message();
 		m.setText(message);
 		for (User u : users.getUsers()) {

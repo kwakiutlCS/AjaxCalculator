@@ -14,7 +14,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class RegisterTest {
 	
-	
 	@Mock
 	private Users users;
 	@Mock
@@ -29,6 +28,7 @@ public class RegisterTest {
 //		doNothing().when(login).setLoggedin(true);
 //		doNothing().when(login).setUsername(anyString());
 		//Mockito.when(users.getUsers()).thenReturn(new ArrayList<User>());
+		
 	}
 	
 	@Test
@@ -38,6 +38,7 @@ public class RegisterTest {
 		register.setConfpassword("b");
 		assertThat(register.confirmRegister(null), is(equalTo(null)));
 	}
+	
 	
 	@Test
 	public void should_register_with_valid_password_and_confirm() {

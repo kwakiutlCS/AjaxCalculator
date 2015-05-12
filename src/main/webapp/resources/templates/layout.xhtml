@@ -9,20 +9,20 @@
 
 <h:head>
 	<h:outputStylesheet name="style.css" library="css" />
-
+	<h:outputScript name="stats.js" library="js" />
 </h:head>
 
 <h:body>
 	
 	<ui:include src="navBar.xhtml" />
-	
 
-	<h:form>
+
+	<h:form id="calculatorForm">
 		<!--         Caixa que contém as estatísticas das operações. Interage com o bean statistics. -->
-		<h:selectOneListbox styleClass="statsbox">
-			<f:selectItems value="#{statistic.listastat}" />
+		<h:selectOneListbox styleClass="statsbox" id="statsBox">
+			<f:selectItems value="#{statistics.stats}" />
 		</h:selectOneListbox>
-		
+
 		<h:panelGroup rendered="#{false}" >
 		<ui:repeat var="item" value="#{statistics2.stats}" varStatus="status">
 	<div class="#{status.even==true? 'par' : 'impar'} stats">
@@ -44,20 +44,25 @@
 				</f:ajax>
 			</h:dataTable>
 		</h:panelGroup>
+
 		</div>
-		
+		<h:commandButton value="submit" action="null" id="statsRefresher"
+			style="display:none">
+			<f:ajax render="statsBox" />
+		</h:commandButton>
+
 		<f:ajax render="@form">
-		<h:panelGroup id="pointList" rendered="#{mode.modeAdvanced and mode.mode == 2}">
-			<ui:repeat var="p" value="#{experimentalSet.points}">
-				<div>
-					<span>#{p.x}</span>
-					<span>#{p.y}</span>
-					<span><h:commandLink action="#{experimentalSet.remove(p.id)}" value="remove" /></span>
-				</div>
-			</ui:repeat>
-		</h:panelGroup>
+			<h:panelGroup id="pointList"
+				rendered="#{mode.modeAdvanced and mode.mode == 2}">
+				<ui:repeat var="p" value="#{experimentalSet.points}">
+					<div>
+						<span>#{p.x}</span> <span>#{p.y}</span> <span><h:commandLink
+								action="#{experimentalSet.remove(p.id)}" value="remove" /></span>
+					</div>
+				</ui:repeat>
+			</h:panelGroup>
 		</f:ajax>
-		
+
 		<!-- 		Caixa que contém as funções da calculadora e o display que vai mostrando os números, operações e funções inseridas.			 -->
 		<div class="calculator">
 
@@ -72,14 +77,15 @@
 				<ui:insert name="modeSelection" />
 
 				<div id="graurad">Nuno Ferreira Pedro Rodrigues</div>
-				
+
 				<f:ajax>
-				<h:selectOneRadio value="#{angleUnitList.chosen}" rendered="#{mode.modeAdvanced and mode.mode lt 2}">
+					<h:selectOneRadio value="#{angleUnitList.chosen}"
+						rendered="#{mode.modeAdvanced and mode.mode lt 2}">
 						<f:selectItems value="#{angleUnitList.angles}" var="item"
-	                    itemLabel="#{item.name}" itemValue="#{item.name}" />
-   				</h:selectOneRadio>
+							itemLabel="#{item.name}" itemValue="#{item.name}" />
+					</h:selectOneRadio>
 				</f:ajax>
-				
+
 				<ui:insert name="keyboard" />
 
 

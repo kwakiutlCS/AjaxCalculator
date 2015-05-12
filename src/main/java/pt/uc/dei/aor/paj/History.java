@@ -1,6 +1,5 @@
 package pt.uc.dei.aor.paj;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,40 +13,14 @@ public class History implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -7514545189871598589L;
-	ArrayList<String> lista;
 	List<HistoryEntry> listEntry;
 	
 	
 	//Constructor
 	public History(){
-		lista = new ArrayList<String>();
 		listEntry = new LinkedList<>();
 	}
 
-	//ArrayList with historic getter
-	public ArrayList<String> getLista() {
-		return lista;
-	}
-	
-	//ArrayList with historic setter
-	public void setLista(ArrayList<String> lista) {
-		this.lista = lista;
-	}
-	
-	//Adds another expression to historic ArrayList
-	public void addHist(String srt){
-		boolean exists=false;
-		for (String x: lista){
-			if (x.equals(srt)){
-				exists=true;
-			}
-		}
-		if (!exists){
-			lista.add(srt);
-		}
-	}
-	
-	
 	public void addEntry(Screen exp, String res, long time) {
 		String delta;
 		if (time > 1000000) delta = String.valueOf(time/1000000)+"ms";
@@ -64,9 +37,5 @@ public class History implements Serializable{
 	public void setListEntry(List<HistoryEntry> listEntry) {
 		this.listEntry = listEntry;
 	}
-	
-	
-	
-	
 	
 }

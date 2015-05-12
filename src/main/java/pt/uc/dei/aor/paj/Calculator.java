@@ -11,14 +11,13 @@ public class Calculator {
 	//Variable declaration
 	@Inject Screen screen;
 	@Inject History hist;
-	@Inject Statistic stat;
-	@Inject Statistics2 stat2;
+	@Inject Statistics stat;
 	@Inject AngleUnitList angleUnits;
 	@Inject Mode mode;
 	
 	//Add another part to string (user input)
 	public void add(String srt){
-		if (mode.isModeAdvanced() && mode.getMode() == 1) {
+		if (mode.isModeAdvanced() && mode.getMode() == 2) {
 			screen.graphConcat(srt);
 		}
 		else screen.concat(srt);
@@ -52,30 +51,8 @@ public class Calculator {
 		
 		if (res) {
 			hist.addEntry(aux, screen.getExpression(), finishTime-initialTime);
-		}
-		
-//		try{
-//			long initialTime = System.nanoTime();
-//			Expression e = new ExpressionBuilder(expression)
-//			.variables("pi", "e")
-//			.build()
-//			.setVariable("pi", Math.PI)
-//			.setVariable("e", Math.E);
-//			String aux = expression;
-//			try{
-//				expression = String.valueOf(e.evaluate());
-//				long finishTime = System.nanoTime();
-//				hist.addHist(aux);
-//				hist.addEntry(aux, expression, finishTime-initialTime);
-//				stat.addStat(aux);
-//				
-//			} catch (Exception exp){
-//				expression = exp.getMessage();
-//			}	
-//		} catch (Exception exp){
-//			expression = exp.getMessage();
-//		}	
-		
+			stat.add(aux.getExpression());
+		}		
 	}
 	
 	public AngleUnitList getAngleUnits() {
