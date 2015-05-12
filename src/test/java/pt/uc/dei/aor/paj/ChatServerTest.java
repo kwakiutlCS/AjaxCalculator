@@ -34,7 +34,10 @@ public class ChatServerTest {
 		User u2 = new User();
 		u2.setPassword("p");
 		u2.setUsername("user2");
-		List<User> listUsers = Arrays.asList(new User[]{u1, u2});
+		User u3 = new User();
+		u3.setPassword("p");
+		u3.setUsername("user3");
+		List<User> listUsers = Arrays.asList(new User[]{u1, u2, u3});
 		
 		when(users.getUsers()).thenReturn(listUsers);
 		when(login.getUsername()).thenReturn("user2");
@@ -65,5 +68,62 @@ public class ChatServerTest {
 		chatServer.setMessage("");
 		chatServer.sendMsg();
 		assertThat(chatServer.getMessages().size(), is(equalTo(size)));
+	}
+	
+	@Test
+	public void should_add_secret_message_correctly() {
+		chatServer.setMessage("/secret user1 mensagem");
+		chatServer.sendMsg();
+		assertThat(chatServer.getMessages().get(0).getReceiver().getUsername(), is(equalTo("user1")));
+		assertThat(chatServer.getMessages().get(0).getText(), is(equalTo("mensagem")));
+	}
+	
+	@Test
+	public void should_not_add_secret_message_without_message() {
+		chatServer.setMessage("/secret user1");
+		chatServer.sendMsg();
+		assertThat(chatServer.getMessages().size(), is(equalTo(0)));
+	}
+	
+	@Test
+	public void should_not_add_secret_message_without_user_present() {
+		chatServer.setMessage("/secret user4 mensagem");
+		chatServer.sendMsg();
+		assertThat(chatServer.getMessages().size(), is(equalTo(0)));
+	}
+	
+	@Test
+	public void should_not_add_secret_message_to_himself() {
+		chatServer.setMessage("/secret user2 mensagem");
+		chatServer.sendMsg();
+		assertThat(chatServer.getMessages().size(), is(equalTo(0)));
+	}
+	
+	@Test
+	public void should_filter_messages_correctly() {
+		chatServer.setMessage("/secret user1 mensagem");
+		chatServer.sendMsg();
+		chatServer.setMessage("mensagem");
+		chatServer.sendMsg();
+		when(login.getUsername()).thenReturn("user1");
+		chatServer.setMessage("/secret user3 mensagem");
+		chatServer.sendMsg();
+		when(login.getUsername()).thenReturn("user3");
+		assertThat(chatServer.getMessages().size(), is(equalTo(3)));
+		assertThat(chatServer.getMyMessages().size(), is(equalTo(2)));
+		
+	}
+	
+	@Test
+	public void should_not_filter_messages_from_himself() {
+		chatServer.setMessage("/secret user1 mensagem");
+		chatServer.sendMsg();
+		chatServer.setMessage("mensagem");
+		chatServer.sendMsg();
+		chatServer.setMessage("/secret user3 mensagem");
+		chatServer.sendMsg();
+		assertThat(chatServer.getMessages().size(), is(equalTo(3)));
+		assertThat(chatServer.getMyMessages().size(), is(equalTo(3)));
+		
 	}
 }

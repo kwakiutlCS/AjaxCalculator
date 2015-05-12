@@ -22,17 +22,23 @@
 	<div class="chatForm">
 		<h:form id="chatForm">
 			<div class="textArea">			
-				<h:dataTable  value="#{chatServer.messages}" var="msg"
-					id="chatMessages">
-					<h:column>
-						#{msg.sender.username}
-					</h:column>
-					<h:column>
-						#{msg.text}
-					</h:column>
+				<h:dataTable  value="#{chatServer.getMyMessages()}" var="msg"
+					id="chatMessages" columnClasses="chatTime,chatSender,chatMsg" 
+					rowStyleClass="other">
 					<h:column>
 						#{msg.date}
 					</h:column>
+					<h:column>
+						<h:outputText value="#{msg.sender.username}:" rendered="#{msg.receiver == null}" />
+						<h:outputText value="#{msg.sender.username} to #{msg.receiver.username}:" rendered="#{msg.receiver != null}"
+						styleClass="secret" />
+					</h:column>
+					<h:column>
+						<h:outputText value="#{msg.text}" rendered="#{msg.receiver == null}" />
+						<h:outputText value="#{msg.text}" rendered="#{msg.receiver != null}"
+						styleClass="secret" />
+					</h:column>
+					
 				</h:dataTable>
 			</div>
 			

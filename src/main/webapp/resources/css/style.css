@@ -326,7 +326,7 @@ body {
 .userbox {
 	position: relative;
 	display: inline-block;
-	width: 172px;
+	width: 171px;
 	height: 315px;
 }
 
@@ -417,4 +417,13 @@ iframe{
 .timecol{
 	width:50px;
 	
+}
+
+.chatSender {
+	font-weight: bold;
+	padding: 3px 5px 3px 10px;
+}
+
+.secret {
+	color: green;
 }

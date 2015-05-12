@@ -12,7 +12,7 @@ $(function() {
 
 var getFocus = function() {
 	$("#chatForm\\:chatMsg").focus();
-	
+	 $('.textArea').scrollTop($('.textArea')[0].scrollHeight);
 }
 
 

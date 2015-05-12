@@ -23,7 +23,11 @@ public class Message {
 		this.sender = sender;
 	}
 	public String getDate() {
-		return date.get(Calendar.HOUR)+":"+date.get(Calendar.MINUTE);
+		int minute = date.get(Calendar.MINUTE);
+		String mnt;
+		if (minute < 10) mnt = "0"+minute;
+		else mnt = String.valueOf(minute);
+		return date.get(Calendar.HOUR)+":"+mnt;
 	}
 	public void setDate(GregorianCalendar date) {
 		this.date = date;

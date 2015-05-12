@@ -36,24 +36,56 @@ public class ChatServer {
 	public List<Message> getMessages() {
 		return messages;
 	}
+	
+	public List<Message> getMyMessages() {
+		List<Message> msgs = new ArrayList<>();
+		for (Message m : messages) {
+			if (m.getReceiver() == null || 
+					m.getReceiver().getUsername().equals(login.getUsername()) || 
+					m.getSender().getUsername().equals(login.getUsername()))
+				msgs.add(m);
+		}
+		return msgs;
+	}
+	
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
 	}
 	
 	public void sendMsg() {
+		message = message.trim();
 		if (message == null || message.equals("")) return;
 		Message m = new Message();
-		m.setText(message);
-		for (User u : users.getUsers()) {
-			if (u.getUsername().equals(login.getUsername())) {
-				m.setSender(u);
-				break;
-			}
+		
+		User sender = getUser(login.getUsername());
+		if (sender == null) return;
+		else m.setSender(sender);
+		
+		if (message.length() >= 7 && message.substring(0, 7).equals("/secret")) {
+			if (message.charAt(7) != ' ') return;
+			if (message.indexOf(' ', 8) == -1) return;
+			int userEnd = message.indexOf(' ', 8);
+			m.setText(message.substring(userEnd+1));
+			User receiver = getUser(message.substring(8, userEnd));
+			if (receiver == null || receiver.equals(sender)) return;
+			m.setReceiver(receiver);
 		}
+		else {
+			m.setText(message);
+		}
+		
 		m.setDate(new GregorianCalendar());
 		messages.add(m);
 		message = "";
 	}
 	
 	
+	private User getUser(String username) {
+		for (User u : users.getUsers()) {
+			if (u.getUsername().equals(username)) {
+				return u;
+			}
+		}
+		return null;
+	}
 }
