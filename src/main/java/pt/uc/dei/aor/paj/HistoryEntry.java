@@ -2,11 +2,11 @@ package pt.uc.dei.aor.paj;
 
 public class HistoryEntry {
 	public Screen expression;
-	public String result;
+	public double result;
 	public String deltaT;
 	
 	
-	public HistoryEntry(Screen expression, String result, String deltaT) {
+	public HistoryEntry(Screen expression, double result, String deltaT) {
 		this.expression = expression;
 		this.result = result;
 		this.deltaT = deltaT;
@@ -23,12 +23,12 @@ public class HistoryEntry {
 	}
 
 
-	public String getResult() {
+	public double getResult() {
 		return result;
 	}
 
 
-	public void setResult(String result) {
+	public void setResult(double result) {
 		this.result = result;
 	}
 

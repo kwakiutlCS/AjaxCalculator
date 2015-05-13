@@ -207,6 +207,7 @@ public class MathHelper {
 	
 	
 	public static int evaluate(List<String> entries, AngleUnit angle) {
+		complete(entries);
 		List<String> direct = Arrays.asList(new String[]{"sin(", "cos(", "tan(", "sinh(", "cosh(", "tanh("});
 		List<String> inverse = Arrays.asList(new String[]{"asin(", "acos(", "atan(", "asinh(", "acosh(", "atanh("});
 		
@@ -229,6 +230,18 @@ public class MathHelper {
 		return evaluate(entries);
 	}
 	
+	private static void complete(List<String> entries) {
+		int counter = 0;
+		for (int i = 0; i < entries.size(); i++) {
+			if (getLastChar(entries.get(i)) == '(') counter++;
+			else if (entries.get(i).equals(")")) counter--;
+		}
+		
+		while(counter-- > 0) {
+			entries.add(")");
+		}
+	}
+
 	public static int evaluate(List<String> entries){
 		int result = 2;
 		String expression = formExpression(entries);

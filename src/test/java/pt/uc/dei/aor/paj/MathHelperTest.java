@@ -780,4 +780,26 @@ public class MathHelperTest {
 		MathHelper.concat(entries, "4", 0);
 		assertThat(entries.get(0).length(), is(equalTo(22)));
 	}
+	
+	// auto complete tests
+	@Test
+	public void should_auto_complete_correctly() {
+		entries.add("sin(");
+		MathHelper.concat(entries, "3", 0);
+		MathHelper.concat(entries, "0", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Graus", Math.PI/180));
+		assertThat(Double.valueOf(entries.get(0)), is(closeTo(0.5, 0.001)));
+	}
+	
+	@Test
+	public void should_auto_complete_complex_expressions() {
+		entries.add("sin(");
+		MathHelper.concat(entries, "3", 0);
+		MathHelper.concat(entries, "(", 0);
+		MathHelper.concat(entries, "7", 0);
+		MathHelper.concat(entries, "+", 0);
+		MathHelper.concat(entries, "3", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Graus", Math.PI/180));
+		assertThat(Double.valueOf(entries.get(0)), is(closeTo(0.5, 0.001)));
+	}
 }

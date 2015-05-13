@@ -111,6 +111,10 @@ public class Screen implements Serializable {
 	
 	@Override
 	public String toString() {
+		int maxSize = 15;
+		if (expression.length() > maxSize) {
+			return expression.substring(0, maxSize-3)+"...";
+		}
 		return expression;
 	}
 	

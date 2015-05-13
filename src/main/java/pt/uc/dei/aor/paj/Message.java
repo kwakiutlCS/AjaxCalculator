@@ -27,7 +27,7 @@ public class Message {
 		String mnt;
 		if (minute < 10) mnt = "0"+minute;
 		else mnt = String.valueOf(minute);
-		return date.get(Calendar.HOUR)+":"+mnt;
+		return date.get(Calendar.HOUR_OF_DAY)+":"+mnt;
 	}
 	public void setDate(GregorianCalendar date) {
 		this.date = date;
@@ -39,5 +39,7 @@ public class Message {
 		this.receiver = receiver;
 	}
 	
-	
+	public Calendar getCalendar() {
+		return date;
+	}
 }

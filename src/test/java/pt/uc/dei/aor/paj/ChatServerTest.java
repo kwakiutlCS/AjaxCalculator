@@ -5,6 +5,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -133,5 +135,35 @@ public class ChatServerTest {
 		assertThat(chatServer.getMessages().size(), is(equalTo(3)));
 		assertThat(chatServer.getMyMessages().size(), is(equalTo(3)));
 		
+	}
+	
+	
+	@Test
+	public void should_filter_messages_older_than_1h() {
+		chatServer.setMessage("mensagem");
+		chatServer.sendMsg();
+		chatServer.setMessage("mensagem");
+		chatServer.sendMsg();
+		chatServer.setMessage("mensagem");
+		chatServer.sendMsg();
+		
+		Message m = new Message();
+		m.setText("kdfj");
+		m.setSender(new User("user1", "p", false));
+		GregorianCalendar date = new GregorianCalendar();
+		date.add(Calendar.MINUTE, -59);
+		m.setDate(date);
+		chatServer.getMessages().add(m);
+		
+		Message m2 = new Message();
+		m2.setText("kdfj");
+		m2.setSender(new User("user1", "p", false));
+		GregorianCalendar date2 = new GregorianCalendar();
+		date2.add(Calendar.MINUTE, -61);
+		m2.setDate(date2);
+		chatServer.getMessages().add(m2);
+		
+		assertThat(chatServer.getMessages().size(), is(equalTo(5)));
+		assertThat(chatServer.getMyMessages().size(), is(equalTo(4)));
 	}
 }

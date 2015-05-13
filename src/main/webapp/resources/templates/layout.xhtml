@@ -10,7 +10,7 @@
 
 <h:head>
 	<h:outputStylesheet name="style.css" library="css" />
-	
+	<title>Ajax Calculator</title>
 </h:head>
 
 <h:body>
@@ -23,7 +23,7 @@
 		<h:selectOneListbox styleClass="statsbox" id="statsBox">
 			<f:selectItems value="#{statistics.stats}" />
 		</h:selectOneListbox>
-		<p:poll interval="3" update="statsBox" />
+		<p:poll interval="3" update="statsBox" process="@this" />
 
 		<div class="history">
 		<h:panelGroup styleClass="history" rendered="#{!mode.modeAdvanced or mode.mode lt 2}" >
@@ -32,7 +32,9 @@
 				<f:facet name="header">History</f:facet>
 				<h:column><h:commandLink value="#{entry.expression}" action="#{calculator.submitOp(entry.expression)}" /></h:column>
 				<h:column>
-					<h:commandLink value="#{entry.result}" action="#{calculator.submitOp(entry.result)}" />
+					<h:commandLink action="#{calculator.submitOp(entry.result)}">
+					<h:outputText value="#{entry.result}"><f:convertNumber maxIntegerDigits="2"/></h:outputText>
+					</h:commandLink>
 				</h:column>
 				<h:column>#{entry.deltaT}</h:column>
 				</f:ajax>

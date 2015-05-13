@@ -1,6 +1,7 @@
 package pt.uc.dei.aor.paj;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import javax.inject.Named;
 @ApplicationScoped
 public class ChatServer {
 	
+	private static final int TIME_FILTER_HOURS = 1;
 	@Inject
 	private Users users;
 	@Inject
@@ -38,11 +40,14 @@ public class ChatServer {
 	}
 	
 	public List<Message> getMyMessages() {
+		Calendar limit = new GregorianCalendar();
+		limit.add(Calendar.HOUR_OF_DAY, -TIME_FILTER_HOURS);
 		List<Message> msgs = new ArrayList<>();
 		for (Message m : messages) {
-			if (m.getReceiver() == null || 
+			if ((m.getReceiver() == null || 
 					m.getReceiver().getUsername().equals(login.getUsername()) || 
-					m.getSender().getUsername().equals(login.getUsername()))
+					m.getSender().getUsername().equals(login.getUsername())) && 
+					m.getCalendar().after(limit))
 				msgs.add(m);
 		}
 		return msgs;

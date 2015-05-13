@@ -25,7 +25,7 @@ public class History implements Serializable{
 		String delta;
 		if (time > 1000000) delta = String.valueOf(time/1000000)+"ms";
 		else delta = String.valueOf(time/1000)+"\u03BCs";
-		HistoryEntry entry = new HistoryEntry(exp, res, delta);
+		HistoryEntry entry = new HistoryEntry(exp, Double.valueOf(res), delta);
 		listEntry.remove(entry);
 		listEntry.add(0, entry);
 	}

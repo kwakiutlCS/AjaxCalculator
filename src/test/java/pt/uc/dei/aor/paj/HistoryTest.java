@@ -14,14 +14,11 @@ public class HistoryTest {
 	
 	private History history;
 	private Screen screen;
-	private Calculator calculator;
-	private HistoryEntry historyentry;
 	
 	@Before
 	public void init() {
 		history = new History();
 		screen = new Screen();
-		calculator = new Calculator();
 		
 	}
 	
