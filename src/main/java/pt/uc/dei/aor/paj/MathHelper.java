@@ -329,7 +329,7 @@ public class MathHelper {
 		return true;
 	}
 	
-	private static boolean isBinOperator(String s) {
+	public static boolean isBinOperator(String s) {
 		List<String> binOperators = Arrays.asList(new String[]{"+", "-", "*", "/", "^", "mod"});
 		return binOperators.contains(s);
 	}

@@ -27,7 +27,8 @@
 				action="#{experimentalSet.click('del')}" />
 			</f:ajax>
 			<p:lightBox iframe="true" id="lightbox">
-    			<h:link styleClass="button-red" value="draw" outcome="/calculator/graph" />
+    			<h:link styleClass="button-red" value="draw" outcome="/calculator/graph" 
+    			id="drawButton" rendered="#{experimentalSet.points.size() > 1}" />
        		</p:lightBox>
 			
 			

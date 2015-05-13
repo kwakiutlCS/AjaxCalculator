@@ -40,6 +40,9 @@ body {
 	overflow:auto;
 }
 
+.pointList {
+	border: 1px solid rgb(187, 173, 173);
+}
 .pointListCol1, .pointListCol2, .pointListHead1, .pointListHead2 {
 	width: 75px;
 	display: inline-block;
@@ -52,8 +55,12 @@ body {
 	padding: 5px 0;
 }
 
+.pointListRemove a {
+	color: white;
+}
+
 .pointListTitle {
-	border-bottom: 1px solid white;
+	border-bottom: 1px solid rgb(187, 173, 173);
 	padding: 10px 0 3px 0;
 	font-size: 17px;
 }

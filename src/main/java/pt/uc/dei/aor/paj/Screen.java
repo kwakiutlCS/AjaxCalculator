@@ -45,19 +45,36 @@ public class Screen implements Serializable {
 	}
 	
 	public void add(Screen other) {
-		entries.clear();
+		String lastEntry = entries.get(entries.size()-1);
+		
+		if (MathHelper.isBinOperator(lastEntry)) {
+			entries.add("(");
+		}
+		else if (!(MathHelper.isFunction(lastEntry) || lastEntry.charAt(lastEntry.length()-1) == '(')) {
+			entries.clear();
+		}
+		
 		for (String s : other.entries) {
 			entries.add(s);
 		}
+		if (MathHelper.isBinOperator(lastEntry)) {
+			entries.add(")");
+		}
+		
 		phase = 0;
 		expression = MathHelper.formExpression(entries);
 	}
 	
+	
 	public void add(String s) {
-		entries.clear();
-		entries.add(s);
-		phase = 0;
-		expression = MathHelper.formExpression(entries);
+		Screen other = new Screen();
+		if (s.charAt(0) != '-')
+			other.concat(s);
+		else {
+			other.concat("-");
+			other.concat(s.substring(1));
+		}
+		add(other);
 	}
 	
 	public void remove() {

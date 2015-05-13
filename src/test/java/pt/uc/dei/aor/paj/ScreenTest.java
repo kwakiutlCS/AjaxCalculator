@@ -213,6 +213,45 @@ public class ScreenTest {
 	}
 	
 	@Test
+	public void should_reuse_expression_after_operator() {
+		Screen other = new Screen();
+		other.concat("2");
+		other.concat("+");
+		other.concat("4");
+		screen.concat("4");
+		screen.concat("+");
+		screen.add(other);
+		assertThat(screen.getExpression(), is(equalTo("4+(2+4)")));
+		assertThat(screen.getEntries().size(), is(equalTo(7)));
+	}
+	
+	@Test
+	public void should_reuse_expression_after_function() {
+		Screen other = new Screen();
+		other.concat("2");
+		other.concat("+");
+		other.concat("4");
+		screen.concat("sin(");
+		screen.add(other);
+		assertThat(screen.getExpression(), is(equalTo("sin(2+4")));
+		assertThat(screen.getEntries().size(), is(equalTo(4)));
+	}
+	
+	@Test
+	public void should_reuse_expression_after_parenthesis() {
+		Screen other = new Screen();
+		other.concat("2");
+		other.concat("+");
+		other.concat("4");
+		screen.concat("4");
+		screen.concat("+");
+		screen.concat("(");
+		screen.add(other);
+		assertThat(screen.getExpression(), is(equalTo("4+(2+4")));
+		assertThat(screen.getEntries().size(), is(equalTo(6)));
+	}
+	
+	@Test
 	public void should_not_evaluate_after_error() {
 		screen.concat("1");
 		screen.concat("/");
