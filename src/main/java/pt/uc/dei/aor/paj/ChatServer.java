@@ -57,7 +57,7 @@ public class ChatServer {
 		if (message == null || message.equals("")) return;
 		Message m = new Message();
 		
-		User sender = getUser(login.getUsername());
+		User sender = users.getUser(login.getUsername());
 		if (sender == null) return;
 		else m.setSender(sender);
 		
@@ -66,7 +66,7 @@ public class ChatServer {
 			if (message.indexOf(' ', 8) == -1) return;
 			int userEnd = message.indexOf(' ', 8);
 			m.setText(message.substring(userEnd+1));
-			User receiver = getUser(message.substring(8, userEnd));
+			User receiver = users.getUser(message.substring(8, userEnd));
 			if (receiver == null || receiver.equals(sender)) return;
 			m.setReceiver(receiver);
 		}
@@ -80,12 +80,4 @@ public class ChatServer {
 	}
 	
 	
-	private User getUser(String username) {
-		for (User u : users.getUsers()) {
-			if (u.getUsername().equals(username)) {
-				return u;
-			}
-		}
-		return null;
-	}
 }

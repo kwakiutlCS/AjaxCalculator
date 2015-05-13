@@ -19,7 +19,6 @@ public class Register implements Serializable{
 	private String username;
 	private String password;
 	private String confpassword;
-	private boolean exists=false;
 	
 	public String getUsername() {
 		return username;
@@ -48,23 +47,11 @@ public class Register implements Serializable{
 	}
 	
 	public String confirmRegister(HttpSession session){
-		for(User u: users.getUsers()){
-			if(username.equals(u.getUsername())){
-				exists=true;
-				System.out.println(exists);
-			}
-		}
-		
-		if(exists==false){
+		if(users.getUser(username) == null){
 			if(password.equals(confpassword)){
-				User u = new User();
-				u.setUsername(username);
-				u.setPassword(password);
-				u.setLoggedIn(true);
-				users.addUser(u);
+				users.addUser(new User(username, password, true));
 				login.setUsername(username);
 				login.setLoggedin(true);
-				users.printUsers();
 				
 				if (session != null)
 					session.setAttribute("login", login);
@@ -76,6 +63,4 @@ public class Register implements Serializable{
 		return null;
 		
 	}
-	
-
 }

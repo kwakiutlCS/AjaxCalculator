@@ -41,51 +41,39 @@ public class Login implements Serializable{
 	
 	
 	public String login(){
+		User u = users.getUser(username);
+		if (u == null || !u.validateUser(password)) return null;
 		
-		for(User u: users.getUsers()){
-			if(u.getUsername().equals(username) && u.getPassword().equals(password)){
-				if(u.isLoggedIn()){
-					
-					FacesContext.getCurrentInstance().addMessage(":login:msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Already logged in!", "Error!"));
-					
-				}else{
-					u.setLoggedIn(true);
+		if(u.isLoggedIn()){
+			FacesContext.getCurrentInstance().addMessage(":login:msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Already logged in!", "Error!"));
+		}else{
+			u.setLoggedIn(true);
 
-					loggedin = true;
-					FacesContext context = FacesContext.getCurrentInstance();
-				    HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-				    session.setAttribute("login", this);
-					return "calculator/index?faces-redirect=true";
-				}
-
-				
-
-				
-				
-			}
-			
+			loggedin = true;
+			FacesContext context = FacesContext.getCurrentInstance();
+			HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+			session.setAttribute("login", this);
+			return "calculator/index?faces-redirect=true";
 		}
+		
 		return null;		
 	}
 	
-	public String logout(){
-		for(User u: users.getUsers()){
-			if(u.getUsername().equals(username)){
-				u.setLoggedIn(false);
+	
+	public String logout() {
+		User u = users.getUser(username);
+		if (u != null) {
+			u.setLoggedIn(false);
+			loggedin = false;
 
-				loggedin = false;
-
-				FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-				return "/login?faces-redirect=true";
-			}
-			
+			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+			return "/login?faces-redirect=true";
 		}
-			return null;
 		
-		
-		
+		return null;
 	}
 
+	
 	public boolean isLoggedin() {
 		return loggedin;
 	}

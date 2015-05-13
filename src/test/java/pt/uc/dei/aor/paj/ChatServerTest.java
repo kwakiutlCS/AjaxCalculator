@@ -5,8 +5,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,21 +26,29 @@ public class ChatServerTest {
 	@InjectMocks
 	private ChatServer chatServer;
 	
+	private User u1, u2, u3;
+	
 	@Before
 	public void init() {
-		User u1 = new User();
+		u1 = new User();
 		u1.setPassword("p");
 		u1.setUsername("user1");
-		User u2 = new User();
+		u2 = new User();
 		u2.setPassword("p");
 		u2.setUsername("user2");
-		User u3 = new User();
+		u3 = new User();
 		u3.setPassword("p");
 		u3.setUsername("user3");
-		List<User> listUsers = Arrays.asList(new User[]{u1, u2, u3});
+		Set<User> listUsers = new TreeSet<>();
+		listUsers.add(u1);
+		listUsers.add(u2);
+		listUsers.add(u3);
 		
 		when(users.getUsers()).thenReturn(listUsers);
 		when(login.getUsername()).thenReturn("user2");
+		when(users.getUser("user1")).thenReturn(u1);
+		when(users.getUser("user2")).thenReturn(u2);
+		when(users.getUser("user3")).thenReturn(u3);
 		
 	}
 	

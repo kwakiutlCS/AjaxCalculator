@@ -1,8 +1,8 @@
 package pt.uc.dei.aor.paj;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
@@ -11,13 +11,13 @@ import javax.inject.Named;
 @ApplicationScoped
 public class Users implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private List<User> users = new ArrayList<>();
+	private Set<User> users = new TreeSet<>();
 
-	public List<User> getUsers() {
+	public Set<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<User> users) {
+	public void setUsers(Set<User> users) {
 		this.users = users;
 	}
 	
@@ -25,17 +25,19 @@ public class Users implements Serializable{
 		users.add(user);
 	}
 	
-	public void printUsers(){
-		for(User u : users){
-			System.out.println(u.getUsername());
-		}
-	}
-	
-	public List<User> getLoggedUsers() {
-		List<User> logged = new ArrayList<User>();
+	public Set<User> getLoggedUsers() {
+		Set<User> logged = new TreeSet<>();
 		for (User u : users) {
 			if (u.isLoggedIn()) logged.add(u);
 		}
 		return logged;
+	}
+	
+	
+	public User getUser(String username) {
+		for (User u : users) {
+			if (u.getUsername().equals(username)) return u;
+		}
+		return null;
 	}
 }
