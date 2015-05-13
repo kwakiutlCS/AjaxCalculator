@@ -50,7 +50,5 @@ public class HistoryTest {
 		assertThat(history.getListEntry().size(), is(equalTo(2)));
 		history.addEntry(history.getListEntry().get(1).getExpression(), "3", 234L);
 		assertThat(history.getListEntry().size(), is(equalTo(size+2)));
-		
-		
 	}
 }

@@ -5,11 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<h:outputStylesheet name="style.css" library="css" />
-	<h:outputScript name="stats.js" library="js" />
+	
 </h:head>
 
 <h:body>
@@ -22,22 +23,13 @@
 		<h:selectOneListbox styleClass="statsbox" id="statsBox">
 			<f:selectItems value="#{statistics.stats}" />
 		</h:selectOneListbox>
-
-		<h:panelGroup rendered="#{false}" >
-		<ui:repeat var="item" value="#{statistics2.stats}" varStatus="status">
-	<div class="#{status.even==true? 'par' : 'impar'} stats">
-		<span class="statsItem">#{item}</span>
-		<span class="statsCount">#{item.counter}</span>
-	</div>
-			
-	</ui:repeat>
-	</h:panelGroup>
-
+		<p:poll interval="3" update="statsBox" />
 
 		<div class="history">
 		<h:panelGroup styleClass="history" rendered="#{!mode.modeAdvanced or mode.mode lt 2}" >
 			<h:dataTable value="#{history.listEntry}" var="entry"  columnClasses="opcol, rescol, timecol">
 				<f:ajax render="@form">
+				<f:facet name="header">History</f:facet>
 				<h:column><h:commandLink value="#{entry.expression}" action="#{calculator.submitOp(entry.expression)}" /></h:column>
 				<h:column>
 					<h:commandLink value="#{entry.result}" action="#{calculator.submitOp(entry.result)}" />
@@ -48,10 +40,7 @@
 		</h:panelGroup>
 
 		</div>
-		<h:commandButton value="submit" action="null" id="statsRefresher"
-			style="display:none">
-			<f:ajax render="statsBox" />
-		</h:commandButton>
+		
 
 		<f:ajax render="@form">
 			<h:panelGroup id="pointList" styleClass="pointList"

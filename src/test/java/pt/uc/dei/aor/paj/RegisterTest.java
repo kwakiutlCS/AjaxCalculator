@@ -25,9 +25,7 @@ public class RegisterTest {
 	
 	@Before
 	public void init() {
-//		doNothing().when(login).setLoggedin(true);
-//		doNothing().when(login).setUsername(anyString());
-		//Mockito.when(users.getUsers()).thenReturn(new ArrayList<User>());
+
 		
 	}
 	
