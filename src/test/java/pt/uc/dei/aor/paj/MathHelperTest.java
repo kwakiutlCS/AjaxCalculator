@@ -955,6 +955,61 @@ public class MathHelperTest {
 //		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
 //	}
 	
+	
+	@Test
+	public void should_evaluate_permutations_correctly() {
+		entries.add("0");
+		MathHelper.concat(entries, "perm(", 0);
+		MathHelper.concat(entries, "8", 0);
+		MathHelper.concat(entries, ",", 0);
+		MathHelper.concat(entries, "3", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+		assertThat(MathHelper.formExpression(entries), is(equalTo("336")));
+	}
+	
+	@Test
+	public void should_evaluate_perm_of_expression_correctly() {
+		entries.add("0");
+		MathHelper.concat(entries, "perm(", 0);
+		MathHelper.concat(entries, "4", 0);
+		MathHelper.concat(entries, "*", 0);
+		MathHelper.concat(entries, "2", 0);
+		MathHelper.concat(entries, ",", 0);
+		MathHelper.concat(entries, "6", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+		assertThat(MathHelper.formExpression(entries), is(equalTo("20160")));
+	}
+	
+	@Test
+	public void should_evaluate_large_perm() {
+		entries.add("0");
+		MathHelper.concat(entries, "perm(", 0);
+		MathHelper.concat(entries, "7", 0);
+		MathHelper.concat(entries, "2", 0);
+		MathHelper.concat(entries, ",", 0);
+		MathHelper.concat(entries, "1", 0);
+		MathHelper.concat(entries, "2", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+		String exp = MathHelper.formExpression(entries);
+		assertThat(exp.substring(0, 7), is(equalTo("7.35903")));
+		assertThat(exp.substring(exp.length()-3, exp.length()), is(equalTo("E21")));
+	}
+	
+	@Test
+	public void should_perm_as_function() {
+		assertThat(MathHelper.isFunction("perm("), is(equalTo(true)));
+	}
+	
+	
+//	@Test(expected=IllegalArgumentException.class)
+//	public void should_throw_exception_when_logb_of_negative() {
+//		entries.add("logb(");
+//		MathHelper.concat(entries, "-1", 0);
+//		MathHelper.concat(entries, ",", 0);
+//		MathHelper.concat(entries, "2", 0);
+//		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+//	}
+	
 	// comma test
 	@Test
 	public void should_accept_comma() {

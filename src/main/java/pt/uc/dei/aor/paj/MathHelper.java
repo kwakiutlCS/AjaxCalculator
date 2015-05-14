@@ -254,7 +254,7 @@ public class MathHelper {
 		try{
 			Expression e = new ExpressionBuilder(expression)
 			.operator(factorial)
-			.function(asinh).function(acosh).function(atanh).function(logb).function(sqrty).function(comb)
+			.function(asinh).function(acosh).function(atanh).function(logb).function(sqrty).function(comb).function(perm)
 			.variables("pi", "e")
 			.build()
 			.setVariable("pi", Math.PI)
@@ -359,7 +359,7 @@ public class MathHelper {
 	}
 	
 	public static boolean isFunction(String s) {
-		List<String> functions = Arrays.asList(new String[]{"sin(", "cos(", "tan(", "atan(", "asin(", "acos(", "comb(",
+		List<String> functions = Arrays.asList(new String[]{"sin(", "cos(", "tan(", "atan(", "asin(", "acos(", "comb(", "perm(",
 							"log(","sqrty(", "logb(", "sqrt(", "log10(", "sinh(", "cosh(", "tanh(", "asinh(", "acosh(", "atanh("});
 		return functions.contains(s);
 	}
@@ -444,6 +444,31 @@ public class MathHelper {
 	    }
 	};
 	
+	private static Function perm = new Function("perm", 2) {
+	    @Override
+	    public double apply(double... args) {
+	    	int n, r, k;
+	    	try {
+	    		n = (int) args[0];
+	    		r = (int) args[1];
+		    	k = n-r;
+	    	}
+	    	catch(Exception e) {
+	    		throw new IllegalArgumentException("Arguments for permutations need to be integer");
+	    	}
+	    	if (n <= 0 || r <= 0 || k <= 0) throw new IllegalArgumentException("Arguments for permutations need to be positive");
+	    	
+	        return getComb(n, r, k)*getFactorial(r);
+	    }
+	};
+	
+	private static double getFactorial(int n) {
+		int res = 1;
+		for (int i = 1; i <= n; i++) {
+			res *= i;
+		}
+		return res;
+	}
 	
 	private static double getComb(int n, int r, int k) {
 		int a, b;
