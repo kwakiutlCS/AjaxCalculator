@@ -44,19 +44,17 @@ public class Login implements Serializable{
 		User u = users.getUser(username);
 		if (u == null || !u.validateUser(password)) return null;
 		
-		if(u.isLoggedIn()){
-			FacesContext.getCurrentInstance().addMessage(":login:msg", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Already logged in!", "Error!"));
-		}else{
-			u.setLoggedIn(true);
+		
+		u.setLoggedIn(true);
 
-			loggedin = true;
-			FacesContext context = FacesContext.getCurrentInstance();
+		loggedin = true;
+		FacesContext context = FacesContext.getCurrentInstance();
+		if(context!=null){
 			HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 			session.setAttribute("login", this);
-			return "calculator/index?faces-redirect=true";
 		}
-		
-		return null;		
+		return "calculator/index?faces-redirect=true";		
+				
 	}
 	
 	
@@ -65,8 +63,10 @@ public class Login implements Serializable{
 		if (u != null) {
 			u.setLoggedIn(false);
 			loggedin = false;
-
-			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+			FacesContext context = FacesContext.getCurrentInstance();
+			if(context!=null){
+				context.getExternalContext().invalidateSession();				
+			}
 			return "/login?faces-redirect=true";
 		}
 		

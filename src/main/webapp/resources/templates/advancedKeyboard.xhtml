@@ -17,7 +17,8 @@
 			
 			<ui:include src="firstRow.xhtml" />
 			
-			
+			<h:commandButton class="button-red" value=","
+				action="#{calculator.add(',')}" />
 			<h:commandButton class="button-red" value="log"
 				action="#{calculator.add('log10(')}" />
 			<h:commandButton class="button-red" value="ln"
@@ -44,8 +45,7 @@
 				action="#{calculator.add('perm(')}" />
 			<h:commandButton class="button-red" value="C"
 				action="#{calculator.add('comb(')}" />
-			<h:commandButton class="button-red" value=","
-				action="#{calculator.add(',')}" />
+			
 			
 			
 			
