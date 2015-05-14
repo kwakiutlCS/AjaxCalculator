@@ -52,7 +52,8 @@ public class MathHelper {
 		}
 		else if (s.equals("(")) {
 			if (phase == 0) 
-				entries.add("(");
+				if (lastEntry.equals("0")) entries.set(entries.size()-1, "(");
+				else entries.add("(");
 			else
 				entries.set(0, "(");
 		}
@@ -254,7 +255,7 @@ public class MathHelper {
 		try{
 			Expression e = new ExpressionBuilder(expression)
 			.operator(factorial)
-			.function(asinh).function(acosh).function(atanh).function(logb).function(sqrty).function(comb).function(perm)
+			.function(asinh).function(acosh).function(atanh).function(logb).function(root).function(comb).function(perm)
 			.variables("pi", "e")
 			.build()
 			.setVariable("pi", Math.PI)
@@ -360,7 +361,7 @@ public class MathHelper {
 	
 	public static boolean isFunction(String s) {
 		List<String> functions = Arrays.asList(new String[]{"sin(", "cos(", "tan(", "atan(", "asin(", "acos(", "comb(", "perm(",
-							"log(","sqrty(", "logb(", "sqrt(", "log10(", "sinh(", "cosh(", "tanh(", "asinh(", "acosh(", "atanh("});
+							"log(","root(", "logb(", "sqrt(", "log10(", "sinh(", "cosh(", "tanh(", "asinh(", "acosh(", "atanh("});
 		return functions.contains(s);
 	}
 	
@@ -419,7 +420,7 @@ public class MathHelper {
 	    }
 	};
 	
-	private static Function sqrty = new Function("sqrty", 2) {
+	private static Function root = new Function("root", 2) {
 	    @Override
 	    public double apply(double... args) {
 	        return Math.pow(args[0], 1/args[1]);

@@ -46,7 +46,8 @@ public class Register implements Serializable{
 	    return confirmRegister(session);
 	}
 	
-	public String confirmRegister(HttpSession session){
+	public synchronized String confirmRegister(HttpSession session){
+		if (username == null || username.equals("") || password == null || password.equals("")) return null;
 		if(users.getUser(username) == null){
 			if(password.equals(confpassword)){
 				users.addUser(new User(username, password, true));
@@ -61,6 +62,5 @@ public class Register implements Serializable{
 			
 		}
 		return null;
-		
 	}
 }

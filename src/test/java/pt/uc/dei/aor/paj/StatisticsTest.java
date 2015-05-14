@@ -28,7 +28,7 @@ public class StatisticsTest {
 		List<String> entries = Arrays.asList(new String[]{"5.3","+","4","-","sin(","(", "4","+","4",")",")"});
 		stats.add(entries);
 		
-		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Adição")));
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Addition")));
 		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
 	}
 	
@@ -37,7 +37,7 @@ public class StatisticsTest {
 		List<String> entries = Arrays.asList(new String[]{"5.3","*","4","sin(","5",")"});
 		stats.add(entries);
 		
-		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplication")));
 		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
 	}
 	
@@ -46,7 +46,7 @@ public class StatisticsTest {
 		List<String> entries = Arrays.asList(new String[]{"5.3","*","pi","sin(","5",")"});
 		stats.add(entries);
 		
-		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplication")));
 		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
 	}
 	
@@ -55,7 +55,7 @@ public class StatisticsTest {
 		List<String> entries = Arrays.asList(new String[]{"5.3","*","4","pi"});
 		stats.add(entries);
 		
-		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplication")));
 		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
 	}
 	
@@ -64,7 +64,7 @@ public class StatisticsTest {
 		List<String> entries = Arrays.asList(new String[]{"5.3","*","4","(","4",")"});
 		stats.add(entries);
 		
-		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplication")));
 		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
 	}
 	
@@ -73,7 +73,7 @@ public class StatisticsTest {
 		List<String> entries = Arrays.asList(new String[]{"5.3","*","pi","(","5",")"});
 		stats.add(entries);
 		
-		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplication")));
 		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
 	}
 	
@@ -82,7 +82,7 @@ public class StatisticsTest {
 		List<String> entries = Arrays.asList(new String[]{"5.3","*","pi","e"});
 		stats.add(entries);
 		
-		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplication")));
 		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
 	}
 	
@@ -91,7 +91,7 @@ public class StatisticsTest {
 		List<String> entries = Arrays.asList(new String[]{"5.3","*","pi","4"});
 		stats.add(entries);
 		
-		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplication")));
 		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
 	}
 	
@@ -100,7 +100,7 @@ public class StatisticsTest {
 		List<String> entries = Arrays.asList(new String[]{"(","5.3","E","4","pi",")", "4"});
 		stats.add(entries);
 		
-		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplication")));
 		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
 	}
 	
@@ -109,7 +109,7 @@ public class StatisticsTest {
 		List<String> entries = Arrays.asList(new String[]{"(","5.3","*","pi",")", "e"});
 		stats.add(entries);
 		
-		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplication")));
 		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
 	}
 	
@@ -118,7 +118,7 @@ public class StatisticsTest {
 		List<String> entries = Arrays.asList(new String[]{"(","5.3","*","pi",")", "asinh(", "0.5", ")"});
 		stats.add(entries);
 		
-		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplication")));
 		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
 	}
 	
@@ -127,7 +127,34 @@ public class StatisticsTest {
 		List<String> entries = Arrays.asList(new String[]{"(","5.3","*","pi",")", "(", "0.5", ")"});
 		stats.add(entries);
 		
-		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplication")));
 		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
+	}
+	
+	@Test
+	public void should_recognize_square_as_exponent() {
+		List<String> entries = Arrays.asList(new String[]{"5.3","+","pi","^2", "-", "0.5", "^2"});
+		stats.add(entries);
+		
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Exponent")));
+		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(2)));
+	}
+	
+	@Test 
+	public void should_increment_sin_count_when_used() {
+		List<String> entries = Arrays.asList(new String[]{"sin(","30"});
+		stats.add(entries);
+		
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Sine")));
+		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(1)));
+	}
+	
+	@Test 
+	public void should_increment_root_count_when_used() {
+		List<String> entries = Arrays.asList(new String[]{"root(","30"});
+		stats.add(entries);
+		
+		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Root")));
+		assertThat(stats.getStats().get(0).getCounter(), is(equalTo(1)));
 	}
 }

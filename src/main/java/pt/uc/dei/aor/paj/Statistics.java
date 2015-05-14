@@ -16,23 +16,27 @@ public class Statistics {
 	private List<String> descriptions;
 	
 	public Statistics() {
-		descriptions = Arrays.asList(new String[]{"Adição", "Subtracção", "Multiplicação", "Divisão", "Seno",
-				"Coseno", "Tangente", "Arco seno", "Arco coseno", "Arco tangente", "Logaritmo base 10", "Logaritmo natural", "Raiz quadrada", "Expoente", "Factorial"});
-		symbols = Arrays.asList(new String[]{"+", "-", "*", "/", "sin", "cos", "tan","asin", "acos", "atan", "log10(", 
-				"log(", "sqrt(", "^", "!"});
+		descriptions = Arrays.asList(new String[]{"Addition", "Subtraction", "Multiplication", "Division", "Sine",
+				"Cosine", "Tangent", "Arcsine", "Arccosine", "Arctangent", "Logarithm base 10", "Natural logarithm",
+				"Logarithm", "Square root", "Root", "Exponent", "Factorial", "Mod", "Permutations", "Combinations",
+				"Hyperbolic sine",	"Hyperbolic cosine", "Hyperbolic tangent", 
+				"Hyperbolic arcsine", "Hyperbolic arccosine", "Hyperbolic arctangent"});
+		symbols = Arrays.asList(new String[]{"+", "-", "*", "/", "sin(", "cos(", "tan(","asin(", "acos(", "atan(", "log10(", 
+				"log(","logb(", "sqrt(", "root(", "^", "!", "mod", "perm(", "comb(",
+				"sinh(", "cosh(", "tanh(","asinh(", "acosh(", "atanh("});
 
-		stats = new ArrayList<>();
+		stats = Collections.synchronizedList(new ArrayList<Stat>());
 		for (int i = 0; i < symbols.size(); i++) {
 			stats.add(new Stat(descriptions.get(i), symbols.get(i), 0));
 		}
 	}
 	
 	
-	public void add(List<String> entries) {
+	public synchronized void add(List<String> entries) {
 		for (Stat stat : stats) {
 			stat.add(countOcurrences(entries, stat.getSymbol()));
 		}
-		sort();
+		Collections.sort(stats);
 	}
 
 	
@@ -50,6 +54,7 @@ public class Statistics {
 		int counter = 0;
 		for (String s : entries) {
 			if (s.equals(sub)) counter++;
+			if (s.equals("^2") && sub.equals("^")) counter++;
 		}
 		if (sub.equals("*")) {
 			for (int i = 0; i < entries.size()-1; i++) {
@@ -70,9 +75,6 @@ public class Statistics {
 		return counter;
 	}
 
-	public void sort() {
-		Collections.sort(stats);
-	}
 
 	public List<String> getSymbols() {
 		return symbols;
