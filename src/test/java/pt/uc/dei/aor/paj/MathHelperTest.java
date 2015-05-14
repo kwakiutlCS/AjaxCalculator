@@ -365,10 +365,36 @@ public class MathHelperTest {
 	
 	// parenthesis tests
 	@Test
+	public void should_replace_zero_when_start_with_parenthesis() {
+		entries.add("0");
+		MathHelper.concat(entries, "(", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("(")));
+	}
+	
+	@Test
 	public void should_add_left_parenthesis_correctly() {
 		entries.add("5");
 		MathHelper.concat(entries, "(", 0);
 		assertThat(MathHelper.formExpression(entries), is(equalTo("5(")));
+	}
+	
+	@Test
+	public void should_add_left_parenthesis_after_zero() {
+		entries.add("5");
+		MathHelper.concat(entries, "+", 0);
+		MathHelper.concat(entries, "0", 0);
+		MathHelper.concat(entries, "(", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("5+(")));
+	}
+	
+	@Test
+	public void should_add_left_parenthesis_after_dot() {
+		entries.add("5");
+		MathHelper.concat(entries, "+", 0);
+		MathHelper.concat(entries, ".", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("5+0.")));
+		MathHelper.concat(entries, "(", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("5+(")));
 	}
 	
 	@Test
@@ -840,8 +866,8 @@ public class MathHelperTest {
 //	}
 	
 	@Test 
-	public void should_evaluate_any_sqrt() {
-		entries.add("sqrty(");
+	public void should_evaluate_any_root() {
+		entries.add("root(");
 		MathHelper.concat(entries, "32", 0);
 		MathHelper.concat(entries, ",", 0);
 		MathHelper.concat(entries, "5", 0);
@@ -850,8 +876,8 @@ public class MathHelperTest {
 	}
 	
 	@Test
-	public void should_accept_sqrty_as_function() {
-		assertThat(MathHelper.isFunction("sqrty("), is(equalTo(true)));
+	public void should_accept_root_as_function() {
+		assertThat(MathHelper.isFunction("root("), is(equalTo(true)));
 	}
 	
 //	@Test(expected=IllegalArgumentException.class)

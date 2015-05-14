@@ -1,6 +1,7 @@
 package pt.uc.dei.aor.paj;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -11,7 +12,7 @@ import javax.inject.Named;
 @ApplicationScoped
 public class Users implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private Set<User> users = new TreeSet<>();
+	private Set<User> users = Collections.synchronizedSet(new TreeSet<User>());
 
 	public Set<User> getUsers() {
 		return users;
@@ -34,7 +35,7 @@ public class Users implements Serializable{
 	}
 	
 	
-	public User getUser(String username) {
+	public synchronized User getUser(String username) {
 		for (User u : users) {
 			if (u.getUsername().equals(username)) return u;
 		}
