@@ -41,6 +41,8 @@ public class ExperimentalSet implements Serializable {
 	
 	public void removeAll() {
 		points.clear();
+		data.clear();
+		data.complete();
 	}
 	
 	public String remove(int id) {
@@ -50,6 +52,8 @@ public class ExperimentalSet implements Serializable {
 				break;
 			}
 		}
+		data.clear();
+		data.complete();
 		return null;
 	}
 	

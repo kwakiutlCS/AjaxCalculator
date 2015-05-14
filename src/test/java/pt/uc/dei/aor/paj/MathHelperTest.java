@@ -260,8 +260,8 @@ public class MathHelperTest {
 	@Test
 	public void should_unuary_operators_correctly() {
 		entries.add("3");
-		MathHelper.concat(entries, "^2", 0);
-		assertThat(MathHelper.formExpression(entries), is(equalTo("3^2")));
+		MathHelper.concat(entries, "!", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("3!")));
 	}
 	
 	@Test
@@ -294,6 +294,17 @@ public class MathHelperTest {
 		MathHelper.concat(entries, "^2", 0);
 		MathHelper.concat(entries, ".", 0);
 		assertThat(MathHelper.formExpression(entries), is(equalTo("5^2")));
+	}
+	
+	@Test
+	public void should_accept_unuary_after_parenthesis() {
+		entries.add("(");
+		MathHelper.concat(entries, "5", 0);
+		MathHelper.concat(entries, "+", 0);
+		MathHelper.concat(entries, "3", 0);
+		MathHelper.concat(entries, ")", 0);
+		MathHelper.concat(entries, "^2", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("(5+3)^2")));
 	}
 	
 	// scientific notation tests
@@ -801,5 +812,156 @@ public class MathHelperTest {
 		MathHelper.concat(entries, "3", 0);
 		MathHelper.evaluate(entries, new AngleUnit("Graus", Math.PI/180));
 		assertThat(Double.valueOf(entries.get(0)), is(closeTo(0.5, 0.001)));
+	}
+	
+	// test extra functions 
+	@Test 
+	public void should_evaluate_any_log() {
+		entries.add("logb(");
+		MathHelper.concat(entries, "1024", 0);
+		MathHelper.concat(entries, ",", 0);
+		MathHelper.concat(entries, "2", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+		assertThat(MathHelper.formExpression(entries), is(equalTo("10")));
+	}
+	
+	@Test
+	public void should_accept_logb_as_function() {
+		assertThat(MathHelper.isFunction("logb("), is(equalTo(true)));
+	}
+	
+//	@Test(expected=IllegalArgumentException.class)
+//	public void should_throw_exception_when_logb_of_negative() {
+//		entries.add("logb(");
+//		MathHelper.concat(entries, "-1", 0);
+//		MathHelper.concat(entries, ",", 0);
+//		MathHelper.concat(entries, "2", 0);
+//		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+//	}
+	
+	@Test 
+	public void should_evaluate_any_sqrt() {
+		entries.add("sqrty(");
+		MathHelper.concat(entries, "32", 0);
+		MathHelper.concat(entries, ",", 0);
+		MathHelper.concat(entries, "5", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+		assertThat(MathHelper.formExpression(entries), is(equalTo("2")));
+	}
+	
+	@Test
+	public void should_accept_sqrty_as_function() {
+		assertThat(MathHelper.isFunction("sqrty("), is(equalTo(true)));
+	}
+	
+//	@Test(expected=IllegalArgumentException.class)
+//	public void should_throw_exception_when_logb_of_negative() {
+//		entries.add("logb(");
+//		MathHelper.concat(entries, "-1", 0);
+//		MathHelper.concat(entries, ",", 0);
+//		MathHelper.concat(entries, "2", 0);
+//		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+//	}
+	
+	@Test
+	public void should_accept_factorial() {
+		entries.add("4");
+		MathHelper.concat(entries, "!", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+		assertThat(MathHelper.formExpression(entries), is(equalTo("24")));
+	}
+	
+	@Test
+	public void should_accept_expression_factorial() {
+		entries.add("(");
+		MathHelper.concat(entries, "3", 0);
+		MathHelper.concat(entries, "+", 0);
+		MathHelper.concat(entries, "2", 0);
+		MathHelper.concat(entries, ")", 0);
+		MathHelper.concat(entries, "!", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("(3+2)!")));
+		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+		assertThat(MathHelper.formExpression(entries), is(equalTo("120")));
+	}
+	
+	@Test 
+	public void should_identify_factorial_as_unuary() {
+		assertThat(MathHelper.isUnuaryOperator("!"), is(equalTo(true)));
+	}
+	
+//	@Test(expected=IllegalArgumentException.class)
+//	public void should_throw_exception_when_logb_of_negative() {
+//		entries.add("logb(");
+//		MathHelper.concat(entries, "-1", 0);
+//		MathHelper.concat(entries, ",", 0);
+//		MathHelper.concat(entries, "2", 0);
+//		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+//	}
+	
+	
+	@Test
+	public void should_evaluate_comb_correctly() {
+		entries.add("comb(");
+		MathHelper.concat(entries, "6", 0);
+		MathHelper.concat(entries, ",", 0);
+		MathHelper.concat(entries, "3", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+		assertThat(MathHelper.formExpression(entries), is(equalTo("20")));
+	}
+	
+	@Test
+	public void should_evaluate_comb_of_expression_correctly() {
+		entries.add("4");
+		MathHelper.concat(entries, "comb(", 0);
+		MathHelper.concat(entries, "(", 0);
+		MathHelper.concat(entries, "6", 0);
+		MathHelper.concat(entries, "*", 0);
+		MathHelper.concat(entries, "12", 0);
+		MathHelper.concat(entries, ")", 0);
+		MathHelper.concat(entries, ",", 0);
+		MathHelper.concat(entries, "7", 0);
+		MathHelper.concat(entries, "0", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+		assertThat(MathHelper.formExpression(entries), is(equalTo("10224")));
+	}
+	
+	@Test
+	public void should_evaluate_large_comb() {
+		entries.add("0");
+		MathHelper.concat(entries, "comb(", 0);
+		MathHelper.concat(entries, "7", 0);
+		MathHelper.concat(entries, "2", 0);
+		MathHelper.concat(entries, ",", 0);
+		MathHelper.concat(entries, "1", 0);
+		MathHelper.concat(entries, "2", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+		String exp = MathHelper.formExpression(entries);
+		assertThat(exp.substring(0, 7), is(equalTo("1.53632")));
+		assertThat(exp.substring(exp.length()-3, exp.length()), is(equalTo("E13")));
+	}
+	
+	
+	@Test
+	public void should_accept_comb_as_function() {
+		assertThat(MathHelper.isFunction("comb("), is(equalTo(true)));
+	}
+	
+//	@Test(expected=IllegalArgumentException.class)
+//	public void should_throw_exception_when_logb_of_negative() {
+//		entries.add("logb(");
+//		MathHelper.concat(entries, "-1", 0);
+//		MathHelper.concat(entries, ",", 0);
+//		MathHelper.concat(entries, "2", 0);
+//		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+//	}
+	
+	// comma test
+	@Test
+	public void should_accept_comma() {
+		entries.add("logb(");
+		MathHelper.concat(entries, "1024", 0);
+		MathHelper.concat(entries, ",", 0);
+		MathHelper.concat(entries, "2", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("logb(1024,2")));
 	}
 }

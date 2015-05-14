@@ -251,6 +251,84 @@ public class ScreenTest {
 		assertThat(screen.getEntries().size(), is(equalTo(6)));
 	}
 	
+	@Test 
+	public void should_not_reuse_expression_if_passes_screen_size_limit_after_operator() {
+		Screen other = new Screen();
+		other.concat("2");
+		other.concat("+");
+		other.concat("4");
+		other.concat("+");
+		other.concat("4");
+		screen.concat("4");
+		screen.concat("+");
+		screen.add(other);
+		screen.concat("+");
+		screen.add(other);
+		screen.concat("-");
+		assertThat(screen.getExpression().length(), is(equalTo(18)));
+		screen.add(other);
+		assertThat(screen.getExpression().length(), is(equalTo(18)));
+	}
+	
+	@Test 
+	public void should_not_reuse_expression_if_passes_screen_size_limit_after_function() {
+		Screen other = new Screen();
+		other.concat("2");
+		other.concat("+");
+		other.concat("4");
+		other.concat("+");
+		other.concat("4");
+		screen.concat("4");
+		screen.concat("+");
+		screen.add(other);
+		screen.concat("+");
+		screen.add(other);
+		screen.concat("sin(");
+		assertThat(screen.getExpression().length(), is(equalTo(21)));
+		screen.add(other);
+		assertThat(screen.getExpression().length(), is(equalTo(21)));
+	}
+	
+	@Test 
+	public void should_not_reuse_expression_if_passes_screen_size_limit_after_parenthesis() {
+		Screen other = new Screen();
+		other.concat("2");
+		other.concat("+");
+		other.concat("4");
+		other.concat("+");
+		other.concat("4");
+		screen.concat("4");
+		screen.concat("+");
+		screen.add(other);
+		screen.concat("+");
+		screen.add(other);
+		screen.concat("(");
+		assertThat(screen.getExpression().length(), is(equalTo(18)));
+		screen.add(other);
+		assertThat(screen.getExpression().length(), is(equalTo(18)));
+	}
+	
+	@Test 
+	public void should_not_reuse_expression_if_passes_screen_size_with_long_number() {
+		Screen other = new Screen();
+		other.concat("2");
+		other.concat("+");
+		other.concat("4");
+		other.concat("+");
+		other.concat("4");
+		screen.concat("4");
+		screen.concat("+");
+		screen.add(other);
+		screen.concat("+");
+		screen.add(other);
+		screen.concat("(");
+		assertThat(screen.getExpression().length(), is(equalTo(18)));
+		other = new Screen();
+		other.concat("2.2314568");
+		screen.add(other);
+		assertThat(screen.getExpression().length(), is(equalTo(18)));
+	}
+	
 	@Test
 	public void should_not_evaluate_after_error() {
 		screen.concat("1");

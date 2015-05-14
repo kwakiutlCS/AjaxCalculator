@@ -1,15 +1,17 @@
 package pt.uc.dei.aor.paj;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import net.objecthunter.exp4j.function.Function;
+import net.objecthunter.exp4j.operator.Operator;
 
 public class MathHelper {
 	
-	private static final int MAX_SCREEN_SIZE = 22;
+	public static final int MAX_SCREEN_SIZE = 22;
 
 	public static String formExpression(List<String> entries) {
 		String expression = "";
@@ -90,7 +92,7 @@ public class MathHelper {
 				entries.remove(entries.size()-1);
 				entries.add(s);
 			}
-			else if (isNumber(lastEntry)) entries.add(s);
+			else if (isNumber(lastEntry) || lastEntry.equals(")")) entries.add(s);
 			else if (lastEntry.charAt(lastEntry.length()-1) == '(') return false;
 		}
 		else if (isNumber(s)) {
@@ -145,6 +147,9 @@ public class MathHelper {
 				if (lastEntry.equals("0")) entries.remove(entries.size()-1);
 				entries.add(s);
 			}
+		}
+		else if (s.equals(",")) {
+			entries.add(",");
 		}
 		else if (s.equals("+/-")) {
 			if (phase == 2) return false;
@@ -248,7 +253,8 @@ public class MathHelper {
 		expression = expression.replaceAll("mod", "%");
 		try{
 			Expression e = new ExpressionBuilder(expression)
-			.function(asinh).function(acosh).function(atanh)
+			.operator(factorial)
+			.function(asinh).function(acosh).function(atanh).function(logb).function(sqrty).function(comb)
 			.variables("pi", "e")
 			.build()
 			.setVariable("pi", Math.PI)
@@ -347,14 +353,14 @@ public class MathHelper {
 		return binOperators.contains(s);
 	}
 	
-	private static boolean isUnuaryOperator(String s) {
-		List<String> operators = Arrays.asList(new String[]{"^2"});
+	public static boolean isUnuaryOperator(String s) {
+		List<String> operators = Arrays.asList(new String[]{"^2", "!"});
 		return operators.contains(s);
 	}
 	
 	public static boolean isFunction(String s) {
-		List<String> functions = Arrays.asList(new String[]{"sin(", "cos(", "tan(", "atan(", "asin(", "acos(",
-							"log(", "sqrt(", "log10(", "sinh(", "cosh(", "tanh(", "asinh(", "acosh(", "atanh("});
+		List<String> functions = Arrays.asList(new String[]{"sin(", "cos(", "tan(", "atan(", "asin(", "acos(", "comb(",
+							"log(","sqrty(", "logb(", "sqrt(", "log10(", "sinh(", "cosh(", "tanh(", "asinh(", "acosh(", "atanh("});
 		return functions.contains(s);
 	}
 	
@@ -405,6 +411,76 @@ public class MathHelper {
 	    }
 	};
 	
+	private static Function logb = new Function("logb", 2) {
+	    @Override
+	    public double apply(double... args) {
+	    	if (args[0] <= 0 || args[1] <= 0) throw new IllegalArgumentException("Invalid parameters for logb");
+	        return Math.log(args[0]) / Math.log(args[1]);
+	    }
+	};
+	
+	private static Function sqrty = new Function("sqrty", 2) {
+	    @Override
+	    public double apply(double... args) {
+	        return Math.pow(args[0], 1/args[1]);
+	    }
+	};
+	
+	private static Function comb = new Function("comb", 2) {
+	    @Override
+	    public double apply(double... args) {
+	    	int n, r, k;
+	    	try {
+	    		n = (int) args[0];
+	    		r = (int) args[1];
+		    	k = n-r;
+	    	}
+	    	catch(Exception e) {
+	    		throw new IllegalArgumentException("Arguments for combinations need to be integer");
+	    	}
+	    	if (n <= 0 || r <= 0 || k <= 0) throw new IllegalArgumentException("Arguments for combinations need to be positive");
+	    	
+	        return getComb(n, r, k);
+	    }
+	};
+	
+	
+	private static double getComb(int n, int r, int k) {
+		int a, b;
+		if (k > r) {
+			a = k; 
+			b = r;
+		}
+		else {
+			b = k; 
+			a = r;
+		}
+		
+		List<Integer> top = new ArrayList<>();
+		List<Integer> bottom = new ArrayList<>();
+		for (int i = n; i > a; i--) {
+			top.add(i);
+		}
+		for (int i = 1; i <= b; i++) {
+			bottom.add(i);
+		}
+		
+		for (int i = bottom.size()-1; i >= 0; i--) {
+			for (int j = 0; j < top.size(); j++) {
+				if (top.get(j) % bottom.get(i) == 0) {
+					top.set(j, top.get(j)/bottom.get(i));
+					bottom.remove(i);
+					break;
+				}
+			}
+		}
+		
+		double result = 1;
+		for (int t : top) result *= t;
+		for (int z : bottom) result /= z;
+		return result;
+	}
+	
 	public static double[] regression(double[] x, double[] y) {
 		double xAvg = avg(x);
 		double yAvg = avg(y);
@@ -448,5 +524,25 @@ public class MathHelper {
 		}
 		return total/x.length;
 	}
+	
 	// custom operators
+	public static Operator factorial = new Operator("!", 1, true, Operator.PRECEDENCE_POWER + 1) {
+
+	    @Override
+	    public double apply(double... args) {
+	        final int arg = (int) args[0];
+	        if (arg != args[0]) {
+	            throw new IllegalArgumentException("Argument for factorial has to be an integer");
+	        }
+	        if (arg < 0) {
+	            throw new IllegalArgumentException("Argument for factorial can not be negative");
+	        }
+	        if (arg > 170) return Double.POSITIVE_INFINITY;
+	        double result = 1;
+	        for (int i = 1; i <= arg; i++) {
+	            result *= i;
+	        }
+	        return result;
+	    }
+	};
 }

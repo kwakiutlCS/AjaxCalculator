@@ -85,4 +85,9 @@ public class ChatServer {
 	}
 	
 	
+	public void prepareSecret(String username) {
+		message = "/secret "+username+" ";
+	}
+	
+	
 }

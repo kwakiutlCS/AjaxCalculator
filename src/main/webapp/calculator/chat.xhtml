@@ -43,10 +43,12 @@
 			</div>
 			
 			<div class="userbox">
-				<h:selectOneListbox  size="20" styleClass="userbox" id="chatUsers">
+				<h:selectOneListbox  size="20" styleClass="userbox" id="chatUsers"
+				valueChangeListener="#{chatServer.prepareSecret('manel')}" onchange="submit()">
 					<f:selectItems value="#{users.loggedUsers}" />
 				</h:selectOneListbox>
 			</div>
+			
 			<div class="textSubmit">
 				<h:inputText styleClass="chatMsg" id="chatMsg"
 					value="#{chatServer.message}" />

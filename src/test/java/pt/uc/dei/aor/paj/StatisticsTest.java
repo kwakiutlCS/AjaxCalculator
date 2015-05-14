@@ -97,7 +97,7 @@ public class StatisticsTest {
 	
 	@Test
 	public void should_add_implicitly_correctly_parenthesis_number()  {
-		List<String> entries = Arrays.asList(new String[]{"(","5.3","*","pi",")", "4"});
+		List<String> entries = Arrays.asList(new String[]{"(","5.3","E","4","pi",")", "4"});
 		stats.add(entries);
 		
 		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Multiplicação")));

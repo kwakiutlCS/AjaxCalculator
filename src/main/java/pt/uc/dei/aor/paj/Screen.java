@@ -45,19 +45,28 @@ public class Screen implements Serializable {
 	}
 	
 	public void add(Screen other) {
+		int size1 = 0, size2 = 0;
+		for (String s : entries) size1 += s.length();
+		for (String s : other.entries) size2 += s.length();
+		
+		boolean addAccepted = !(size1+size2 > MathHelper.MAX_SCREEN_SIZE);
+		boolean addExtraAccepted = !(size1+size2+2 > MathHelper.MAX_SCREEN_SIZE);
 		String lastEntry = entries.get(entries.size()-1);
 		
-		if (MathHelper.isBinOperator(lastEntry)) {
+		if (MathHelper.isBinOperator(lastEntry) && addExtraAccepted) {
 			entries.add("(");
 		}
-		else if (!(MathHelper.isFunction(lastEntry) || lastEntry.charAt(lastEntry.length()-1) == '(')) {
+		else if (!(MathHelper.isFunction(lastEntry) || lastEntry.charAt(lastEntry.length()-1) == '(') && addAccepted) {
 			entries.clear();
 		}
 		
-		for (String s : other.entries) {
-			entries.add(s);
+		if (addAccepted || addExtraAccepted || entries.size() == 0) {
+			for (String s : other.entries) {
+				entries.add(s);
+			}
 		}
-		if (MathHelper.isBinOperator(lastEntry)) {
+		
+		if (MathHelper.isBinOperator(lastEntry) && addExtraAccepted) {
 			entries.add(")");
 		}
 		

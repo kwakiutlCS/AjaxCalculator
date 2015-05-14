@@ -15,10 +15,35 @@
 		<f:ajax render="@form" >
 			<h:panelGrid columns="4">
 			
-			<h:commandButton class="button-red" value="mode"
-				action="#{calculator.changeMode()}" />
+			<ui:include src="firstRow.xhtml" />
+			
+			<h:commandButton class="button-red" value="sin"
+				action="#{calculator.add('sin(')}" />
+			<h:commandButton class="button-red" value="asin"
+				action="#{calculator.add('asin(')}" />
+			<h:commandButton class="button-red" value="sinh"
+				action="#{calculator.add('sinh(')}" />
+			<h:commandButton class="button-red" value="asinh"
+				action="#{calculator.add('asinh(')}" />
+			
+			<h:commandButton class="button-red" value="cos"
+				action="#{calculator.add('cos(')}" />
+			<h:commandButton class="button-red" value="acos"
+				action="#{calculator.add('acos(')}" />
+			<h:commandButton class="button-red" value="cosh"
+				action="#{calculator.add('cosh(')}" />
+			<h:commandButton class="button-red" value="acosh"
+				action="#{calculator.add('acosh(')}" />
 			
 			
+			<h:commandButton class="button-red" value="tan"
+				action="#{calculator.add('tan(')}" />
+			<h:commandButton class="button-red" value="atan"
+				action="#{calculator.add('atan(')}" />
+			<h:commandButton class="button-red" value="tanh"
+				action="#{calculator.add('tanh(')}" />
+			<h:commandButton class="button-red" value="atanh"
+				action="#{calculator.add('atanh(')}" />
 			
 		</h:panelGrid>
 		</f:ajax>

@@ -15,45 +15,40 @@
 		<f:ajax render="@form" >
 			<h:panelGrid columns="4">
 			
-			<h:commandButton class="button-red" value="mode"
-				action="#{calculator.changeMode()}" />
+			<ui:include src="firstRow.xhtml" />
+			
 			
 			<h:commandButton class="button-red" value="log"
 				action="#{calculator.add('log10(')}" />
 			<h:commandButton class="button-red" value="ln"
 				action="#{calculator.add('log(')}" />
+			<h:commandButton class="button-red" value="logb"
+				action="#{calculator.add('logb(')}" />
 			<h:commandButton class="button-red" value="e&#739;"
 				action="#{calculator.add('e^')}" />
+			
 			<h:commandButton class="button-red" value="EE"
 				action="#{calculator.add('E')}" />
-			
-		
-			<h:commandButton class="button-red" value="√"
-				action="#{calculator.add('sqrt(')}" />
-			<h:commandButton class="button-red" value="x&#178;"
-				action="#{calculator.add('^2')}" />
-			<h:commandButton class="button-red" value="("
-				action="#{calculator.add('(')}" />
-			<h:commandButton class="button-red" value=")"
-				action="#{calculator.add(')')}" />
-			
-			<h:commandButton class="button-red" value="sin"
-				action="#{calculator.add('sin(')}" />
-			<h:commandButton class="button-red" value="cos"
-				action="#{calculator.add('cos(')}" />
-			<h:commandButton class="button-red" value="tan"
-				action="#{calculator.add('tan(')}" />
-			<h:commandButton class="button-red" value="&#960;"
-				action="#{calculator.add('pi')}" />
-			
-			<h:commandButton class="button-red" value="asin"
-				action="#{calculator.add('asin(')}" />
-			<h:commandButton class="button-red" value="acos"
-				action="#{calculator.add('acos(')}" />
-			<h:commandButton class="button-red" value="atan"
-				action="#{calculator.add('atan(')}" />
 			<h:commandButton class="button-red" value="x&#696;"
 				action="#{calculator.add('^')}" />
+			<h:commandButton class="button-red" value="√"
+				action="#{calculator.add('sqrt(')}" />
+			<h:commandButton class="button-red" value="√"
+				action="#{calculator.add('sqrty(')}" />
+			
+			<h:commandButton class="button-red" value="x&#178;"
+				action="#{calculator.add('^2')}" />
+			<h:commandButton class="button-red" value="x!"
+				action="#{calculator.add('!')}" />
+			<h:commandButton class="button-red" value="A"
+				action="#{calculator.add('')}" />
+			<h:commandButton class="button-red" value="C"
+				action="#{calculator.add('comb(')}" />
+			<h:commandButton class="button-red" value=","
+				action="#{calculator.add(',')}" />
+			
+			
+			
 			
 		</h:panelGrid>
 		</f:ajax>

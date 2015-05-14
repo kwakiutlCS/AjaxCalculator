@@ -24,6 +24,7 @@ public class Data implements Serializable {
 	private double r2;
 	
 	public Data() {
+		this.name = "graph";
 		clear();
 	}
 	
@@ -40,7 +41,6 @@ public class Data implements Serializable {
 	public void clear() {
 		model = new NumberChartDataModel(ChartType.line);
 		reg = new NumberChartDataModel(ChartType.line);
-		this.name = "graph";
 		m = 0;
 		b = 0;
 		setR2(0);

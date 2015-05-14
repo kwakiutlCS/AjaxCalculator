@@ -166,4 +166,10 @@ public class ChatServerTest {
 		assertThat(chatServer.getMessages().size(), is(equalTo(5)));
 		assertThat(chatServer.getMyMessages().size(), is(equalTo(4)));
 	}
+	
+	@Test
+	public void should_prepare_secret_correctly() {
+		chatServer.prepareSecret("user1");
+		assertThat(chatServer.getMessage(), is(equalTo("/secret user1 ")));
+	}
 }

@@ -33,7 +33,7 @@
 				<h:column><h:commandLink value="#{entry.expression}" action="#{calculator.submitOp(entry.expression)}" /></h:column>
 				<h:column>
 					<h:commandLink action="#{calculator.submitOp(entry.result)}">
-					<h:outputText value="#{entry.result}"><f:convertNumber maxIntegerDigits="2"/></h:outputText>
+					<h:outputText value="#{entry.result}"><f:convertNumber maxFractionDigits="2" /></h:outputText>
 					</h:commandLink>
 				</h:column>
 				<h:column>#{entry.deltaT}</h:column>
