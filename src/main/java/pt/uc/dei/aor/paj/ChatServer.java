@@ -24,15 +24,9 @@ public class ChatServer {
 	private Login login;
 	
 	private List<Message> messages = Collections.synchronizedList(new LinkedList<Message>());
-	private String message;
 	
 	
-	public String getMessage() {
-		return message;
-	}
-	public void setMessage(String message) {
-		this.message = message;
-	}
+	
 	public Users getUsers() {
 		return users;
 	}
@@ -61,7 +55,7 @@ public class ChatServer {
 		this.messages = messages;
 	}
 	
-	public void sendMsg() {
+	public void sendMsg(String message) {
 		message = message.trim();
 		if (message == null || message.equals("")) return;
 		Message m = new Message();
@@ -72,18 +66,15 @@ public class ChatServer {
 		
 		if (message.length() >= 7 && message.substring(0, 7).equals("/secret")) {
 			if (message.equals("/secret") || message.charAt(7) != ' ') {
-				message = "";
 				return;
 			}
 			if (message.indexOf(' ', 8) == -1) {
-				message = "";
 				return;
 			}
 			int userEnd = message.indexOf(' ', 8);
 			m.setText(message.substring(userEnd+1));
 			User receiver = users.getUser(message.substring(8, userEnd));
 			if (receiver == null || receiver.equals(sender)) {
-				message = "";
 				return;
 			}
 			m.setReceiver(receiver);
@@ -94,14 +85,11 @@ public class ChatServer {
 		
 		m.setDate(new GregorianCalendar());
 		messages.add(m);
-		message = "";
 		cleanMessages();
 	}
 	
 	
-	public void prepareSecret(String username) {
-		message = "/secret "+username+" ";
-	}
+	
 	
 	private void cleanMessages() {
 		Calendar limit = new GregorianCalendar();

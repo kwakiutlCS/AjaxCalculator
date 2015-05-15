@@ -50,10 +50,10 @@
 			
 			<div class="textSubmit">
 				<h:inputText styleClass="chatMsg" id="chatMsg"
-					value="#{chatServer.message}" />
+					value="#{messageBean.text}" />
 				<h:commandButton styleClass="submitMsg" value="submit"
-					action="#{chatServer.sendMsg}">
-					<f:ajax execute="chatMsg" render="@form" onevent="getFocus" />
+					action="#{chatServer.sendMsg(messageBean.text)}">
+					<f:ajax render="@form" execute="chatMsg" onevent="getFocus" />
 				</h:commandButton>
 				<h:commandButton value="submit" action="null" id="chatRefresher"
 					style="display:none;">

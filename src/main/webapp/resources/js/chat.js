@@ -12,6 +12,8 @@ $(function() {
 
 var getFocus = function() {
 	$("#chatForm\\:chatMsg").focus();
+	$("#chatForm\\:chatMsg").val("");
+	
 	$('.textArea').scrollTop($('.textArea')[0].scrollHeight);
 }
 

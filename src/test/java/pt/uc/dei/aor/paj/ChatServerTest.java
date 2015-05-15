@@ -1,7 +1,7 @@
 package pt.uc.dei.aor.paj;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -57,8 +57,7 @@ public class ChatServerTest {
 	@Test
 	public void should_add_correct_message() {
 		int size = chatServer.getMessages().size();
-		chatServer.setMessage("test");
-		chatServer.sendMsg();
+		chatServer.sendMsg("test");
 		assertThat(chatServer.getMessages().size(), is(equalTo(size+1)));
 		assertThat(chatServer.getMessages().get(size).getText(), is(equalTo("test")));
 	}
@@ -66,8 +65,7 @@ public class ChatServerTest {
 	@Test
 	public void should_add_correct_user_to_message() {
 		int size = chatServer.getMessages().size();
-		chatServer.setMessage("test");
-		chatServer.sendMsg();
+		chatServer.sendMsg("test");
 		assertThat(chatServer.getMessages().size(), is(equalTo(size+1)));
 		assertThat(chatServer.getMessages().get(size).getSender().getUsername(), is(equalTo("user2")));
 	}
@@ -75,49 +73,41 @@ public class ChatServerTest {
 	@Test
 	public void should_not_add_empty_message() {
 		int size = chatServer.getMessages().size();
-		chatServer.setMessage("");
-		chatServer.sendMsg();
+		chatServer.sendMsg("");
 		assertThat(chatServer.getMessages().size(), is(equalTo(size)));
 	}
 	
 	@Test
 	public void should_add_secret_message_correctly() {
-		chatServer.setMessage("/secret user1 mensagem");
-		chatServer.sendMsg();
+		chatServer.sendMsg("/secret user1 mensagem");
 		assertThat(chatServer.getMessages().get(0).getReceiver().getUsername(), is(equalTo("user1")));
 		assertThat(chatServer.getMessages().get(0).getText(), is(equalTo("mensagem")));
 	}
 	
 	@Test
 	public void should_not_add_secret_message_without_message() {
-		chatServer.setMessage("/secret user1");
-		chatServer.sendMsg();
+		chatServer.sendMsg("/secret user1");
 		assertThat(chatServer.getMessages().size(), is(equalTo(0)));
 	}
 	
 	@Test
 	public void should_not_add_secret_message_without_user_present() {
-		chatServer.setMessage("/secret user4 mensagem");
-		chatServer.sendMsg();
+		chatServer.sendMsg("/secret user4 mensagem");
 		assertThat(chatServer.getMessages().size(), is(equalTo(0)));
 	}
 	
 	@Test
 	public void should_not_add_secret_message_to_himself() {
-		chatServer.setMessage("/secret user2 mensagem");
-		chatServer.sendMsg();
+		chatServer.sendMsg("/secret user2 mensagem");
 		assertThat(chatServer.getMessages().size(), is(equalTo(0)));
 	}
 	
 	@Test
 	public void should_filter_messages_correctly() {
-		chatServer.setMessage("/secret user1 mensagem");
-		chatServer.sendMsg();
-		chatServer.setMessage("mensagem");
-		chatServer.sendMsg();
+		chatServer.sendMsg("/secret user1 mensagem");
+		chatServer.sendMsg("mensagem");
 		when(login.getUsername()).thenReturn("user1");
-		chatServer.setMessage("/secret user3 mensagem");
-		chatServer.sendMsg();
+		chatServer.sendMsg("/secret user3 mensagem");
 		when(login.getUsername()).thenReturn("user3");
 		assertThat(chatServer.getMessages().size(), is(equalTo(3)));
 		assertThat(chatServer.getMyMessages().size(), is(equalTo(2)));
@@ -126,12 +116,9 @@ public class ChatServerTest {
 	
 	@Test
 	public void should_not_filter_messages_from_himself() {
-		chatServer.setMessage("/secret user1 mensagem");
-		chatServer.sendMsg();
-		chatServer.setMessage("mensagem");
-		chatServer.sendMsg();
-		chatServer.setMessage("/secret user3 mensagem");
-		chatServer.sendMsg();
+		chatServer.sendMsg("/secret user1 mensagem");
+		chatServer.sendMsg("mensagem");
+		chatServer.sendMsg("/secret user3 mensagem");
 		assertThat(chatServer.getMessages().size(), is(equalTo(3)));
 		assertThat(chatServer.getMyMessages().size(), is(equalTo(3)));
 		
@@ -140,12 +127,9 @@ public class ChatServerTest {
 	
 	@Test
 	public void should_filter_messages_older_than_1h() {
-		chatServer.setMessage("mensagem");
-		chatServer.sendMsg();
-		chatServer.setMessage("mensagem");
-		chatServer.sendMsg();
-		chatServer.setMessage("mensagem");
-		chatServer.sendMsg();
+		chatServer.sendMsg("mensagem");
+		chatServer.sendMsg("mensagem");
+		chatServer.sendMsg("mensagem");
 		
 		Message m = new Message();
 		m.setText("kdfj");
@@ -167,9 +151,11 @@ public class ChatServerTest {
 		assertThat(chatServer.getMyMessages().size(), is(equalTo(4)));
 	}
 	
-	@Test
-	public void should_prepare_secret_correctly() {
-		chatServer.prepareSecret("user1");
-		assertThat(chatServer.getMessage(), is(equalTo("/secret user1 ")));
-	}
+//	@Test
+//	public void should_prepare_secret_correctly() {
+//		chatServer.prepareSecret("user1");
+//		assertThat(chatServer.getMessage(), is(equalTo("/secret user1 ")));
+//	}
+	
+	
 }

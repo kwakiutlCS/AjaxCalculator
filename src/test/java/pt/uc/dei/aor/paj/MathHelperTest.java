@@ -865,14 +865,6 @@ public class MathHelperTest {
 		assertThat(MathHelper.isFunction("logb("), is(equalTo(true)));
 	}
 	
-//	@Test(expected=IllegalArgumentException.class)
-//	public void should_throw_exception_when_logb_of_negative() {
-//		entries.add("logb(");
-//		MathHelper.concat(entries, "-1", 0);
-//		MathHelper.concat(entries, ",", 0);
-//		MathHelper.concat(entries, "2", 0);
-//		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
-//	}
 	
 	@Test 
 	public void should_evaluate_any_root() {
@@ -889,14 +881,6 @@ public class MathHelperTest {
 		assertThat(MathHelper.isFunction("root("), is(equalTo(true)));
 	}
 	
-//	@Test(expected=IllegalArgumentException.class)
-//	public void should_throw_exception_when_logb_of_negative() {
-//		entries.add("logb(");
-//		MathHelper.concat(entries, "-1", 0);
-//		MathHelper.concat(entries, ",", 0);
-//		MathHelper.concat(entries, "2", 0);
-//		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
-//	}
 	
 	@Test
 	public void should_accept_factorial() {
@@ -924,16 +908,7 @@ public class MathHelperTest {
 		assertThat(MathHelper.isUnuaryOperator("!"), is(equalTo(true)));
 	}
 	
-//	@Test(expected=IllegalArgumentException.class)
-//	public void should_throw_exception_when_logb_of_negative() {
-//		entries.add("logb(");
-//		MathHelper.concat(entries, "-1", 0);
-//		MathHelper.concat(entries, ",", 0);
-//		MathHelper.concat(entries, "2", 0);
-//		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
-//	}
-	
-	
+
 	@Test
 	public void should_evaluate_comb_correctly() {
 		entries.add("comb(");
@@ -981,16 +956,7 @@ public class MathHelperTest {
 		assertThat(MathHelper.isFunction("comb("), is(equalTo(true)));
 	}
 	
-//	@Test(expected=IllegalArgumentException.class)
-//	public void should_throw_exception_when_logb_of_negative() {
-//		entries.add("logb(");
-//		MathHelper.concat(entries, "-1", 0);
-//		MathHelper.concat(entries, ",", 0);
-//		MathHelper.concat(entries, "2", 0);
-//		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
-//	}
-	
-	
+
 	@Test
 	public void should_evaluate_permutations_correctly() {
 		entries.add("0");
@@ -1091,16 +1057,6 @@ public class MathHelperTest {
 		assertThat(MathHelper.isFunction("perm("), is(equalTo(true)));
 	}
 	
-	
-	
-//	@Test(expected=IllegalArgumentException.class)
-//	public void should_throw_exception_when_logb_of_negative() {
-//		entries.add("logb(");
-//		MathHelper.concat(entries, "-1", 0);
-//		MathHelper.concat(entries, ",", 0);
-//		MathHelper.concat(entries, "2", 0);
-//		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
-//	}
 	
 	// comma test
 	@Test
