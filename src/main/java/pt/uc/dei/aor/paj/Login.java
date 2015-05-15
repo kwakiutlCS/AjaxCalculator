@@ -4,7 +4,6 @@ package pt.uc.dei.aor.paj;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -44,7 +43,6 @@ public class Login implements Serializable{
 		User u = users.getUser(username);
 		if (u == null || !u.validateUser(password)) return null;
 		
-		
 		u.setLoggedIn(true);
 
 		loggedin = true;
@@ -54,7 +52,6 @@ public class Login implements Serializable{
 			session.setAttribute("login", this);
 		}
 		return "calculator/index?faces-redirect=true";		
-				
 	}
 	
 	

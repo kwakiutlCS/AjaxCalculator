@@ -33,7 +33,7 @@ public class StatisticsTest {
 	}
 	
 	@Test
-	public void should_add_implicitly_correctly_number_function()  {
+	public void should_add_implicitly_correctly_number_function() {
 		List<String> entries = Arrays.asList(new String[]{"5.3","*","4","sin(","5",")"});
 		stats.add(entries);
 		

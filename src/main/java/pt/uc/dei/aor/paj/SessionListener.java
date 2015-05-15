@@ -16,7 +16,7 @@ HttpSessionListener, Serializable {
 
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
-		System.out.println("session created : " + se.getSession().getId());
+		
 	}
 
 	@Override
@@ -25,13 +25,9 @@ HttpSessionListener, Serializable {
 		HttpSession session = se.getSession();
 		Login login = (Login) session.getAttribute("login");
 
-		if(login != null)
-			System.out.println("login user :" + login.getUsername());
-
-		for (User u : login.getUsers().getUsers()) {
-			if (u.getUsername().equals(login.getUsername()))
-					u.setLoggedIn(false);
-		}
+		User u = login.getUsers().getUser(login.getUsername());
+		if (u != null) u.setLoggedIn(false);
+		
 	}
 
 
