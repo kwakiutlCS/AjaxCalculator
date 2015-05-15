@@ -58,6 +58,7 @@ public class MathHelper {
 				entries.set(0, "(");
 		}
 		else if (s.equals(")")) {
+			if (isBinOperator(lastEntry)) return false;
 			if (getLastChar(lastEntry) == '(' || phase > 0) return false;
 			int counter = 0;
 			for (String e : entries) {
@@ -150,6 +151,7 @@ public class MathHelper {
 			}
 		}
 		else if (s.equals(",")) {
+			if (!isCommaValid(entries)) return false;
 			entries.add(",");
 		}
 		else if (s.equals("+/-")) {
@@ -447,7 +449,7 @@ public class MathHelper {
 	    	catch(Exception e) {
 	    		throw new IllegalArgumentException("Arguments for combinations need to be integer");
 	    	}
-	    	if (n <= 0 || r <= 0 || k <= 0) throw new IllegalArgumentException("Arguments for combinations need to be positive");
+	    	if (n <= 0 || r <= 0 || k < 0) throw new IllegalArgumentException("Arguments for combinations need to be positive");
 	    	
 	        return getComb(n, r, k);
 	    }
@@ -465,21 +467,24 @@ public class MathHelper {
 	    	catch(Exception e) {
 	    		throw new IllegalArgumentException("Arguments for permutations need to be integer");
 	    	}
-	    	if (n <= 0 || r <= 0 || k <= 0) throw new IllegalArgumentException("Arguments for permutations need to be positive");
+	    	if (n <= 0 || r <= 0 || k < 0) throw new IllegalArgumentException("Arguments for permutations need to be positive");
 	    	
-	        return getComb(n, r, k)*getFactorial(r);
+	    	double fact = getFactorial(r);
+	    	if (fact == Double.POSITIVE_INFINITY) return fact;
+	        return getComb(n, r, k)*fact;
 	    }
 	};
 	
 	private static double getFactorial(int n) {
-		int res = 1;
+		if (n > 170) return Double.POSITIVE_INFINITY;
+		double res = 1;
 		for (int i = 1; i <= n; i++) {
 			res *= i;
 		}
 		return res;
 	}
 	
-	private static double getComb(int n, int r, int k) {
+	public static double getComb(int n, int r, int k) {
 		int a, b;
 		if (k > r) {
 			a = k; 
@@ -612,5 +617,32 @@ public class MathHelper {
 		}
 		
 		return result;
+	}
+	
+	
+	private static boolean isCommaValid(List<String> entries) {
+		int counter = 0;
+		int index = entries.size()-1;
+		String entry;
+		
+		while(index >= 0) {
+			entry = entries.get(index);
+			if (entry.equals(")")) counter++;
+			else if (entry.equals(",") && counter == 0) return false;
+			else if (entry.equals("(") || isFunction(entry)) {
+				if (counter > 0) {
+					counter--;
+					index--;
+					continue;
+				}
+				else {
+					if (acceptsComma(entry)) return true;
+					return false;
+				}
+			}
+			index--;
+		}
+		
+		return false;
 	}
 }

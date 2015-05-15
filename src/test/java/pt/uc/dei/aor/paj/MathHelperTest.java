@@ -469,6 +469,15 @@ public class MathHelperTest {
 		assertThat(MathHelper.formExpression(entries), is(equalTo("5(cos((2pi+50)*3)/5)")));
 	}
 	
+	@Test
+	public void should_not_close_parenthesis_after_operator() {
+		entries.add("(");
+		MathHelper.concat(entries, "5", 0);
+		MathHelper.concat(entries, "*", 0);
+		MathHelper.concat(entries, ")", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("(5*")));
+	}
+	
 	// +/- tests
 	@Test
 	public void should_negate_correctly() {
@@ -1022,9 +1031,66 @@ public class MathHelperTest {
 	}
 	
 	@Test
+	public void should_evaluate_large_perm2() {
+		entries.add("0");
+		MathHelper.concat(entries, "perm(", 0);
+		MathHelper.concat(entries, "7", 0);
+		MathHelper.concat(entries, "2", 0);
+		MathHelper.concat(entries, ",", 0);
+		MathHelper.concat(entries, "3", 0);
+		MathHelper.concat(entries, "6", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+		String exp = MathHelper.formExpression(entries);
+		assertThat(exp.substring(0, 7), is(equalTo("1.64611")));
+		assertThat(exp.substring(exp.length()-3, exp.length()), is(equalTo("E62")));
+	}
+	
+	@Test
+	public void should_evaluate_large_perm3() {
+		entries.add("0");
+		MathHelper.concat(entries, "perm(", 0);
+		MathHelper.concat(entries, "6", 0);
+		MathHelper.concat(entries, "5", 0);
+		MathHelper.concat(entries, ",", 0);
+		MathHelper.concat(entries, "3", 0);
+		MathHelper.concat(entries, "2", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+		String exp = MathHelper.formExpression(entries);
+		assertThat(exp.substring(0, 7), is(equalTo("9.49827")));
+		assertThat(exp.substring(exp.length()-3, exp.length()), is(equalTo("E53")));
+	}
+	
+	@Test
+	public void should_evaluate_large_perm4() {
+		entries.add("0");
+		MathHelper.concat(entries, "perm(", 0);
+		MathHelper.concat(entries, "5", 0);
+		MathHelper.concat(entries, "0", 0);
+		MathHelper.concat(entries, "6", 0);
+		MathHelper.concat(entries, ",", 0);
+		MathHelper.concat(entries, "5", 0);
+		MathHelper.concat(entries, "0", 0);
+		MathHelper.concat(entries, "5", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Radianos", 1));
+		String exp = MathHelper.formExpression(entries);
+		assertThat(exp, is(equalTo("limit exceeded")));
+	}
+	
+	@Test
+	public void should_evaluate_large_get_comb() {
+		assertThat(MathHelper.getComb(65, 32, 33), is(equalTo(3.6097142170081326E18)));
+	}
+	
+	@Test
+	public void should_evaluate_large_get_comb2() {
+		assertThat(MathHelper.getComb(506, 505, 1), is(equalTo(506.)));
+	}
+	
+	@Test
 	public void should_perm_as_function() {
 		assertThat(MathHelper.isFunction("perm("), is(equalTo(true)));
 	}
+	
 	
 	
 //	@Test(expected=IllegalArgumentException.class)
@@ -1108,6 +1174,55 @@ public class MathHelperTest {
 		entries.add("4");
 		MathHelper.concat(entries, "logb(", 1);
 		assertThat(MathHelper.formExpression(entries), is(equalTo("logb(4")));
+	}
+	
+	
+	@Test
+	public void should_not_accept_comma_inside_normal_function() {
+		entries.add("log(");
+		MathHelper.concat(entries, "4", 0);
+		MathHelper.concat(entries, ",", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("log(4")));
+	}
+	
+	@Test
+	public void should_not_accept_comma_outside_function() {
+		entries.add("4");
+		MathHelper.concat(entries, ",", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("4")));
+	}
+	
+	@Test
+	public void should_not_accept_duplicated_comma() {
+		entries.add("logb(");
+		MathHelper.concat(entries, "4", 0);
+		MathHelper.concat(entries, ",", 0);
+		MathHelper.concat(entries, "4", 0);
+		MathHelper.concat(entries, ",", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("logb(4,4")));
+	}
+	
+	@Test
+	public void should_not_accept_comma_with_open_parenthesis() {
+		entries.add("perm(");
+		MathHelper.concat(entries, "4", 0);
+		MathHelper.concat(entries, "(", 0);
+		MathHelper.concat(entries, "4", 0);
+		MathHelper.concat(entries, ",", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("perm(4(4")));
+	}
+	
+	@Test
+	public void should_accept_comma_after_parenthesis_in_function() {
+		entries.add("0");
+		MathHelper.concat(entries, "comb(", 0);
+		MathHelper.concat(entries, "(", 0);
+		MathHelper.concat(entries, "6", 0);
+		MathHelper.concat(entries, "*", 0);
+		MathHelper.concat(entries, "12", 0);
+		MathHelper.concat(entries, ")", 0);
+		MathHelper.concat(entries, ",", 0);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("comb((6*12),")));
 	}
 	
 	// format history result
