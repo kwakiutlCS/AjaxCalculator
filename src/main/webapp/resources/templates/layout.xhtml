@@ -32,9 +32,7 @@
 				<f:facet name="header">History</f:facet>
 				<h:column><h:commandLink value="#{entry.expression}" action="#{calculator.submitOp(entry.expression)}" /></h:column>
 				<h:column>
-					<h:commandLink action="#{calculator.submitOp(entry.result)}">
-					<h:outputText value="#{entry.result}"><f:convertNumber maxFractionDigits="2" /></h:outputText>
-					</h:commandLink>
+					<h:commandLink action="#{calculator.submitOp(entry.result)}" value="#{entry.result}" />
 				</h:column>
 				<h:column>#{entry.deltaT}</h:column>
 				</f:ajax>

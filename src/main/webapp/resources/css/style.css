@@ -40,21 +40,9 @@ body {
 	overflow:auto;
 }
 
-//.history table {
-//	width: 250px;
-//	border: 1px solid rgb(187, 173, 173);
-//}
-//
-//.history table th {
-//	font-weight: unset;
-//	padding: 10px 0px 3px;
-//	border-bottom: 1px solid rgb(187, 173, 173);
-//	font-size:  17px;
-//}
-//
-//.history table tr {
-//	padding: 5px 0;
-//}
+.history tr {
+	line-height: 25px;
+}
 
 .pointList {
 	border: 1px solid rgb(187, 173, 173);

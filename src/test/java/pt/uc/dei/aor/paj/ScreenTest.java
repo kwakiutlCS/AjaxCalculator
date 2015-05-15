@@ -340,4 +340,67 @@ public class ScreenTest {
 		screen.evaluate(new AngleUnit("Radianos", 1));
 		assertThat(screen.getExpression(), is(equalTo(error)));
 	}
+	
+	
+	@Test 
+	public void should_reuse_expression_if_passes_screen_size_limit_after_number_if_cleans() {
+		Screen other = new Screen();
+		other.concat("2");
+		other.concat("+");
+		other.concat("4");
+		other.concat("+");
+		other.concat("4");
+		screen.concat("4");
+		screen.concat("+");
+		screen.add(other);
+		screen.concat("+");
+		screen.add(other);
+		screen.concat("+");
+		screen.concat("2");
+		assertThat(screen.getExpression().length(), is(equalTo(19)));
+		screen.add(other);
+		assertThat(screen.getExpression().length(), is(equalTo(5)));
+	}
+	
+	@Test 
+	public void should_reuse_expression_if_passes_screen_size_limit_after_constant_if_cleans() {
+		Screen other = new Screen();
+		other.concat("2");
+		other.concat("+");
+		other.concat("4");
+		other.concat("+");
+		other.concat("4");
+		screen.concat("4");
+		screen.concat("+");
+		screen.add(other);
+		screen.concat("+");
+		screen.add(other);
+		screen.concat("+");
+		screen.concat("e");
+		assertThat(screen.getExpression().length(), is(equalTo(19)));
+		screen.add(other);
+		assertThat(screen.getExpression().length(), is(equalTo(5)));
+	}
+	
+	@Test 
+	public void should_reuse_expression_if_passes_screen_size_limit_parenthesis_number_if_cleans() {
+		Screen other = new Screen();
+		other.concat("2");
+		other.concat("+");
+		other.concat("4");
+		other.concat("+");
+		other.concat("4");
+		screen.concat("4");
+		screen.concat("+");
+		screen.add(other);
+		screen.concat("+");
+		screen.add(other);
+		screen.concat("+");
+		screen.concat("(");
+		screen.concat("4");
+		screen.concat(")");
+		assertThat(screen.getExpression().length(), is(equalTo(21)));
+		screen.add(other);
+		assertThat(screen.getExpression().length(), is(equalTo(5)));
+	}
 }

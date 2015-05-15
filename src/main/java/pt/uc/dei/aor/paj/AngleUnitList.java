@@ -16,9 +16,9 @@ public class AngleUnitList implements Serializable {
 	
 	public AngleUnitList() {
 		angles = new LinkedList<>();
-		angles.add(new AngleUnit("Radianos", 1));
-		angles.add(new AngleUnit("Graus", Math.PI/180));
-		angles.add(new AngleUnit("Grados", Math.PI/200));
+		angles.add(new AngleUnit("Radians", 1));
+		angles.add(new AngleUnit("Degrees", Math.PI/180));
+		angles.add(new AngleUnit("Grads", Math.PI/200));
 		chosen = angles.get(0).getName();
 	}
 

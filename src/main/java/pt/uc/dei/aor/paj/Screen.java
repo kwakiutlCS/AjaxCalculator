@@ -53,10 +53,10 @@ public class Screen implements Serializable {
 		boolean addExtraAccepted = !(size1+size2+2 > MathHelper.MAX_SCREEN_SIZE);
 		String lastEntry = entries.get(entries.size()-1);
 		
-		if (MathHelper.isBinOperator(lastEntry) && addExtraAccepted) {
-			entries.add("(");
+		if (MathHelper.isBinOperator(lastEntry)) {
+			if (addExtraAccepted) entries.add("(");
 		}
-		else if (!(MathHelper.isFunction(lastEntry) || lastEntry.charAt(lastEntry.length()-1) == '(') && addAccepted) {
+		else if (!(MathHelper.isFunction(lastEntry) || lastEntry.charAt(lastEntry.length()-1) == '(')) {
 			entries.clear();
 		}
 		
@@ -120,7 +120,7 @@ public class Screen implements Serializable {
 	
 	@Override
 	public String toString() {
-		int maxSize = 15;
+		int maxSize = 13;
 		if (expression.length() > maxSize) {
 			return expression.substring(0, maxSize-3)+"...";
 		}

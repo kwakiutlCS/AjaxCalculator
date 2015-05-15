@@ -17,19 +17,19 @@ public class AngleUnitListTest {
 	
 	@Test
 	public void should_return_correct_factor_for_grads() {
-		angleList.setChosen("Grados");
+		angleList.setChosen("Grads");
 		assertThat(angleList.getAngle().getFactor(), Matchers.is(Matchers.equalTo(Math.PI/200)));
 	}
 	
 	@Test
 	public void should_return_correct_factor_for_degrees() {
-		angleList.setChosen("Graus");
+		angleList.setChosen("Degrees");
 		assertThat(angleList.getAngle().getFactor(), Matchers.is(Matchers.equalTo(Math.PI/180)));
 	}
 	
 	@Test
 	public void should_return_correct_factor_for_radians() {
-		angleList.setChosen("Radianos");
+		angleList.setChosen("Radians");
 		assertThat(angleList.getAngle().getFactor(), Matchers.is(Matchers.equalTo(1.)));
 	}
 }

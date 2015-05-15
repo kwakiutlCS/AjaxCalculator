@@ -29,6 +29,7 @@ public class Statistics {
 		for (int i = 0; i < symbols.size(); i++) {
 			stats.add(new Stat(descriptions.get(i), symbols.get(i), 0));
 		}
+		Collections.sort(stats);
 	}
 	
 	

@@ -1045,4 +1045,91 @@ public class MathHelperTest {
 		MathHelper.concat(entries, "2", 0);
 		assertThat(MathHelper.formExpression(entries), is(equalTo("logb(1024,2")));
 	}
+	
+	// infinity test
+	@Test
+	public void should_show_infinity_as_excess_capacity() {
+		entries.add("2");
+		MathHelper.concat(entries, "E", 0);
+		MathHelper.concat(entries, "200", 0);
+		MathHelper.concat(entries, "^2", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Graus", Math.PI/180));
+		assertThat(MathHelper.formExpression(entries), is(equalTo("limit exceeded")));
+
+	}
+	
+	@Test
+	public void should_show_minus_infinity_as_invalid() {
+		entries.add("log(");
+		MathHelper.concat(entries, "0", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Graus", Math.PI/180));
+		assertThat(MathHelper.formExpression(entries), is(equalTo("invalid arguments")));
+	}
+	
+	@Test
+	public void should_show_nan_as_invalid() {
+		entries.add("log(");
+		MathHelper.concat(entries, "3", 0);
+		MathHelper.concat(entries, "+/-", 0);
+		MathHelper.evaluate(entries, new AngleUnit("Graus", Math.PI/180));
+		assertThat(MathHelper.formExpression(entries), is(equalTo("invalid arguments")));
+	}
+	
+	// comma functions test
+	@Test
+	public void should_recognize_root_as_a_comma_accepting_function() {
+		assertThat(MathHelper.acceptsComma("root("), is(equalTo(true)));
+	}
+	
+	@Test
+	public void should_recognize_comb_as_a_comma_accepting_function() {
+		assertThat(MathHelper.acceptsComma("comb("), is(equalTo(true)));
+	}
+	
+	@Test
+	public void should_recognize_perm_as_a_comma_accepting_function() {
+		assertThat(MathHelper.acceptsComma("perm("), is(equalTo(true)));
+	}
+	
+	@Test
+	public void should_recognize_logb_as_a_comma_accepting_function() {
+		assertThat(MathHelper.acceptsComma("logb("), is(equalTo(true)));
+	}
+	
+	@Test 
+	public void should_reuse_comma_functions_correctly_after_result() {
+		entries.add("4");
+		MathHelper.concat(entries, "root(", 1);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("root(4")));
+	}
+	
+	@Test 
+	public void should_reuse_comma_functions_correctly_after_result2() {
+		entries.add("4");
+		MathHelper.concat(entries, "logb(", 1);
+		assertThat(MathHelper.formExpression(entries), is(equalTo("logb(4")));
+	}
+	
+	// format history result
+	@Test
+	public void should_show_result_with_2_decimal_places() {
+		assertThat(MathHelper.formatDecimalNumber("1.4567"), is(equalTo("1.45")));
+	}
+	
+	@Test
+	public void should_show_result_with_2_decimal_places_no_dot() {
+		assertThat(MathHelper.formatDecimalNumber("1"), is(equalTo("1")));
+	}
+	
+	@Test
+	public void should_show_result_with_2_decimal_places_science_notation() {
+		assertThat(MathHelper.formatDecimalNumber("1.23456E23"), is(equalTo("1.23E23")));
+	}
+	
+	@Test
+	public void should_show_result_with_2_decimal_places_science_notation_not_dot() {
+		assertThat(MathHelper.formatDecimalNumber("1E23"), is(equalTo("1E23")));
+	}
+
+	
 }

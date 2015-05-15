@@ -135,7 +135,7 @@ public class MathHelper {
 		else if (isFunction(s)) {
 			if (phase == 1) {
 				entries.add(0, s);
-				entries.add(")");
+				if (!acceptsComma(s)) entries.add(")");
 			}
 			else if (phase == 2) {
 				entries.set(0, s);
@@ -263,6 +263,14 @@ public class MathHelper {
 			try{
 				expression = String.valueOf(e.evaluate());
 				result = 1;
+				if (expression.equals("Infinity")) {
+					expression = "limit exceeded";
+					result = 2;
+				}
+				else if (expression.equals("NaN") || expression.equals("-Infinity")) {
+					expression = "invalid arguments";
+					result = 2;
+				}
 			} catch (Exception exp){
 				expression = exp.getMessage();
 			}	
@@ -571,4 +579,38 @@ public class MathHelper {
 	        return result;
 	    }
 	};
+
+	public static boolean acceptsComma(String string) {
+		List<String> functions = Arrays.asList(new String[]{"comb(", "root(", "perm(", "logb("});
+		return functions.contains(string);
+	}
+
+	public static String formatDecimalNumber(String res) {
+		if (res.indexOf('.') == -1) return res;
+		
+		String result = "";
+		String[] dotSplit = res.split("\\.");
+		result += dotSplit[0];
+		
+		if (dotSplit[1].indexOf('E') > 0) {
+			String[] eSplit = dotSplit[1].split("E");
+			if (eSplit[0].length() > 2) {
+				result += "."+eSplit[0].substring(0, 2);
+			}
+			else {
+				result += "."+eSplit[0];
+			}
+			result += "E"+eSplit[1];
+		}
+		else {
+			if (dotSplit[1].length() > 2) {
+				result += "."+dotSplit[1].substring(0, 2);
+			}
+			else {
+				result += "."+dotSplit[1];
+			}
+		}
+		
+		return result;
+	}
 }

@@ -151,7 +151,7 @@ public class StatisticsTest {
 	
 	@Test 
 	public void should_increment_root_count_when_used() {
-		List<String> entries = Arrays.asList(new String[]{"root(","30"});
+		List<String> entries = Arrays.asList(new String[]{"root(","30", ",","3"});
 		stats.add(entries);
 		
 		assertThat(stats.getStats().get(0).getDescription(), is(equalTo("Root")));

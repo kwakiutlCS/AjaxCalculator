@@ -3,6 +3,7 @@ package pt.uc.dei.aor.paj;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -14,12 +15,14 @@ import javax.inject.Named;
 public class ChatServer {
 	
 	private static final int TIME_FILTER_HOURS = 1;
+	private static final int TIME_DELETION_DAYS = 3;
+	
 	@Inject
 	private Users users;
 	@Inject
 	private Login login;
 	
-	private List<Message> messages = new ArrayList<>();
+	private List<Message> messages = new LinkedList<>();
 	private String message;
 	
 	
@@ -82,6 +85,7 @@ public class ChatServer {
 		m.setDate(new GregorianCalendar());
 		messages.add(m);
 		message = "";
+		cleanMessages();
 	}
 	
 	
@@ -89,5 +93,14 @@ public class ChatServer {
 		message = "/secret "+username+" ";
 	}
 	
-	
+	private void cleanMessages() {
+		Calendar limit = new GregorianCalendar();
+		limit.add(Calendar.DAY_OF_MONTH, -TIME_DELETION_DAYS);
+		
+		for (int i = messages.size()-1; i >= 0; i--) {
+			if (messages.get(i).getCalendar().before(limit)) {
+				messages.remove(i);
+			}
+		}
+	}
 }
