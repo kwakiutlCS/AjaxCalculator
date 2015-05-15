@@ -1,0 +1,301 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 3cm
+\topmargin 3cm
+\rightmargin 3cm
+\bottommargin 3cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Relatório Projecto 3
+\begin_inset Newline newline
+\end_inset
+
+Ajax Calculator
+\end_layout
+
+\begin_layout Author
+Nuno Ferreira & Ricardo Rodrigues
+\end_layout
+
+\begin_layout Section
+Descrição 
+\end_layout
+
+\begin_layout Standard
+A nossa calculadora encontra-se dividida em três partes: uma página de login,
+ uma página com a calculadora e uma página dedicada ao chat.
+ Todo a calculadora encontra-se implementada com a tecnologia AJAX que permite
+ o refrescamento de apenas alguns elementos da página quando necessário.
+ As várias páginas encontram-se protegidas de utilizações não autorizadas
+ através de dois filtros: um que reencaminha o utilizador para página de
+ login quando este tenta aceder às páginas da calculadora ou do chat, e
+ um filtro que quando o utilizador já tem o login realizado, o reencaminha
+ directamente para a calculadora, forçando-o portanto a fazer logout para
+ poder eventualmente deixar um novo utilizador entrar.
+\end_layout
+
+\begin_layout Section
+Planeamento
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename ganttAJAXcalc.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Diagrama de Gantt
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Init UML.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Diagrama UML inicial
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Funcionalidades
+\end_layout
+
+\begin_layout Subsection
+Funcionalidades básicas
+\end_layout
+
+\begin_layout Standard
+No modo básico a calculadora realiza as operações básicas esperadas de uma
+ calculadora: soma, subtração, multiplicação, divisão e o resto da divisão
+ inteira.
+\end_layout
+
+\begin_layout Subsection
+Funcionalidades avançadas
+\end_layout
+
+\begin_layout Standard
+No modo avançado a calculadora realiza um vasto leque de operações, desde
+ funções trignométricas, raizes, exponencial, logarítmica, permutações e
+ combinações, etc...
+ Adicionalmente, a calculadora permite também inserir pares de pontos que
+ depois são apresentados num gráfico com a respectiva regressão linear.
+ 
+\end_layout
+
+\begin_layout Subsection
+Funcionalidades implementadas
+\end_layout
+
+\begin_layout Standard
+Algumas das funções disponíveis foram implementadas de raiz, nomeadamente,
+ o cálculo de 
+\begin_inset Formula $C_{n}^{b}$
+\end_inset
+
+, 
+\begin_inset Formula $P_{n}^{b}$
+\end_inset
+
+, 
+\begin_inset Formula $^{y}\sqrt{}$
+\end_inset
+
+, 
+\begin_inset Formula $n!$
+\end_inset
+
+, 
+\begin_inset Formula $log_{b},$
+\end_inset
+
+ as funções arco de todas as funções hiperbólicas disponíveis na biblioteca,
+ o cálculo da regressão linear bem como a sua representação gráfica.
+ 
+\end_layout
+
+\begin_layout Standard
+Implementou-se também, como pedido, uma funcionalidade de chat que permite
+ para além de mandar mensagens para todos os utilizadores, enviar mensagens
+ privadas com a sintaxe 
+\begin_inset Quotes eld
+\end_inset
+
+/secret user mensagem
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+No que diz respeito ao chat e à estatística, por forma a manter sempre estes
+ campos actualizados com os dados mais recentes, implementou-se um botão
+ AJAX oculto que tem como única função ser activado por um Javascript
+\end_layout
+
+\begin_layout Section
+Diagrama Final
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename Final UML.png
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Diagrama UML Final
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
