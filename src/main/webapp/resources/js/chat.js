@@ -6,17 +6,29 @@ $(function() {
 		refresh[0].click();
 		
 	}, 1000);
-	
-	
 });
 
 var getFocus = function() {
-	$("#chatForm\\:chatMsg").focus();
-	$("#chatForm\\:chatMsg").val("");
+	setSecret();
+	
+	var textField = $("#chatForm\\:chatMsg");
+
+	textField.focus();
+	textField.val("");
 	
 	$('.textArea').scrollTop($('.textArea')[0].scrollHeight);
 }
 
 
-
+var setSecret = function() {
+	$(".chatUserLink").click(function() {
+		var textField = $("#chatForm\\:chatMsg");
+		textField.val("/secret "+$(this).html()+" ");
+		textField.focus();
+		
+		return false;
+	});
+	
+	
+}
 

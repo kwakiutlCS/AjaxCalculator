@@ -43,9 +43,11 @@
 			</div>
 			
 			<div class="userbox">
-				<h:selectOneListbox  size="20" styleClass="userbox" id="chatUsers">
-					<f:selectItems value="#{users.loggedUsers}" />
-				</h:selectOneListbox>
+				<h:dataTable styleClass="userbox" id="chatUsers" value="#{users.loggedUsers}" var="user">
+					<h:column>
+						<a href="#" class="chatUserLink">#{user.username}</a>
+					</h:column>
+				</h:dataTable>
 			</div>
 			
 			<div class="textSubmit">
@@ -57,7 +59,7 @@
 				</h:commandButton>
 				<h:commandButton value="submit" action="null" id="chatRefresher"
 					style="display:none;">
-					<f:ajax render="chatMessages chatUsers" />
+					<f:ajax render="chatMessages chatUsers" onevent="setSecret" />
 				</h:commandButton>
 			</div>
 		</h:form>

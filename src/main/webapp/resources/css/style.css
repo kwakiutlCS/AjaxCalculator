@@ -438,3 +438,7 @@ iframe{
 .secret {
 	color: green;
 }
+
+.chatUserLink, .chatUserLink:visited, .chatUserLink:active {
+	color: #107684;
+}
