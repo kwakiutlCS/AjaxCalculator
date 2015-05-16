@@ -4,6 +4,7 @@ package pt.uc.dei.aor.paj;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -40,13 +41,17 @@ public class Login implements Serializable{
 	
 	
 	public String login(){
+		FacesContext context = FacesContext.getCurrentInstance();
 		User u = users.getUser(username);
-		if (u == null || !u.validateUser(password)) return null;
+		if (u == null || !u.validateUser(password)) {
+			if (context != null)
+				context.addMessage("msg", new FacesMessage("Username or password is incorrect"));
+			return null;
+		}
 		
 		u.setLoggedIn(true);
 
 		loggedin = true;
-		FacesContext context = FacesContext.getCurrentInstance();
 		if(context!=null){
 			HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 			session.setAttribute("login", this);

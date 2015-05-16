@@ -3,6 +3,7 @@ package pt.uc.dei.aor.paj;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -48,6 +49,7 @@ public class Register implements Serializable{
 	
 	public String confirmRegister(HttpSession session){
 		if (username == null || username.equals("") || password == null || password.equals("")) return null;
+		FacesContext context = FacesContext.getCurrentInstance();
 		
 		synchronized(users) {
 			if(users.getUser(username) == null){
@@ -61,6 +63,14 @@ public class Register implements Serializable{
 
 					return "/calculator/index?faces-redirect=true";
 				}
+				else {
+					if (context != null)
+						context.addMessage("msg", new FacesMessage("Passwords don't match"));
+				}
+			}
+			else {
+				if (context != null)
+					context.addMessage("msg", new FacesMessage("Username already registed"));
 			}
 		}
 		return null;
