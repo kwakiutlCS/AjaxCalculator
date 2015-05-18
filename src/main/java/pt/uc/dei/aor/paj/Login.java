@@ -8,7 +8,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpSession;
 
 
 @Named
@@ -52,10 +51,7 @@ public class Login implements Serializable{
 		u.setLoggedIn(true);
 
 		loggedin = true;
-		if(context!=null){
-			HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-			session.setAttribute("login", this);
-		}
+
 		return "calculator/index?faces-redirect=true";		
 	}
 	

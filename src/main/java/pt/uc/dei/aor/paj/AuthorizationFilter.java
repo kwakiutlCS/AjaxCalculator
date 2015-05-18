@@ -2,6 +2,7 @@ package pt.uc.dei.aor.paj;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -15,14 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebFilter("/calculator/*")
 public class AuthorizationFilter implements Filter {
-
+	@Inject
+	private Login login;
+	
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException { 
     	HttpServletRequest req = (HttpServletRequest) request;
     	
-        Login login = (Login) req.getSession().getAttribute("login");
-        
-        if (login != null && login.isLoggedin()) {
+        if (login.isLoggedin()) {
             // User is logged in, so just continue request.
             chain.doFilter(request, response);
         } else {

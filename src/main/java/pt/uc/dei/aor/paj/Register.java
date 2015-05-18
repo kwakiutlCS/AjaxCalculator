@@ -58,9 +58,6 @@ public class Register implements Serializable{
 					login.setUsername(username);
 					login.setLoggedin(true);
 
-					if (session != null)
-						session.setAttribute("login", login);
-
 					return "/calculator/index?faces-redirect=true";
 				}
 				else {
